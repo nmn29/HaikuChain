@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from './firebase/firebase.js';
 import { collection, onSnapshot, addDoc } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
-import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
 import './Top.css';
-import { signInAnonymously } from 'firebase/auth';
+
 
 export default function Top() {
 
   //ランダムIDの生成
   const [ID, setID] = useState("")
-  
+  const [IDTemp, setIDTemp] = useState(ID)
+
   window.onload = function randomID(){
-    setID("ユーザ" + Math.floor(Math.random()*(100000-10000)+10000))
+    const randomID = "ユーザ" + Math.floor(Math.random()*(100000-10000)+10000)
+    setID(randomID)
+    setIDTemp(randomID)
   }
 
   //名前入力フォーム
@@ -22,29 +24,44 @@ export default function Top() {
   //DB追加テスト
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let addName = IDTemp;
+
+    if(ID != ""){
+      addName = ID
+    }
+
     const usersCollectionRef = collection(db, 'haikuDB');
     const documentRef = await addDoc(usersCollectionRef, {
-      user1: 'aaaa',
+      user1: addName,
       email: 'test@gmail.com',
       oooo: 'あ？'
     });
     console.log("追加")
   };
 
-  const [user, setUser] = useState("");
+  const navigate = useNavigate();
 
-  //匿名ログイン
-  const loginLobby = () =>{
-    signInAnonymously(auth);
-  }
+  const loginLobby = async (event) => {
+    event.preventDefault()
+    console.log("aaa")
+    try{
+      await signInAnonymously(auth);
+    }catch(error){
+      alert("セッションの更新が必要です")
+    }
+
+    navigate("/lobby");
+  };
 
   return (
     <>
       <div className="App">
         <h1>俳句チェイン</h1>
-        <input type="text" placeholder={ID} onChange={(e) => setName(e.target.value)} maxlength={16}/>
+        <input type="text" placeholder={ID} 
+        onChange={(e) => setID(e.target.value)} maxlength={16}/>
         <button onClick={handleSubmit}>追加</button>
-        <Link to="/lobby"><button onClick={loginLobby}>ログイン？</button></Link>
+        <button onClick={(e) => loginLobby(e)}>ログイン？</button>
       </div>
     </>
   );
