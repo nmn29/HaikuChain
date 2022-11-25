@@ -8,17 +8,25 @@ export default function Lobby(){
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
 
+  window.addEventListener("beforeunload", (event) => {
+    event.returnValue = "";
+  });
+
   //認証の確認  
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+      if(currentUser){
+        //ユーザが存在する場合
+        setUser(currentUser);
+        setLoading(false);
+      } else {
+        //ユーザが存在しない場合
+        setLoading(false);
+      }
     });
-    
   }, []);
 
-  console.log(user.uid)
-  console.log(loading)
+
 
   return(
     <>
@@ -32,9 +40,10 @@ export default function Lobby(){
         <Navigate to={"/"} />
         ) 
         : 
+        // ここにコードを記述
         (
         <div>
-          あああ
+          ロビーです
         </div>
         )
       }
