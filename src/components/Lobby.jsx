@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
-import { Link, Navigate} from 'react-router-dom';
+import { useLocation, Link, Navigate } from 'react-router-dom';
+import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 
 export default function Lobby(){
 
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
+  const [userList, setUserList] = useState([]);
 
   window.addEventListener("beforeunload", (event) => {
     event.returnValue = "";
@@ -22,6 +24,23 @@ export default function Lobby(){
       } else {
         //ユーザが存在しない場合
         setLoading(false);
+      }
+    });
+  }, []);
+  
+  const invitationID = useLocation().state.id;  
+
+  useEffect(() => {
+    //データベースを追加順で取得
+    const usersQueryRef = query(collection(db, invitationID), orderBy('timestamp', 'asc'))
+    onSnapshot(usersQueryRef, (querySnapshot) => {
+      for (let change of querySnapshot.docChanges()) {
+        console.log('load')
+        if (change.type === 'added') {
+            // データが追加された時
+            console.log('aaa')
+            setUserList(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        }
       }
     });
   }, []);
@@ -44,6 +63,9 @@ export default function Lobby(){
         (
         <div>
           ロビーです
+          {userList.map((user) => (
+            <div key={user.id}>{user.id}、{user.name}</div>
+          ))}
         </div>
         )
       }
