@@ -74,8 +74,8 @@ export default function Top() {
       const totalCount = totalCountTemp.data().count
       console.log(totalCount);
 
-      //部屋の人数が10人以上であれば認証しない
-      if(totalCount <= 9){    
+      //部屋の人数が6人以上であれば認証しない
+      if(totalCount <= 4){    
         await signInAnonymously(auth);
         const uidTemp = auth.currentUser.uid;
 
@@ -100,12 +100,12 @@ export default function Top() {
   return (
     <>
       <div className="App">
-        <h1>俳句チェイン</h1>
+        <h1>😁俳句チェイン😁</h1>
         <input type="text" placeholder={ID}
           onChange={(e) => setID(e.target.value)} maxLength={16} />
         <button onClick={(e) => loginLobby(e)}>部屋を作る</button>
         <p>
-        <input type="text" onChange={(e) => setInvitationID(e.target.value)} maxLength={8} />
+        <input type="text" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
         <button onClick={(e) => enterLobby(e)}>部屋に入る</button>
         </p>
       </div>
