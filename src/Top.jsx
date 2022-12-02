@@ -74,7 +74,7 @@ export default function Top() {
       const totalCount = totalCountTemp.data().count
       console.log(totalCount);
 
-      //部屋の人数が6人以上であれば認証しない
+      //部屋の人数がオーバー(5人)していれば認証しない
       if(totalCount <= 4){    
         await signInAnonymously(auth);
         const uidTemp = auth.currentUser.uid;
@@ -83,8 +83,8 @@ export default function Top() {
           name: addName,
           timestamp: Timestamp.fromDate(new Date())
         });
-        //ロビーに遷移し、招待コードを送信する
-        await navigate("/lobby", {state: {id: invitationIDTemp}});
+        //ロビーに遷移し、招待コードと人数を送信する
+        await navigate("/lobby", {state: {id: invitationIDTemp}}, {state: {count: totalCount}});
       
       } else {
         alert("人数オーバーです")
@@ -101,8 +101,7 @@ export default function Top() {
     <>
       <div className="App">
         <h1>😁俳句チェイン😁</h1>
-        <input type="text" placeholder={ID}
-          onChange={(e) => setID(e.target.value)} maxLength={16} />
+        <input type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
         <button onClick={(e) => loginLobby(e)}>部屋を作る</button>
         <p>
         <input type="text" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
