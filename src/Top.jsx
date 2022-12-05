@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from './firebase/firebase.js';
-import { collection, query, doc, setDoc, getCountFromServer, Timestamp} from 'firebase/firestore';
+import { collection, query, doc, setDoc, getCountFromServer, Timestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { signInAnonymously } from 'firebase/auth';
 import './Top.css';
@@ -84,7 +84,7 @@ export default function Top() {
           timestamp: Timestamp.fromDate(new Date())
         });
         //ロビーに遷移し、招待コードと人数を送信する
-        await navigate("/lobby", {state: {id: invitationIDTemp}}, {state: {count: totalCount}});
+        await navigate("/lobby", {state: {id: invitationIDTemp}});
       
       } else {
         alert("人数オーバーです")

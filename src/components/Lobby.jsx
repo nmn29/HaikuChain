@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { doc, deleteDoc, collection, onSnapshot, query, orderBy, setDoc, getCountFromServer } from 'firebase/firestore';
+import { doc, deleteDoc, collection, onSnapshot, query, orderBy, setDoc, Timestamp} from 'firebase/firestore';
 
 export default function Lobby() {
 
@@ -22,7 +22,6 @@ export default function Lobby() {
       } else {
         //ユーザが存在しない場合
         setLoading(false);
-        console.log("deleted");
       }
     });
   }, []);
@@ -30,6 +29,7 @@ export default function Lobby() {
   const invitationID = useLocation().state.id;
 
   useEffect(() => {
+    
     //データベースを追加順で取得
     const usersQueryRef = query(collection(db, invitationID), orderBy('timestamp', 'asc'))
     onSnapshot(usersQueryRef, (querySnapshot) => {
@@ -44,13 +44,19 @@ export default function Lobby() {
           setUserList(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))      
         }
       }
-
     });
   }, []);
 
-  //ホストのIDを格納する・部屋が無くなった場合の処理
+  //ユーザリストを監視し、ホスト以外のゲーム開始・ホストのIDを格納する・部屋が無くなった場合の処理
   useEffect(() => {
     try {
+      if (userList[userList.length - 1].id === "Game"){
+        const totalCount = userList.length - 1
+        const userIndex = (userList.findIndex((users) => users.id === user.uid) + 1)
+        //招待ID、自分の番号、人数をゲームに送信
+        navigate("/start", {state: {id: invitationID, index: userIndex, count: totalCount}});
+      }
+
       if (userList[0].id !== null) {
         setHostID(userList[0].id)
       }
@@ -68,99 +74,22 @@ export default function Lobby() {
     navigate("/");
   }
 
-  console.log(userList)
   //ゲームスタート
   const startGame = async () => {
 
-    //部屋の人数を取得
-    const collectionRef = collection(db, invitationID);
-    const totalCountTemp = await getCountFromServer(query(collectionRef));
-    const totalCount = totalCountTemp.data().count
-    console.log(totalCount);
+    const totalCount = userList.length
+  
+    await setDoc(doc(db, invitationID, 'Dai'), {  
+    });
 
-    //人数が一人の場合
-    if (totalCount === 1) {
-      await setDoc(doc(db, invitationID, 'Dai'), {
-        dai1: "",
-      });
-
-      await setDoc(doc(db, invitationID, 'Haiku'), {
-        haiku1: "",
-      });
-    }
-
-    //人数が二人の場合
-    else if (totalCount === 2) {
-      await setDoc(doc(db, invitationID, 'Dai'), {
-        dai1: "",
-        dai2: "",
-      });
-
-      await setDoc(doc(db, invitationID, 'Haiku'), {
-        haiku1: "",
-        haiku2: "",
-      });
-    }
-
-    //人数が三人の場合
-    else if (totalCount === 3) {
-      await setDoc(doc(db, invitationID, 'Dai'), {
-        dai1: "",
-        dai2: "",
-        dai3: "",
-      });
-
-      await setDoc(doc(db, invitationID, 'Haiku'), {
-        haiku1: "",
-        haiku2: "",
-        haiku3: "",
-      });
-    }
-
-    //人数が四人の場合
-    else if (totalCount === 4) {
-      await setDoc(doc(db, invitationID, 'Dai'), {
-        dai1: "",
-        dai2: "",
-        dai3: "",
-        dai4: "",
-      });
-
-      await setDoc(doc(db, invitationID, 'Haiku'), {
-        haiku1: "",
-        haiku2: "",
-        haiku3: "",
-        haiku4: "",
-      });
-    }
-
-    //人数が五人の場合
-    else if (totalCount === 5) {
-      await setDoc(doc(db, invitationID, 'Dai'), {
-        dai1: "",
-        dai2: "",
-        dai3: "",
-        dai4: "",
-        dai5: "",
-      });
-
-      await setDoc(doc(db, invitationID, 'Haiku'), {
-        haiku1: "",
-        haiku2: "",
-        haiku3: "",
-        haiku4: "",
-        haiku5: "",
-      });
-    }
+    await setDoc(doc(db, invitationID, 'Haiku'), {
+    });
 
     await setDoc(doc(db, invitationID, 'Game'), {
       turn: 1,
-      people: totalCount
+      people: totalCount,
+      timestamp: Timestamp.fromDate(new Date())
     });
-
-    await console.log(userList)
-    
-    await navigate("/start");
   }
 
   return (
