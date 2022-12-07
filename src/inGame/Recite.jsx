@@ -44,11 +44,6 @@ export default function Recite() {
     await getDoc(haikuRef).then((snap) => {
       setUserHaiku(snap.data());
     });
-
-    const daiRef = await doc(db, invitationID, 'Dai');
-    await getDoc(daiRef).then((snap) => {
-      setUserDai(snap.data());
-    });
   }
 
   const navigate = useNavigate();
@@ -59,38 +54,6 @@ export default function Recite() {
     await navigate("/");
   }
 
-  const setHaiku = async () => {
-    const index = currentIndex;
-    const haiku = userHaiku[index] + enterHaiku;
-
-    if (index === 1) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        1: haiku
-      });
-    } else if (index === 2) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        2: haiku
-      });
-    } else if (index === 3) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        3: haiku
-      });
-    } else if (index === 4) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        4: haiku
-      });
-    } else if (index === 5) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        5: haiku
-      });
-    }
-
-    const doneTemp = done.done + 1
-    await updateDoc(doc(db, invitationID, 'Done'), {
-      done: doneTemp
-    });
-  }
-  console.log(userHaiku)
   return (
     <>
       {!loading
@@ -111,7 +74,7 @@ export default function Recite() {
                     ?
                     (
                       <>
-                        <p>お題：{userDai[1]}</p>
+                        <p>お題：{dai1}</p>
                         <h2>{(userHaiku[1]).substring(0, 5)}</h2>
                         <h2>{(userHaiku[1]).substring(5, 12)}</h2>
                         <h2>{(userHaiku[1]).substring(12, 17)}</h2>
@@ -127,7 +90,7 @@ export default function Recite() {
                     ?
                     (
                       <>
-                        <p>お題：{userDai[2]}</p>
+                        <p>お題：{dai2}</p>
                         <h2>{(userHaiku[2]).substring(0, 5)}</h2>
                         <h2>{(userHaiku[2]).substring(5, 12)}</h2>
                         <h2>{(userHaiku[2]).substring(12, 17)}</h2>
@@ -143,7 +106,7 @@ export default function Recite() {
                     ?
                     (
                       <>
-                        <p>お題：{userDai[3]}</p>
+                        <p>お題：{dai3}</p>
                         <h2>{(userHaiku[3]).substring(0, 5)}</h2>
                         <h2>{(userHaiku[3]).substring(5, 12)}</h2>
                         <h2>{(userHaiku[3]).substring(12, 17)}</h2>
@@ -159,7 +122,7 @@ export default function Recite() {
                     ?
                     (
                       <>
-                        <p>お題：{userDai[4]}</p>
+                        <p>お題：{dai4}</p>
                         <h2>{(userHaiku[4]).substring(0, 5)}</h2>
                         <h2>{(userHaiku[4]).substring(5, 12)}</h2>
                         <h2>{(userHaiku[4]).substring(12, 17)}</h2>
@@ -175,7 +138,7 @@ export default function Recite() {
                     ?
                     (
                       <>
-                        <p>お題：{userDai[5]}</p>
+                        <p>お題：{dai5}</p>
                         <h2>{(userHaiku[5]).substring(0, 5)}</h2>
                         <h2>{(userHaiku[5]).substring(5, 12)}</h2>
                         <h2>{(userHaiku[5]).substring(12, 17)}</h2>

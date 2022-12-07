@@ -25,11 +25,10 @@ export default function Start() {
     });
   }, []);
 
-  //招待ID、自身の番号、人数、ホストのIDをルータから取得
+  //招待ID、自身の番号、人数
   const invitationID = useLocation().state.id;
   const myIndex = useLocation().state.index;
   const userCount = useLocation().state.count;
-  const host = useLocation().state.host
 
   //リアルタイムでお題を取得
   useEffect(() => {
@@ -56,7 +55,7 @@ export default function Start() {
 
     const dai = userDai;
     const index = myIndex;
-
+    
     if(index === 1){
       await updateDoc(doc(db, invitationID, 'Dai'), {
         1: dai
@@ -77,8 +76,10 @@ export default function Start() {
       await updateDoc(doc(db, invitationID, 'Dai'), {
         5: dai
       });
+      
     } 
   }
+
 
   return (
     <>

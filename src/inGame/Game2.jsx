@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, updateDoc, increment } from 'firebase/firestore';
 
 export default function Game2(){
 
@@ -19,7 +19,6 @@ export default function Game2(){
       if (currentUser) {
         //ユーザが存在する場合
         setUser(currentUser);
-        setLoading(false);
         setUp()
       } else {
         //ユーザが存在しない場合
@@ -41,9 +40,9 @@ export default function Game2(){
   const setUp = async() => {
     //現在の番号を計算（+1する）
     if(myIndex === userCount){
-      await setCurrentIndex(1);
+      setCurrentIndex(1);
     } else {
-      await setCurrentIndex(myIndex + 1);
+      setCurrentIndex(myIndex + 1);
     }
 
     const haikuRef = await doc(db, invitationID, 'Haiku');
@@ -51,10 +50,7 @@ export default function Game2(){
       setUserHaiku(snap.data());
     });
 
-    const daiRef = await doc(db, invitationID, 'Dai');
-    await getDoc(daiRef).then((snap) => {
-      setUserDai(snap.data());
-    });
+    await setLoading(false);
   }
   
   //リアルタイムで決定数を取得
@@ -101,9 +97,8 @@ export default function Game2(){
       });
     }
 
-    const doneTemp = done.done + 1
     await updateDoc(doc(db, invitationID, 'Done'), {
-      done: doneTemp
+      done: increment(1)
     });
   }
   console.log(currentIndex)

@@ -50,11 +50,6 @@ export default function Game15(){
     await getDoc(haikuRef).then((snap) => {
       setUserHaiku(snap.data());
     });
-
-    const daiRef = await doc(db, invitationID, 'Dai');
-    await getDoc(daiRef).then((snap) => {
-      setUserDai(snap.data());
-    });
   }
   
   //リアルタイムで決定数を取得
