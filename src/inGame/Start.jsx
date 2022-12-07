@@ -25,12 +25,14 @@ export default function Start() {
     });
   }, []);
 
+  //招待ID、自身の番号、人数、ホストのIDをルータから取得
   const invitationID = useLocation().state.id;
   const myIndex = useLocation().state.index;
   const userCount = useLocation().state.count;
+  const host = useLocation().state.host
 
+  //リアルタイムでお題を取得
   useEffect(() => {
-    console.log("aaa")
     const userDocumentRef = doc(db, invitationID, 'Dai');
     const unsub = onSnapshot(userDocumentRef, (documentSnapshot) => {
       setDaiList(documentSnapshot.data())
@@ -40,11 +42,13 @@ export default function Start() {
 
   const navigate = useNavigate();
   useEffect(() => {
+    //daiListの長さから完了ユーザ数を取得
     const done = Object.keys(daiList).length
     console.log(userCount)
 
+    //全員が決定したら遷移
     if(done === userCount){
-      navigate("/Game1");
+      navigate("/Game1", {state: {id: invitationID, index: myIndex, count: userCount}});
     }
   }, [daiList]);
 
@@ -91,6 +95,7 @@ export default function Start() {
             // ここにコードを記述
             (
               <div className="odai">
+                <p>お題を入力しよう</p>
                 <input type="text" onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
                 <button onClick={daiDone}>決定</button>
               </div>

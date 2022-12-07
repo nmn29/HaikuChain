@@ -4,13 +4,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 
-export default function Game1(){
+export default function Game8(){
 
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0)
   const [userDai, setUserDai] = useState("");
-  const [userHaiku, setUserHaiku] = useState([]);
+  const [userHaiku, setUserHaiku] = useState("");
   const [enterHaiku, setEnterHaiku] = useState("");
   const [done, setDone] = useState("")
 
@@ -28,10 +28,15 @@ export default function Game1(){
     });
   }, []);
 
-  //招待ID、自身の番号、人数、ホストをルータから取得
+  //招待ID、自身の番号、人数をルータから取得
   const invitationID = useLocation().state.id;
   const myIndex = useLocation().state.index;
   const userCount = useLocation().state.count;
+  const dai1 = useLocation().state.dai1;
+  const dai2 = useLocation().state.dai2;
+  const dai3 = useLocation().state.dai3;
+  const dai4 = useLocation().state.dai4;
+  const dai5 = useLocation().state.dai5;
 
   const setUp = async() => {
     //現在の番号を計算（+1する）
@@ -65,14 +70,16 @@ export default function Game1(){
   useEffect(() => {
     const doneTemp = done.done
     //全員が決定したら遷移
-    if(doneTemp === userCount){
-      navigate("/Game2", {state: {id: invitationID, index: myIndex, count: userCount, dai1: userDai[1], dai2: userDai[2], dai3: userDai[3], dai4: userDai[4], dai5: userDai[5]}});     
+
+    //ページごとに変える
+    if(doneTemp === userCount * 8){
+      navigate("/Game9", {state: {id: invitationID, index: currentIndex, count: userCount, dai1: dai1, dai2: dai2, dai3: dai3, dai4: dai4, dai5: dai5}});        
     }
   }, [done]);
 
   const setHaiku = async() =>{
     const index = currentIndex;
-    const haiku = enterHaiku;
+    const haiku = userHaiku[index] + enterHaiku;
     
     if(index === 1){
       await updateDoc(doc(db, invitationID, 'Haiku'), {
@@ -94,13 +101,14 @@ export default function Game1(){
       await updateDoc(doc(db, invitationID, 'Haiku'), {
         5: haiku
       });
-    } 
+    }
+
     const doneTemp = done.done + 1
     await updateDoc(doc(db, invitationID, 'Done'), {
       done: doneTemp
     });
   }
-  console.log(currentIndex)
+
   return(
     <>
     {!loading
@@ -116,13 +124,14 @@ export default function Game1(){
             // ここにコードを記述
             (
               <div className="haiku">
-                <h2>1文字目</h2>
+                {/* ページごとに変える */}
+                <h2>8文字目</h2>
                 <p>ひらがなを入力してください（1文字）</p>
                 <input type="text" pattern="[\u3041-\u3096]*" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
                 <button onClick={setHaiku}>決定</button>
                 <p>お題：{userDai[currentIndex]}</p>
                 <h2>俳句</h2>
-                {!userHaiku
+                {userHaiku
                 ?
                 (
                   <>

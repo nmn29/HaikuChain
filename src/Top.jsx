@@ -79,7 +79,7 @@ export default function Top() {
         await signInAnonymously(auth);
         const uidTemp = auth.currentUser.uid;
 
-        setDoc(doc(db, invitationIDTemp, uidTemp), {
+        await setDoc(doc(db, invitationIDTemp, uidTemp), {
           name: addName,
           timestamp: Timestamp.fromDate(new Date())
         });

@@ -26,10 +26,10 @@ export default function Lobby() {
     });
   }, []);
 
+  //routerから招待IDを取得
   const invitationID = useLocation().state.id;
 
-  useEffect(() => {
-    
+  useEffect(() => {   
     //データベースを追加順で取得
     const usersQueryRef = query(collection(db, invitationID), orderBy('timestamp', 'asc'))
     onSnapshot(usersQueryRef, (querySnapshot) => {
@@ -54,7 +54,7 @@ export default function Lobby() {
         const totalCount = userList.length - 1
         const userIndex = (userList.findIndex((users) => users.id === user.uid) + 1)
         //招待ID、自分の番号、人数をゲームに送信
-        navigate("/start", {state: {id: invitationID, index: userIndex, count: totalCount}});
+        navigate("/start", {state: {id: invitationID, index: userIndex, count: totalCount, host: userList[0].id}});
       }
 
       if (userList[0].id !== null) {
@@ -71,7 +71,7 @@ export default function Lobby() {
     const userDeleteDocumentRef = doc(db, invitationID, user.uid);
     await deleteDoc(userDeleteDocumentRef);
     await signOut(auth);
-    navigate("/");
+    await navigate("/");
   }
 
   //ゲームスタート
@@ -83,6 +83,10 @@ export default function Lobby() {
     });
 
     await setDoc(doc(db, invitationID, 'Haiku'), {
+    });
+
+    await setDoc(doc(db, invitationID, 'Done'), {
+      done:0
     });
 
     await setDoc(doc(db, invitationID, 'Game'), {
