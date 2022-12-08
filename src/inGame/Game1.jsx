@@ -9,8 +9,7 @@ export default function Game1(){
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [userDai, setUserDai] = useState("");
-  const [userHaiku, setUserHaiku] = useState([]);
+  const [userDai, setUserDai] = useState([]);
   const [enterHaiku, setEnterHaiku] = useState("");
   const [done, setDone] = useState("")
 
@@ -40,22 +39,21 @@ export default function Game1(){
       await setCurrentIndex(myIndex + 1);
     }
 
-    const haikuRef = await doc(db, invitationID, 'Haiku');
-    await getDoc(haikuRef).then((snap) => {
-      setUserHaiku(snap.data());
-    });
-
-    const daiRef = await doc(db, invitationID, 'Dai');
-    await getDoc(daiRef).then((snap) => {
-      setUserDai(snap.data());
-    });
+    for(let i = 1; i <= userCount; i++){
+      const docTemp = await "Dai" + i
+      const daiRef = await doc(db, invitationID, docTemp);
+      await getDoc(daiRef).then((snap) => {
+        setUserDai([...userDai, snap.data()[i]])
+      });
+    }
 
     await setLoading(false);
   }
-  
+
+  console.log(userCount)
   //リアルタイムで決定数を取得
   useEffect(() => {
-    const userDocumentRef = doc(db, invitationID, 'Done');
+    const userDocumentRef = doc(db, invitationID, 'doneHaiku');
     const unsub = onSnapshot(userDocumentRef, (documentSnapshot) => {
       setDone(documentSnapshot.data())
     });
@@ -76,33 +74,34 @@ export default function Game1(){
     const haiku = enterHaiku;
     
     if(index === 1){
-      updateDoc(doc(db, invitationID, 'Haiku'), {
+      updateDoc(doc(db, invitationID, 'Haiku1'), {
         1: haiku
       });
     } else if(index === 2) {
-      updateDoc(doc(db, invitationID, 'Haiku'), {
+      updateDoc(doc(db, invitationID, 'Haiku2'), {
         2: haiku
       });
     } else if(index === 3) {
-      updateDoc(doc(db, invitationID, 'Haiku'), {
+      updateDoc(doc(db, invitationID, 'Haiku3'), {
         3: haiku
       });
     } else if(index === 4) {
-      updateDoc(doc(db, invitationID, 'Haiku'), {
+      updateDoc(doc(db, invitationID, 'Haiku4'), {
         4: haiku
       });
     } else if(index === 5) {
-      updateDoc(doc(db, invitationID, 'Haiku'), {
+      updateDoc(doc(db, invitationID, 'Haiku5'), {
         5: haiku
       });
     }
 
-    await updateDoc(doc(db, invitationID, 'Done'), {
+    await updateDoc(doc(db, invitationID, 'doneHaiku'), {
       done: increment(1)
     });
 
   }
-  console.log(currentIndex)
+
+  console.log(userDai)
   return(
     <>
     {!loading
@@ -122,23 +121,19 @@ export default function Game1(){
                 <p>ひらがなを入力してください（1文字）</p>
                 <input type="text" pattern="[\u3041-\u3096]*" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
                 <button onClick={setHaiku}>決定</button>
-                <p>お題：{userDai[currentIndex]}</p>
-                <h2>俳句</h2>
-                {!userHaiku
+                {userDai[currentIndex-1]
                 ?
                 (
-                  <>
-                  <h2>{(userHaiku[currentIndex]).substring(0, 5)}</h2>
-                  <h2>{(userHaiku[currentIndex]).substring(5, 12)}</h2>
-                  <h2>{(userHaiku[currentIndex]).substring(12, 17)}</h2>
-                  </>
+                  <p>お題：{userDai[currentIndex-1]}</p>
                 )
                 :
                 (
                   <>
+                  <p>お題：</p>
                   </>
-                )              
+                )
                 }
+                <h2>俳句</h2>
               </div>
             )
           }

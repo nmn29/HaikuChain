@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
 
 
 export default function Start() {
@@ -10,7 +10,7 @@ export default function Start() {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [userDai, setUserDai] = useState("")
-  const [daiList, setDaiList] = useState({})
+  const [done, setDone] = useState("")
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -31,25 +31,23 @@ export default function Start() {
   const userCount = useLocation().state.count;
 
   //リアルタイムでお題を取得
+  //リアルタイムで決定数を取得
   useEffect(() => {
-    const userDocumentRef = doc(db, invitationID, 'Dai');
+    const userDocumentRef = doc(db, invitationID, 'doneDai');
     const unsub = onSnapshot(userDocumentRef, (documentSnapshot) => {
-      setDaiList(documentSnapshot.data())
+      setDone(documentSnapshot.data())
     });
     return unsub;
   }, []);
 
   const navigate = useNavigate();
   useEffect(() => {
-    //daiListの長さから完了ユーザ数を取得
-    const done = Object.keys(daiList).length
-    console.log(userCount)
-
+    const doneTemp = done.done
     //全員が決定したら遷移
-    if(done === userCount){
+    if(doneTemp === userCount){
       navigate("/Game1", {state: {id: invitationID, index: myIndex, count: userCount}});
     }
-  }, [daiList]);
+  }, [done]);
 
   const daiDone = async () =>{
 
@@ -57,27 +55,30 @@ export default function Start() {
     const index = myIndex;
     
     if(index === 1){
-      await updateDoc(doc(db, invitationID, 'Dai'), {
-        1: dai
+      await setDoc(doc(db, invitationID, 'Dai1'), {
+        dai: dai
       });
     } else if(index === 2) {
-      await updateDoc(doc(db, invitationID, 'Dai'), {
-        2: dai
+      await setDoc(doc(db, invitationID, 'Dai2'), {
+        dai: dai
       });
     } else if(index === 3) {
-      await updateDoc(doc(db, invitationID, 'Dai'), {
-        3: dai
+      await setDoc(doc(db, invitationID, 'Dai3'), {
+        dai: dai
       });
     } else if(index === 4) {
-      await updateDoc(doc(db, invitationID, 'Dai'), {
-        4: dai
+      await setDoc(doc(db, invitationID, 'Dai4'), {
+        dai: dai
       });
     } else if(index === 5) {
-      await updateDoc(doc(db, invitationID, 'Dai'), {
-        5: dai
+      await setDoc(doc(db, invitationID, 'Dai5'), {
+        dai: dai
       });
-      
     } 
+
+    await updateDoc(doc(db, invitationID, 'doneDai'), {
+      done: increment(1)
+    });
   }
 
 

@@ -97,7 +97,7 @@ export default function Game2(){
       });
     }
 
-    await updateDoc(doc(db, invitationID, 'Done'), {
+    await updateDoc(doc(db, invitationID, 'doneHaiku'), {
       done: increment(1)
     });
   }

@@ -54,7 +54,7 @@ export default function Lobby() {
         const totalCount = userList.length - 1
         const userIndex = (userList.findIndex((users) => users.id === user.uid) + 1)
         //招待ID、自分の番号、人数をゲームに送信
-        navigate("/start", {state: {id: invitationID, index: userIndex, count: totalCount, host: userList[0].id}});
+        navigate("/start", {state: {id: invitationID, index: userIndex, count: totalCount}});
       }
 
       if (userList[0].id !== null) {
@@ -78,14 +78,12 @@ export default function Lobby() {
   const startGame = async () => {
 
     const totalCount = userList.length
-  
-    await setDoc(doc(db, invitationID, 'Dai'), {  
+
+    await setDoc(doc(db, invitationID, 'doneDai'), {
+      done:0
     });
 
-    await setDoc(doc(db, invitationID, 'Haiku'), {
-    });
-
-    await setDoc(doc(db, invitationID, 'Done'), {
+    await setDoc(doc(db, invitationID, 'doneHaiku'), {
       done:0
     });
 
