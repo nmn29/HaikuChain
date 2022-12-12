@@ -9,9 +9,9 @@ export default function Game1(){
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [userDai, setUserDai] = useState([]);
   const [enterHaiku, setEnterHaiku] = useState("");
   const [done, setDone] = useState("")
+  const [userDai, setUserDai] = useState([])
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -39,18 +39,26 @@ export default function Game1(){
       await setCurrentIndex(myIndex + 1);
     }
 
+    //お題を配列に追加する
     for(let i = 1; i <= userCount; i++){
-      const docTemp = await "Dai" + i
-      const daiRef = await doc(db, invitationID, docTemp);
-      await getDoc(daiRef).then((snap) => {
-        setUserDai([...userDai, snap.data()[i]])
-      });
+      console.log(i)
+      await pushDai(i)
     }
 
     await setLoading(false);
   }
 
-  console.log(userCount)
+  const pushDai = async(index) =>{
+    const docTemp = await "Dai" + index
+    await console.log(docTemp)
+    const daiRef = await doc(db, invitationID, docTemp);
+    await getDoc(daiRef).then((snap) => {
+      setUserDai((userDai) => [...userDai, snap.data().dai]);
+    });
+  }
+
+  console.log(userDai)
+
   //リアルタイムで決定数を取得
   useEffect(() => {
     const userDocumentRef = doc(db, invitationID, 'doneHaiku');
@@ -101,7 +109,6 @@ export default function Game1(){
 
   }
 
-  console.log(userDai)
   return(
     <>
     {!loading
