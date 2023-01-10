@@ -1,0 +1,9 @@
+.rules{
+  margin:0 auto;
+  width:50%;
+  background-color:gray;
+}
+
+.slick-dots li button:before{
+  font-size:20px;
+}

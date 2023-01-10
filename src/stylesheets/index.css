@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'jp-font';
+  src: url(../../fonts/AoyagiKouzanTOTF.woff),
+    url(../../fonts/AoyagiKouzanTOTF.woff2);
+}
+
+body {
+  margin: 0;
+  font-size:30px;
+  font-family: -apple-system, BlinkMacSystemFont, 'jp-font', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 全ページで使用する背景の設定 */
+.global{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow:hidden;
+
+  /* 背景の設定（画像） */
+  background-color:rgb(207, 207, 207);
+}
+
+/* 全ページで使用するゲーム画面の設定 */
+.main{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+
+  min-height: 80vh;
+  width:70%;
+
+  border: 5px solid #aaa;
+
+  border-radius: 15px;
+  background-color:rgba(255, 255, 255, 0.7);
+}
+
+input{
+  font-family: "Noto Sans JP";
+}

@@ -3,7 +3,10 @@ import { db, auth } from './firebase/firebase.js';
 import { collection, query, doc, setDoc, getCountFromServer, Timestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { signInAnonymously } from 'firebase/auth';
-import './Top.css';
+import './stylesheets/Top.css';
+import Fade from 'react-reveal/Fade';
+import { useModal } from 'react-hooks-use-modal';
+import Rules from './Rules.jsx'
 
 
 export default function Top() {
@@ -96,17 +99,44 @@ export default function Top() {
     }
   };
 
+  const [Modal, open, close, isOpen] = useModal('root',{
+    preventScroll: true,
+  });
+
+  const modalStyle ={
+    backgroundColor: '#fff',
+    padding: '30px 80px',
+    borderRadius: '10px',
+  };
+
+
 
   return (
     <>
-      <div className="App">
-        <h1>😁俳句チェイン😁</h1>
-        <input type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
-        <button onClick={(e) => loginLobby(e)}>部屋を作る</button>
-        <p>
-        <input type="text" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
-        <button onClick={(e) => enterLobby(e)}>部屋に入る</button>
-        </p>
+      <div className="global">
+        <div className="main">
+          <div className="top">
+            <h1>俳句チェイン</h1>
+
+            <div className="startBox">
+              <p>名前を入力</p>
+              <input type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
+              <p>
+              <button className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>部屋を作る</button>
+              <button className="lobbyButton enterRoom" onClick={open}>部屋に入る</button>
+              </p>
+            </div> 
+            <Modal>
+              <Fade>
+                <div className="modal" style={modalStyle}>
+                  <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
+                  <button onClick={(e) => enterLobby(e)}>部屋に入る</button>
+                </div>
+              </Fade>
+            </Modal>
+          </div>
+          <Rules />
+        </div>
       </div>
     </>
   );
