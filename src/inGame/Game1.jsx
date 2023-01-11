@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { doc, getDoc, onSnapshot, updateDoc, increment } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
 
 export default function Game1(){
 
@@ -82,23 +82,23 @@ export default function Game1(){
     const haiku = enterHaiku;
     
     if(index === 1){
-      updateDoc(doc(db, invitationID, 'Haiku1'), {
+      setDoc(doc(db, invitationID, 'Haiku1'), {
         1: haiku
       });
     } else if(index === 2) {
-      updateDoc(doc(db, invitationID, 'Haiku2'), {
+      setDoc(doc(db, invitationID, 'Haiku2'), {
         2: haiku
       });
     } else if(index === 3) {
-      updateDoc(doc(db, invitationID, 'Haiku3'), {
+      setDoc(doc(db, invitationID, 'Haiku3'), {
         3: haiku
       });
     } else if(index === 4) {
-      updateDoc(doc(db, invitationID, 'Haiku4'), {
+      setDoc(doc(db, invitationID, 'Haiku4'), {
         4: haiku
       });
     } else if(index === 5) {
-      updateDoc(doc(db, invitationID, 'Haiku5'), {
+      setDoc(doc(db, invitationID, 'Haiku5'), {
         5: haiku
       });
     }

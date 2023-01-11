@@ -44,37 +44,37 @@ export default function Start() {
   useEffect(() => {
     const doneTemp = done.done
     //全員が決定したら遷移
-    if(doneTemp === userCount){
-      navigate("/Game1", {state: {id: invitationID, index: myIndex, count: userCount}});
+    if (doneTemp === userCount) {
+      navigate("/Game1", { state: { id: invitationID, index: myIndex, count: userCount } });
     }
   }, [done]);
 
-  const daiDone = async () =>{
+  const daiDone = async () => {
 
     const dai = userDai;
     const index = myIndex;
-    
-    if(index === 1){
+
+    if (index === 1) {
       await setDoc(doc(db, invitationID, 'Dai1'), {
         dai: dai
       });
-    } else if(index === 2) {
+    } else if (index === 2) {
       await setDoc(doc(db, invitationID, 'Dai2'), {
         dai: dai
       });
-    } else if(index === 3) {
+    } else if (index === 3) {
       await setDoc(doc(db, invitationID, 'Dai3'), {
         dai: dai
       });
-    } else if(index === 4) {
+    } else if (index === 4) {
       await setDoc(doc(db, invitationID, 'Dai4'), {
         dai: dai
       });
-    } else if(index === 5) {
+    } else if (index === 5) {
       await setDoc(doc(db, invitationID, 'Dai5'), {
         dai: dai
       });
-    } 
+    }
 
     await updateDoc(doc(db, invitationID, 'doneDai'), {
       done: increment(1)
@@ -84,25 +84,29 @@ export default function Start() {
 
   return (
     <>
-    {!loading
-      ?
-      (
-        <>
-          {!user
-            ?
-            (
-              <Navigate to={"/"} />
-            )
-            :
-            // ここにコードを記述
-            (
-              <div className="odai">
-                <p>お題を入力しよう</p>
-                <input type="text" onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
-                <button onClick={daiDone}>決定</button>
-              </div>
-            )
-          }
+      {!loading
+        ?
+        (
+          <>
+            {!user
+              ?
+              (
+                <Navigate to={"/"} />
+              )
+              :
+              // ここにコードを記述
+              (
+                <div className="global">
+                  <div className="main">
+                    <div className="odai">
+                      <p>お題を入力しよう</p>
+                      <input type="text" onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
+                      <button onClick={daiDone}>決定</button>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
           </>
         )
         :

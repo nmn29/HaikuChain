@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, getDoc, onSnapshot, updateDoc, increment } from 'firebase/firestore';
 
-export default function Game2(){
+export default function Game2() {
 
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
@@ -37,9 +37,9 @@ export default function Game2(){
   const dai4 = useLocation().state.dai4;
   const dai5 = useLocation().state.dai5;
 
-  const setUp = async() => {
+  const setUp = async () => {
     //現在の番号を計算（+1する）
-    if(myIndex === userCount){
+    if (myIndex === userCount) {
       setCurrentIndex(1);
     } else {
       setCurrentIndex(myIndex + 1);
@@ -52,95 +52,101 @@ export default function Game2(){
 
     await setLoading(false);
   }
-  
+
   //リアルタイムで決定数を取得
   useEffect(() => {
-    const userDocumentRef = doc(db, invitationID, 'Done');
-    const unsub = onSnapshot(userDocumentRef, (documentSnapshot) => {
-      setDone(documentSnapshot.data())
-    });
-    return unsub;
+    if (user) {
+      const userDocumentRef = doc(db, invitationID, 'Done');
+      const unsub = onSnapshot(userDocumentRef, (documentSnapshot) => {
+        setDone(documentSnapshot.data())
+      });
+      return unsub;
+    }
   }, []);
 
   const navigate = useNavigate();
   useEffect(() => {
-    const doneTemp = done.done
-    //全員が決定したら遷移
-    if(doneTemp === userCount * 2){
-      navigate("/Game3", {state: {id: invitationID, index: currentIndex, count: userCount, dai1: dai1, dai2: dai2, dai3: dai3, dai4: dai4, dai5: dai5}});     
+    if (user) {
+      const doneTemp = done.done
+      //全員が決定したら遷移
+      if (doneTemp === userCount * 2) {
+        navigate("/Game3", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: dai1, dai2: dai2, dai3: dai3, dai4: dai4, dai5: dai5 } });
+      }
     }
   }, [done]);
-  
-  const setHaiku = async() =>{
-    const index = currentIndex;
-    const haiku = userHaiku[index] + enterHaiku;
-    
-    if(index === 1){
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        1: haiku
-      });
-    } else if(index === 2) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        2: haiku
-      });
-    } else if(index === 3) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        3: haiku
-      });
-    } else if(index === 4) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        4: haiku
-      });
-    } else if(index === 5) {
-      await updateDoc(doc(db, invitationID, 'Haiku'), {
-        5: haiku
+
+  const setHaiku = async () => {
+    if (user) {
+      const index = currentIndex;
+      const haiku = userHaiku[index] + enterHaiku;
+
+      if (index === 1) {
+        await updateDoc(doc(db, invitationID, 'Haiku'), {
+          1: haiku
+        });
+      } else if (index === 2) {
+        await updateDoc(doc(db, invitationID, 'Haiku'), {
+          2: haiku
+        });
+      } else if (index === 3) {
+        await updateDoc(doc(db, invitationID, 'Haiku'), {
+          3: haiku
+        });
+      } else if (index === 4) {
+        await updateDoc(doc(db, invitationID, 'Haiku'), {
+          4: haiku
+        });
+      } else if (index === 5) {
+        await updateDoc(doc(db, invitationID, 'Haiku'), {
+          5: haiku
+        });
+      }
+
+      await updateDoc(doc(db, invitationID, 'doneHaiku'), {
+        done: increment(1)
       });
     }
-
-    await updateDoc(doc(db, invitationID, 'doneHaiku'), {
-      done: increment(1)
-    });
   }
-  console.log(currentIndex)
-  return(
+  console.log(userDai[currentIndex-1])
+  return (
     <>
-    {!loading
-      ?
-      (
-        <>
-          {!user
-            ?
-            (
-              <Navigate to={"/"} />
-            )
-            :
-            // ここにコードを記述
-            (
-              <div className="haiku">
-                <h2>2文字目</h2>
-                <p>ひらがなを入力してください（1文字）</p>
-                <input type="text" pattern="[\u3041-\u3096]*" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
-                <button onClick={setHaiku}>決定</button>
-                <p>お題：{userDai[currentIndex]}</p>
-                <h2>俳句</h2>
-                {userHaiku
-                ?
-                (
-                  <>
-                  <h2>{(userHaiku[currentIndex]).substring(0, 5)}</h2>
-                  <h2>{(userHaiku[currentIndex]).substring(5, 12)}</h2>
-                  <h2>{(userHaiku[currentIndex]).substring(12, 17)}</h2>
-                  </>
-                )
-                :
-                (
-                  <>
-                  </>
-                )              
-                }
-              </div>
-            )
-          }
+      {!loading
+        ?
+        (
+          <>
+            {!user
+              ?
+              (
+                <Navigate to={"/"} />
+              )
+              :
+              // ここにコードを記述
+              (
+                <div className="haiku">
+                  <h2>2文字目</h2>
+                  <p>ひらがなを入力してください（1文字）</p>
+                  <input type="text" pattern="[\u3041-\u3096]*" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
+                  <button onClick={setHaiku}>決定</button>
+                  <p>お題：{userDai[currentIndex]}</p>
+                  <h2>俳句</h2>
+                  {userHaiku
+                    ?
+                    (
+                      <>
+                        <h2>{(userHaiku[currentIndex]).substring(0, 5)}</h2>
+                        <h2>{(userHaiku[currentIndex]).substring(5, 12)}</h2>
+                        <h2>{(userHaiku[currentIndex]).substring(12, 17)}</h2>
+                      </>
+                    )
+                    :
+                    (
+                      <>
+                      </>
+                    )
+                  }
+                </div>
+              )
+            }
           </>
         )
         :

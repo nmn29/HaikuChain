@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { doc, deleteDoc, collection, onSnapshot, query, orderBy, setDoc, Timestamp} from 'firebase/firestore';
+import { doc, deleteDoc, collection, onSnapshot, query, orderBy, setDoc, Timestamp } from 'firebase/firestore';
+import Fade from 'react-reveal/Fade';
+import './stylesheets/lobby.css'
 
 export default function Lobby() {
 
@@ -29,7 +31,7 @@ export default function Lobby() {
   //routerから招待IDを取得
   const invitationID = useLocation().state.id;
 
-  useEffect(() => {   
+  useEffect(() => {
     //データベースを追加順で取得
     const usersQueryRef = query(collection(db, invitationID), orderBy('timestamp', 'asc'))
     onSnapshot(usersQueryRef, (querySnapshot) => {
@@ -41,7 +43,7 @@ export default function Lobby() {
         }
         if (change.type === 'removed') {
           // データが削除された時
-          setUserList(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))      
+          setUserList(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         }
       }
     });
@@ -50,11 +52,11 @@ export default function Lobby() {
   //ユーザリストを監視し、ホスト以外のゲーム開始・ホストのIDを格納する・部屋が無くなった場合の処理
   useEffect(() => {
     try {
-      if (userList[userList.length - 1].id === "Game"){
+      if (userList[userList.length - 1].id === "Game") {
         const totalCount = userList.length - 1
         const userIndex = (userList.findIndex((users) => users.id === user.uid) + 1)
         //招待ID、自分の番号、人数をゲームに送信
-        navigate("/start", {state: {id: invitationID, index: userIndex, count: totalCount}});
+        navigate("/start", { state: { id: invitationID, index: userIndex, count: totalCount } });
       }
 
       if (userList[0].id !== null) {
@@ -80,11 +82,11 @@ export default function Lobby() {
     const totalCount = userList.length
 
     await setDoc(doc(db, invitationID, 'doneDai'), {
-      done:0
+      done: 0
     });
 
     await setDoc(doc(db, invitationID, 'doneHaiku'), {
-      done:0
+      done: 0
     });
 
     await setDoc(doc(db, invitationID, 'Game'), {
@@ -108,28 +110,182 @@ export default function Lobby() {
               :
               // ここにコードを記述
               (
-                <div>
-                  ロビー
-                  ルームID：{invitationID}
-                  {userList.map((user) => (
-                    <div key={user.id}>{user.name}</div>
-                  ))}
-                  <button onClick={logout}>退室</button>
-                  {hostID === user.uid
-                    ?
-                    (
-                      <>
-                        <div>YOUR IS HOST</div>
-                        <button onClick={startGame}>ゲームを開始</button>
-                      </>
-                    )
-                    :
-                    (
-                      <>
-                        <div>YOUR IS NOT HOST</div>
-                      </>
-                    )
-                  }
+                <div className="global">
+                  <div className="main">
+                    <Fade>
+                      ロビー
+                      ルームID：{invitationID}
+
+                      {/* 1人目 */}
+                      {userList[0] == undefined
+                        ?
+                        (
+                          <div className="users none">
+                            <p>
+                              <span className="number">
+                                1
+                              </span>
+                              <span className="username">
+                              </span>
+                            </p>
+                          </div>
+                        )
+                        :
+                        (
+                          <div className="users">
+                            <p>
+                              <span className="number">
+                                1
+                              </span>
+                              <span className="username">
+                                {userList[0].name}
+                              </span>
+                            </p>
+                          </div>
+                        )
+                      }
+
+                      {/* 2人目 */}
+                      {userList[1] == undefined
+                        ?
+                        (
+                          <div className="users none">
+                            <p>
+                              <span className="number">
+                                2
+                              </span>
+                              <span className="username">
+                              </span>
+                            </p>
+                          </div>
+                        )
+                        :
+                        (
+                          <Fade>
+                          <div className="users">
+                            <p>
+                              <span className="number">
+                                2
+                              </span>
+                              <span className="username">
+                                {userList[1].name}
+                              </span>
+                            </p>
+                          </div>
+                          </Fade>
+                        )
+                      }
+
+                      {/* 3人目 */}
+                      {userList[2] == undefined
+                        ?
+                        (
+                          <div className="users none">
+                            <p>
+                              <span className="number">
+                                3
+                              </span>
+                              <span className="username">
+                              </span>
+                            </p>
+                          </div>
+                        )
+                        :
+                        (
+                          <Fade>
+                          <div className="users">
+                            <p>
+                              <span className="number">
+                                3
+                              </span>
+                              <span className="username">
+                                {userList[2].name}
+                              </span>
+                            </p>
+                          </div>
+                          </Fade>
+                        )
+                      }
+
+                      {/* 4人目 */}
+                      {userList[3] == undefined
+                        ?
+                        (
+                          <div className="users none">
+                            <p>
+                              <span className="number">
+                                4
+                              </span>
+                              <span className="username">
+                              </span>
+                            </p>
+                          </div>
+                        )
+                        :
+                        (
+                          <Fade>
+                          <div className="users">
+                            <p>
+                              <span className="number">
+                                4
+                              </span>
+                              <span className="username">
+                                {userList[3].name}
+                              </span>
+                            </p>
+                          </div>
+                          </Fade>
+                        )
+                      }
+
+                      {/* 5人目 */}
+                      {userList[4] == undefined
+                        ?
+                        (
+                          <div className="users none">
+                            <p>
+                              <span className="number">
+                                5
+                              </span>
+                              <span className="username">
+                              </span>
+                            </p>
+                          </div>
+                        )
+                        :
+                        (
+                          <Fade>
+                          <div className="users">
+                            <p>
+                              <span className="number">
+                                5
+                              </span>
+                              <span className="username">
+                                {userList[4].name}
+                              </span>
+                            </p>
+                          </div>
+                          </Fade>
+                        )
+                      }
+                      <button onClick={logout}>退室</button>
+                      {hostID === user.uid
+                        ?
+                        (
+                          <>
+                            <div>YOUR IS HOST</div>
+                            <button onClick={startGame}>ゲームを開始</button>
+                          </>
+                        )
+                        :
+                        (
+                          <>
+                            <div>YOUR IS NOT HOST</div>
+                          </>
+                        )
+                      }
+                    </Fade>
+                  </div>
                 </div>
               )
             }

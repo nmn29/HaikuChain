@@ -17,7 +17,7 @@ export default function Top() {
 
   //ランダムIDの生成
   useEffect(() => {
-    const randomID = "ユーザ" + Math.floor(Math.random() * (100000 - 10000) + 10000);
+    const randomID = "詠み人" + Math.floor(Math.random() * (100000 - 10000) + 10000);
     setID(randomID);
     setIDTemp(randomID);
   }, []);
@@ -39,7 +39,7 @@ export default function Top() {
 
       const uidTemp = auth.currentUser.uid;
       //uidの最初の8文字を取得
-      const get8String = uidTemp.slice( 0, 8 );
+      const get8String = uidTemp.slice(0, 8);
       //取得した8文字のuidを大文字に変換
       const docUid = get8String.toUpperCase();
 
@@ -49,8 +49,8 @@ export default function Top() {
       });
 
       //ロビーに遷移し、招待コードを送信する
-      await navigate("/lobby", {state: {id: docUid}});
-      
+      await navigate("/lobby", { state: { id: docUid } });
+
     } catch (error) {
       alert("セッションの更新が必要です");
       console.log(error)
@@ -61,8 +61,9 @@ export default function Top() {
   const enterLobby = async (event) => {
     event.preventDefault();
 
-    try{  
+    try {
       //招待コードを格納
+      await signInAnonymously(auth);
       const invitationIDTemp = invitationID;
 
       //名前の格納（空欄であればデフォルトの名前）
@@ -78,8 +79,7 @@ export default function Top() {
       console.log(totalCount);
 
       //部屋の人数がオーバー(5人)していれば認証しない
-      if(totalCount <= 4){    
-        await signInAnonymously(auth);
+      if (totalCount <= 4) {
         const uidTemp = auth.currentUser.uid;
 
         await setDoc(doc(db, invitationIDTemp, uidTemp), {
@@ -87,8 +87,8 @@ export default function Top() {
           timestamp: Timestamp.fromDate(new Date())
         });
         //ロビーに遷移し、招待コードと人数を送信する
-        await navigate("/lobby", {state: {id: invitationIDTemp}});
-      
+        await navigate("/lobby", { state: { id: invitationIDTemp } });
+
       } else {
         alert("人数オーバーです")
       }
@@ -99,11 +99,11 @@ export default function Top() {
     }
   };
 
-  const [Modal, open, close, isOpen] = useModal('root',{
+  const [Modal, open, close, isOpen] = useModal('root', {
     preventScroll: true,
   });
 
-  const modalStyle ={
+  const modalStyle = {
     backgroundColor: '#fff',
     padding: '30px 80px',
     borderRadius: '10px',
@@ -115,17 +115,21 @@ export default function Top() {
     <>
       <div className="global">
         <div className="main">
+          <h1 className="title">俳句チェイン</h1>
           <div className="top">
-            <h1>俳句チェイン</h1>
-
             <div className="startBox">
-              <p>名前を入力</p>
-              <input type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
-              <p>
-              <button className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>部屋を作る</button>
-              <button className="lobbyButton enterRoom" onClick={open}>部屋に入る</button>
-              </p>
-            </div> 
+              <div className="start-child">
+                <p>名前を入力</p>
+                <input type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
+                <p>
+                  <button className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>部屋を作る</button>
+                  <button className="lobbyButton enterRoom" onClick={open}>部屋に入る</button>
+                </p>
+              </div>
+            </div>
+            <div className="rulesBox">
+              <Rules />
+            </div>
             <Modal>
               <Fade>
                 <div className="modal" style={modalStyle}>
@@ -135,7 +139,6 @@ export default function Top() {
               </Fade>
             </Modal>
           </div>
-          <Rules />
         </div>
       </div>
     </>
