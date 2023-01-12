@@ -78,6 +78,11 @@ export default function Top() {
       const totalCount = totalCountTemp.data().count
       console.log(totalCount);
 
+      if(totalCount === 0){
+        throw new Error('部屋が存在しません')
+      }
+
+
       //部屋の人数がオーバー(5人)していれば認証しない
       if (totalCount <= 4) {
         const uidTemp = auth.currentUser.uid;

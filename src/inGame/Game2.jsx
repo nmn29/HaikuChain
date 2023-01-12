@@ -9,7 +9,6 @@ export default function Game2() {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [userDai, setUserDai] = useState("");
   const [userHaiku, setUserHaiku] = useState("");
   const [enterHaiku, setEnterHaiku] = useState("");
   const [done, setDone] = useState("")
@@ -31,11 +30,17 @@ export default function Game2() {
   const invitationID = useLocation().state.id;
   const myIndex = useLocation().state.index;
   const userCount = useLocation().state.count;
-  const dai1 = useLocation().state.dai1;
-  const dai2 = useLocation().state.dai2;
-  const dai3 = useLocation().state.dai3;
-  const dai4 = useLocation().state.dai4;
-  const dai5 = useLocation().state.dai5;
+
+  //前のページから受け取ったお題を配列に代入する
+  let userDai = []
+  userDai[1] = useLocation().state.dai1;
+  userDai[2] = useLocation().state.dai2;
+  userDai[3] = useLocation().state.dai3;
+  userDai[4] = useLocation().state.dai4;
+  userDai[5] = useLocation().state.dai5;
+
+  console.log(currentIndex)
+  console.log(userDai)
 
   const setUp = async () => {
     //現在の番号を計算（+1する）
@@ -45,7 +50,9 @@ export default function Game2() {
       setCurrentIndex(myIndex + 1);
     }
 
-    const haikuRef = await doc(db, invitationID, 'Haiku');
+    const HaikuIndex = "Haiku" + currentIndex
+
+    const haikuRef = await doc(db, invitationID, HaikuIndex);
     await getDoc(haikuRef).then((snap) => {
       setUserHaiku(snap.data());
     });
@@ -70,7 +77,7 @@ export default function Game2() {
       const doneTemp = done.done
       //全員が決定したら遷移
       if (doneTemp === userCount * 2) {
-        navigate("/Game3", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: dai1, dai2: dai2, dai3: dai3, dai4: dai4, dai5: dai5 } });
+        // navigate("/Game3", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: dai1, dai2: dai2, dai3: dai3, dai4: dai4, dai5: dai5 } });
       }
     }
   }, [done]);
@@ -107,7 +114,8 @@ export default function Game2() {
       });
     }
   }
-  console.log(userDai[currentIndex-1])
+
+  console.log(userHaiku)
   return (
     <>
       {!loading
@@ -127,15 +135,21 @@ export default function Game2() {
                   <p>ひらがなを入力してください（1文字）</p>
                   <input type="text" pattern="[\u3041-\u3096]*" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
                   <button onClick={setHaiku}>決定</button>
-                  <p>お題：{userDai[currentIndex]}</p>
+                  <p>
+                    お題：
+                    {userDai[currentIndex]
+                      ?(<>{userDai[currentIndex]}</>)
+                      :(<></>)
+                    }
+                  </p>
                   <h2>俳句</h2>
                   {userHaiku
                     ?
                     (
                       <>
-                        <h2>{(userHaiku[currentIndex]).substring(0, 5)}</h2>
-                        <h2>{(userHaiku[currentIndex]).substring(5, 12)}</h2>
-                        <h2>{(userHaiku[currentIndex]).substring(12, 17)}</h2>
+                        <h2>{userHaiku.substring(0, 5)}</h2>
+                        <h2>{userHaiku.substring(5, 12)}</h2>
+                        <h2>{userHaiku.substring(12, 17)}</h2>
                       </>
                     )
                     :

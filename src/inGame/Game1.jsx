@@ -33,10 +33,10 @@ export default function Game1(){
 
   const setUp = async() => {
     //現在の番号を計算（+1する）
-    if(myIndex === userCount){
-      await setCurrentIndex(1);
+    if (myIndex === userCount) {
+      setCurrentIndex(1);
     } else {
-      await setCurrentIndex(myIndex + 1);
+      setCurrentIndex(myIndex + 1);
     }
 
     //お題を配列に追加する
@@ -72,8 +72,9 @@ export default function Game1(){
   useEffect(() => {
     const doneTemp = done.done
     //全員が決定したら遷移
+
     if(doneTemp === userCount){
-      navigate("/Game2", {state: {id: invitationID, index: myIndex, count: userCount, dai1: userDai[1], dai2: userDai[2], dai3: userDai[3], dai4: userDai[4], dai5: userDai[5]}});     
+      navigate("/Game2", {state: {id: invitationID, index: myIndex, count: userCount, dai1: userDai[0], dai2: userDai[1], dai3: userDai[2], dai4: userDai[3], dai5: userDai[4]}});     
     }
   }, [done]);
 

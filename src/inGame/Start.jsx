@@ -30,7 +30,8 @@ export default function Start() {
   const myIndex = useLocation().state.index;
   const userCount = useLocation().state.count;
 
-  //リアルタイムでお題を取得
+  console.log("myIndex:" + myIndex)
+
   //リアルタイムで決定数を取得
   useEffect(() => {
     const userDocumentRef = doc(db, invitationID, 'doneDai');
