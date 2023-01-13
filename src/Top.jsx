@@ -11,9 +11,12 @@ import Rules from './Rules.jsx'
 
 export default function Top() {
 
-  const [ID, setID] = useState("");
+  const [ID, setID] = useState(" ");
   const [IDTemp, setIDTemp] = useState(ID);
   const [invitationID, setInvitationID] = useState("");
+  const [createLoading, setCreateLoading] = useState(false)
+
+  console.log(ID)
 
   //ランダムIDの生成
   useEffect(() => {
@@ -24,8 +27,16 @@ export default function Top() {
 
   const navigate = useNavigate();
 
+  //名前の状態を管理
+  useEffect(() => {
+    if(ID == ""){
+      setID(IDTemp)
+    }
+  }, [ID])
+
   //部屋を作る
   const loginLobby = async (event) => {
+    setCreateLoading(true)
     event.preventDefault();
 
     try {
@@ -48,11 +59,13 @@ export default function Top() {
         timestamp: Timestamp.fromDate(new Date())
       });
 
+      await setCreateLoading(false)
       //ロビーに遷移し、招待コードを送信する
       await navigate("/lobby", { state: { id: docUid } });
 
     } catch (error) {
       alert("セッションの更新が必要です");
+      setCreateLoading(false)
       console.log(error)
     }
   };
@@ -78,7 +91,7 @@ export default function Top() {
       const totalCount = totalCountTemp.data().count
       console.log(totalCount);
 
-      if(totalCount === 0){
+      if (totalCount === 0) {
         throw new Error('部屋が存在しません')
       }
 
@@ -110,8 +123,8 @@ export default function Top() {
 
   const modalStyle = {
     backgroundColor: '#fff',
-    padding: '30px 80px',
     borderRadius: '10px',
+    padding:'20px 50px'
   };
 
 
@@ -127,7 +140,12 @@ export default function Top() {
                 <p>名前を入力</p>
                 <input type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
                 <p>
-                  <button className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>部屋を作る</button>
+                  <button className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>
+                    {!createLoading
+                    ?(<>部屋を作る</>)
+                    :<span className="loader"></span>
+                    }
+                  </button>
                   <button className="lobbyButton enterRoom" onClick={open}>部屋に入る</button>
                 </p>
               </div>
@@ -138,8 +156,10 @@ export default function Top() {
             <Modal>
               <Fade>
                 <div className="modal" style={modalStyle}>
-                  <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
-                  <button onClick={(e) => enterLobby(e)}>部屋に入る</button>
+                  <div className="modalBox">
+                    <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
+                    <button className="modalEnterRoom" onClick={(e) => enterLobby(e)}>部屋に入る</button>
+                  </div>
                 </div>
               </Fade>
             </Modal>

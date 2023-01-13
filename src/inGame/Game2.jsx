@@ -39,18 +39,20 @@ export default function Game2() {
   userDai[4] = useLocation().state.dai4;
   userDai[5] = useLocation().state.dai5;
 
-  console.log(currentIndex)
-  console.log(userDai)
-
   const setUp = async () => {
+
+    let thisCurrentIndex = 0
+
     //現在の番号を計算（+1する）
     if (myIndex === userCount) {
       setCurrentIndex(1);
+      thisCurrentIndex = 1
     } else {
       setCurrentIndex(myIndex + 1);
+      thisCurrentIndex = myIndex + 1
     }
 
-    const HaikuIndex = "Haiku" + currentIndex
+    const HaikuIndex = "Haiku" + thisCurrentIndex
 
     const haikuRef = await doc(db, invitationID, HaikuIndex);
     await getDoc(haikuRef).then((snap) => {
@@ -77,7 +79,7 @@ export default function Game2() {
       const doneTemp = done.done
       //全員が決定したら遷移
       if (doneTemp === userCount * 2) {
-        // navigate("/Game3", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: dai1, dai2: dai2, dai3: dai3, dai4: dai4, dai5: dai5 } });
+        navigate("/Game3", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: userDai[1], dai2: userDai[2], dai3: userDai[3], dai4: userDai[4], dai5: userDai[5] } });
       }
     }
   }, [done]);
@@ -88,24 +90,24 @@ export default function Game2() {
       const haiku = userHaiku[index] + enterHaiku;
 
       if (index === 1) {
-        await updateDoc(doc(db, invitationID, 'Haiku'), {
-          1: haiku
+        await updateDoc(doc(db, invitationID, 'Haiku1'), {
+          haiku: haiku
         });
       } else if (index === 2) {
-        await updateDoc(doc(db, invitationID, 'Haiku'), {
-          2: haiku
+        await updateDoc(doc(db, invitationID, 'Haiku2'), {
+          haiku: haiku
         });
       } else if (index === 3) {
-        await updateDoc(doc(db, invitationID, 'Haiku'), {
-          3: haiku
+        await updateDoc(doc(db, invitationID, 'Haiku3'), {
+          haiku: haiku
         });
       } else if (index === 4) {
-        await updateDoc(doc(db, invitationID, 'Haiku'), {
-          4: haiku
+        await updateDoc(doc(db, invitationID, 'Haiku4'), {
+          haiku: haiku
         });
       } else if (index === 5) {
-        await updateDoc(doc(db, invitationID, 'Haiku'), {
-          5: haiku
+        await updateDoc(doc(db, invitationID, 'Haiku5'), {
+          haiku: haiku
         });
       }
 
@@ -115,7 +117,6 @@ export default function Game2() {
     }
   }
 
-  console.log(userHaiku)
   return (
     <>
       {!loading
@@ -143,13 +144,13 @@ export default function Game2() {
                     }
                   </p>
                   <h2>俳句</h2>
-                  {userHaiku
+                  {userHaiku['haiku']
                     ?
                     (
                       <>
-                        <h2>{userHaiku.substring(0, 5)}</h2>
-                        <h2>{userHaiku.substring(5, 12)}</h2>
-                        <h2>{userHaiku.substring(12, 17)}</h2>
+                        <h2>{userHaiku['haiku'].substring(0, 5)}</h2>
+                        <h2>{userHaiku['haiku'].substring(5, 12)}</h2>
+                        <h2>{userHaiku['haiku'].substring(12, 17)}</h2>
                       </>
                     )
                     :

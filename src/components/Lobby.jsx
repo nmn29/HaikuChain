@@ -113,177 +113,189 @@ export default function Lobby() {
                 <div className="global">
                   <div className="main">
                     <Fade>
-                      ロビー
-                      ルームID：{invitationID}
+                      <div className="leave">
+                        <button className="leaveButton" onClick={logout}><span>◀</span>退室</button>
+                      </div>
+                      <div className="lobby">
+                        <div className="lobby-child">
+                          <div className="userlistBox">
 
-                      {/* 1人目 */}
-                      {userList[0] == undefined
-                        ?
-                        (
-                          <div className="users none">
-                            <p>
-                              <span className="number">
-                                1
-                              </span>
-                              <span className="username">
-                              </span>
-                            </p>
-                          </div>
-                        )
-                        :
-                        (
-                          <div className="users">
-                            <p>
-                              <span className="number">
-                                1
-                              </span>
-                              <span className="username">
-                                {userList[0].name}
-                              </span>
-                            </p>
-                          </div>
-                        )
-                      }
+                            {/* 1人目 */}
+                            {userList[0] == undefined
+                              ?
+                              (
+                                <div className="users none">◀
+                                  <p>
+                                    <span className="number">
+                                      1
+                                    </span>
+                                    <span className="username">
+                                    </span>
+                                  </p>
+                                </div>
+                              )
+                              :
+                              (
+                                <div className="users">
+                                  <p>
+                                    <span className="number">
+                                      1
+                                    </span>
+                                    <span className="username">
+                                      {userList[0].name}
+                                    </span>
+                                  </p>
+                                </div>
+                              )
+                            }
 
-                      {/* 2人目 */}
-                      {userList[1] == undefined
-                        ?
-                        (
-                          <div className="users none">
-                            <p>
-                              <span className="number">
-                                2
-                              </span>
-                              <span className="username">
-                              </span>
-                            </p>
-                          </div>
-                        )
-                        :
-                        (
-                          <Fade>
-                          <div className="users">
-                            <p>
-                              <span className="number">
-                                2
-                              </span>
-                              <span className="username">
-                                {userList[1].name}
-                              </span>
-                            </p>
-                          </div>
-                          </Fade>
-                        )
-                      }
+                            {/* 2人目 */}
+                            {userList[1] == undefined
+                              ?
+                              (
+                                <div className="users none">
+                                  <p>
+                                    <span className="number">
+                                      2
+                                    </span>
+                                    <span className="username">
+                                    </span>
+                                  </p>
+                                </div>
+                              )
+                              :
+                              (
+                                <Fade>
+                                  <div className="users">
+                                    <p>
+                                      <span className="number">
+                                        2
+                                      </span>
+                                      <span className="username">
+                                        {userList[1].name}
+                                      </span>
+                                    </p>
+                                  </div>
+                                </Fade>
+                              )
+                            }
 
-                      {/* 3人目 */}
-                      {userList[2] == undefined
-                        ?
-                        (
-                          <div className="users none">
-                            <p>
-                              <span className="number">
-                                3
-                              </span>
-                              <span className="username">
-                              </span>
-                            </p>
-                          </div>
-                        )
-                        :
-                        (
-                          <Fade>
-                          <div className="users">
-                            <p>
-                              <span className="number">
-                                3
-                              </span>
-                              <span className="username">
-                                {userList[2].name}
-                              </span>
-                            </p>
-                          </div>
-                          </Fade>
-                        )
-                      }
+                            {/* 3人目 */}
+                            {userList[2] == undefined
+                              ?
+                              (
+                                <div className="users none">
+                                  <p>
+                                    <span className="number">
+                                      3
+                                    </span>
+                                    <span className="username">
+                                    </span>
+                                  </p>
+                                </div>
+                              )
+                              :
+                              (
+                                <Fade>
+                                  <div className="users">
+                                    <p>
+                                      <span className="number">
+                                        3
+                                      </span>
+                                      <span className="username">
+                                        {userList[2].name}
+                                      </span>
+                                    </p>
+                                  </div>
+                                </Fade>
+                              )
+                            }
 
-                      {/* 4人目 */}
-                      {userList[3] == undefined
-                        ?
-                        (
-                          <div className="users none">
-                            <p>
-                              <span className="number">
-                                4
-                              </span>
-                              <span className="username">
-                              </span>
-                            </p>
-                          </div>
-                        )
-                        :
-                        (
-                          <Fade>
-                          <div className="users">
-                            <p>
-                              <span className="number">
-                                4
-                              </span>
-                              <span className="username">
-                                {userList[3].name}
-                              </span>
-                            </p>
-                          </div>
-                          </Fade>
-                        )
-                      }
+                            {/* 4人目 */}
+                            {userList[3] == undefined
+                              ?
+                              (
+                                <div className="users none">
+                                  <p>
+                                    <span className="number">
+                                      4
+                                    </span>
+                                    <span className="username">
+                                    </span>
+                                  </p>
+                                </div>
+                              )
+                              :
+                              (
+                                <Fade>
+                                  <div className="users">
+                                    <p>
+                                      <span className="number">
+                                        4
+                                      </span>
+                                      <span className="username">
+                                        {userList[3].name}
+                                      </span>
+                                    </p>
+                                  </div>
+                                </Fade>
+                              )
+                            }
 
-                      {/* 5人目 */}
-                      {userList[4] == undefined
-                        ?
-                        (
-                          <div className="users none">
-                            <p>
-                              <span className="number">
-                                5
-                              </span>
-                              <span className="username">
-                              </span>
-                            </p>
+                            {/* 5人目 */}
+                            {userList[4] == undefined
+                              ?
+                              (
+                                <div className="users none">
+                                  <p>
+                                    <span className="number">
+                                      5
+                                    </span>
+                                    <span className="username">
+                                    </span>
+                                  </p>
+                                </div>
+                              )
+                              :
+                              (
+                                <Fade>
+                                  <div className="users">
+                                    <p>
+                                      <span className="number">
+                                        5
+                                      </span>
+                                      <span className="username">
+                                        {userList[4].name}
+                                      </span>
+                                    </p>
+                                  </div>
+                                </Fade>
+                              )
+                            }
                           </div>
-                        )
-                        :
-                        (
-                          <Fade>
-                          <div className="users">
-                            <p>
-                              <span className="number">
-                                5
-                              </span>
-                              <span className="username">
-                                {userList[4].name}
-                              </span>
-                            </p>
+                          <div className="gameStartBox">
+
+                            <p>招待コード</p>
+                            <p className="invitationID">{invitationID}</p>
+
+                            {hostID === user.uid
+                              ?
+                              (
+                                <>
+                                  <button onClick={startGame}>ゲームを開始</button>
+                                </>
+                              )
+                              :
+                              (
+                                <>
+                                  <div>ホストの開始を待っています...</div>
+                                </>
+                              )
+                            }
+
                           </div>
-                          </Fade>
-                        )
-                      }
-                      <button onClick={logout}>退室</button>
-                      {hostID === user.uid
-                        ?
-                        (
-                          <>
-                            <div>YOUR IS HOST</div>
-                            <button onClick={startGame}>ゲームを開始</button>
-                          </>
-                        )
-                        :
-                        (
-                          <>
-                            <div>YOUR IS NOT HOST</div>
-                          </>
-                        )
-                      }
+                        </div>
+                      </div>
                     </Fade>
                   </div>
                 </div>

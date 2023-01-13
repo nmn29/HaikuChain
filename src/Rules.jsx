@@ -8,6 +8,8 @@ export default function Rules(){
   const settings = {
     dots: true,
     infinite: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1
@@ -20,12 +22,17 @@ export default function Rules(){
         <div className="inRule">
           <h3>俳句を作ろう！</h3>
           <p>
-            最大5人でお題を出し合い、<br/>
-            一文字ずつ
+            最大5人のリレー形式で<br/>
+            名句を作成しましょう<br/>
+            
           </p>
         </div>
         <div className="inRule">
-          <h3>2</h3>
+          <h3>お題を出す</h3>
+          <p>
+            ユニークなお題を決め、<br/>
+
+          </p>
         </div>
         <div className="inRule">
           <h3>3</h3>

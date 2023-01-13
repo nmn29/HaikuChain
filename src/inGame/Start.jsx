@@ -3,6 +3,7 @@ import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
+import Fade from 'react-reveal';
 
 
 export default function Start() {
@@ -99,11 +100,13 @@ export default function Start() {
               (
                 <div className="global">
                   <div className="main">
+                    <Fade>
                     <div className="odai">
                       <p>お題を入力しよう</p>
                       <input type="text" onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
                       <button onClick={daiDone}>決定</button>
                     </div>
+                    </Fade>
                   </div>
                 </div>
               )

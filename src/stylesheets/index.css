@@ -22,7 +22,7 @@ body {
   overflow:hidden;
 
   /* 背景の設定（画像） */
-  background-color:rgb(207, 207, 207);
+  background-image: url('../images/bg.jpg')
 }
 
 /* 全ページで使用するゲーム画面の設定 */
@@ -36,11 +36,12 @@ body {
 
   min-height: 80vh;
   width:70%;
+  background-clip: padding-box;
 
-  border: 5px solid #aaa;
+  border: 5px solid rgba(0, 0, 0, 0.3);
 
   border-radius: 15px;
-  background-color:rgba(255, 255, 255, 0.7);
+  background-color:rgba(255, 255, 255, 0.98);
 }
 
 input{
