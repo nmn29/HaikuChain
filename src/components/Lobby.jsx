@@ -98,20 +98,21 @@ export default function Lobby() {
 
   return (
     <>
-      {!loading
-        ?
-        (
-          <>
-            {!user
-              ?
-              (
-                <Navigate to={"/"} />
-              )
-              :
-              // ここにコードを記述
-              (
-                <div className="global">
-                  <div className="main">
+      <div className="global">
+        <div className="main">
+          {!loading
+            ?
+            (
+              <>
+                {!user
+                  ?
+                  (
+                    <Navigate to={"/"} />
+                  )
+                  :
+                  // ここにコードを記述
+                  (
+
                     <Fade>
                       <div className="leave">
                         <button className="leaveButton" onClick={logout}><span>◀</span>退室</button>
@@ -124,7 +125,7 @@ export default function Lobby() {
                             {userList[0] == undefined
                               ?
                               (
-                                <div className="users none">◀
+                                <div className="users none">
                                   <p>
                                     <span className="number">
                                       1
@@ -282,13 +283,13 @@ export default function Lobby() {
                               ?
                               (
                                 <>
-                                  <button onClick={startGame}>ゲームを開始</button>
+                                  <button className="startButton" onClick={startGame}>ゲームを開始<span>▶</span></button>
                                 </>
                               )
                               :
                               (
                                 <>
-                                  <div>ホストの開始を待っています...</div>
+                                  <div>ホストが選択中</div>
                                 </>
                               )
                             }
@@ -297,16 +298,17 @@ export default function Lobby() {
                         </div>
                       </div>
                     </Fade>
-                  </div>
-                </div>
-              )
-            }
-          </>
-        )
-        :
-        <>
-        </>
-      }
+
+                  )
+                }
+              </>
+            )
+            :
+            <>
+            </>
+          }
+        </div>
+      </div>
     </>
   );
 }

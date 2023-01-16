@@ -14,7 +14,8 @@ export default function Top() {
   const [ID, setID] = useState(" ");
   const [IDTemp, setIDTemp] = useState(ID);
   const [invitationID, setInvitationID] = useState("");
-  const [createLoading, setCreateLoading] = useState(false)
+  const [createLoading, setCreateLoading] = useState(false);
+  const [enterLoading, setEnterLoading] = useState(false);
 
   console.log(ID)
 
@@ -73,6 +74,7 @@ export default function Top() {
   //部屋に入る
   const enterLobby = async (event) => {
     event.preventDefault();
+    setEnterLoading(true);
 
     try {
       //招待コードを格納
@@ -105,15 +107,18 @@ export default function Top() {
           timestamp: Timestamp.fromDate(new Date())
         });
         //ロビーに遷移し、招待コードと人数を送信する
+        setEnterLoading(false)
         await navigate("/lobby", { state: { id: invitationIDTemp } });
 
       } else {
         alert("人数オーバーです")
+        setEnterLoading(false)
       }
 
     } catch (error) {
       alert("招待コードが違います");
       console.log(error)
+      setEnterLoading(false)
     }
   };
 
@@ -158,7 +163,17 @@ export default function Top() {
                 <div className="modal" style={modalStyle}>
                   <div className="modalBox">
                     <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
-                    <button className="modalEnterRoom" onClick={(e) => enterLobby(e)}>部屋に入る</button>
+                    <button className="modalEnterRoom" onClick={(e) => enterLobby(e)}>
+                      {!enterLoading
+                      ?(<>部屋に入る</>)
+                      :
+                      (
+                      <div className="loaderBox">
+                      <span className="loader"></span>
+                      </div>
+                      )
+                      }
+                      </button>
                   </div>
                 </div>
               </Fade>

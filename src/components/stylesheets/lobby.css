@@ -16,6 +16,7 @@
   display:flex;
   margin:auto;
 }
+
 .users{
   position:relative;
   background-color:rgba(255, 255, 255);
@@ -46,7 +47,6 @@
 }
 
 .gameStartBox{
-  font-family:"Noto Sans JP";
   text-align:center;
   margin: 0 auto;
 }
@@ -73,4 +73,21 @@
 .leaveButton:hover{
   background-color:rgb(215, 215, 215);
   padding-right:25px;
+}
+
+.startButton{
+  padding-top:5px;
+  text-align:right;
+  background-color:rgb(233, 233, 233);
+  border: 2px solid rgb(175, 175, 175);
+  border-radius: 5px;
+  width:260px;
+  padding-right:25px;
+  margin:20px;
+  transition:0.5s;
+}
+
+.startButton:hover{
+  background-color:rgb(215, 215, 215);
+  padding-right:15px;
 }

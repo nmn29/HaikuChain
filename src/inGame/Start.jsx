@@ -4,6 +4,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
 import Fade from 'react-reveal';
+import './stylesheets/start.css';
+import './stylesheets/header.css';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import check from '../images/peke.png'
+
 
 
 export default function Start() {
@@ -12,6 +17,7 @@ export default function Start() {
   const [loading, setLoading] = useState(true);
   const [userDai, setUserDai] = useState("")
   const [done, setDone] = useState("")
+  let userCount = 0
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -29,7 +35,7 @@ export default function Start() {
   //招待ID、自身の番号、人数
   const invitationID = useLocation().state.id;
   const myIndex = useLocation().state.index;
-  const userCount = useLocation().state.count;
+  userCount = useLocation().state.count;
 
   console.log("myIndex:" + myIndex)
 
@@ -86,37 +92,57 @@ export default function Start() {
 
   return (
     <>
-      {!loading
-        ?
-        (
-          <>
-            {!user
-              ?
-              (
-                <Navigate to={"/"} />
-              )
-              :
-              // ここにコードを記述
-              (
-                <div className="global">
-                  <div className="main">
+      <div className="global">
+        <div className="main">
+          {!loading
+            ?
+            (
+              <>
+                {!user
+                  ?
+                  (
+                    <Navigate to={"/"} />
+                  )
+                  :
+                  // ここにコードを記述
+                  (
+
                     <Fade>
-                    <div className="odai">
-                      <p>お題を入力しよう</p>
-                      <input type="text" onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
-                      <button onClick={daiDone}>決定</button>
-                    </div>
+                      <div className="header">
+                        <div className="timer-wrapper">
+                          <CountdownCircleTimer
+                            isPlaying
+                            size={60}
+                            strokeWidth={8}
+                            duration={20}
+                            colors={["#838383"]}
+                            onComplete={() => ({ delay: 1 })}
+                          >
+                          </CountdownCircleTimer>
+                        </div>
+                        <div className="doneCount">
+                          <img src={check} />{done.done} / {userCount}
+                        </div>
+                      </div>
+                      <div className="odai">
+                        <h1>お題を入力しよう</h1>
+                        <div className="odaiBox">
+                          <input type="text" onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
+                          <button className="odaiButton" onClick={daiDone}>決定</button>
+                        </div>
+                      </div>
                     </Fade>
-                  </div>
-                </div>
-              )
-            }
-          </>
-        )
-        :
-        <>
-        </>
-      }
+
+                  )
+                }
+              </>
+            )
+            :
+            <>
+            </>
+          }
+        </div>
+      </div>
     </>
   );
 }
