@@ -9,15 +9,33 @@ import './stylesheets/header.css';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import check from '../images/peke.png'
 
-
-
 export default function Start() {
 
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
-  const [userDai, setUserDai] = useState("")
-  const [done, setDone] = useState("")
+  const [userDai, setUserDai] = useState(" ")
+  const [done, setDone] = useState({done:0})
+  const [doneCheck, setdoneCheck] = useState(false)
   let userCount = 0
+
+  const renderTime = ({ remainingTime }) => {
+    return (
+      <div className="timer">
+        <div className="value">{remainingTime}</div>
+      </div>
+    );
+  };
+
+  //ランダムお題
+  const randThemeList =
+    [
+      '自由', '春', '夏', '秋', '冬', '学校', '仕事', 'スポーツ', 'アウトドア', 'インドア',
+      '恋愛', '友情', '家族', '食', '日常', '午前', '午後', '朝', '昼', '夜',
+      'ゲーム', '本', '料理', 'テレビ', '勉強', '旅行', 'スマホ', 'カメラ', '服', '車',
+      '過去', '現在', '未来', '人生', '動物', '音楽', 'オタク', '卒業', '東京', '新生活',
+      'クリスマス', '正月', '年末', 'ハロウィン', '平成', '令和', '日本', '地元', '釣り', '苦難'
+    ]
+  const [randTheme, setRandTheme] = useState("")
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -38,6 +56,21 @@ export default function Start() {
   userCount = useLocation().state.count;
 
   console.log("myIndex:" + myIndex)
+
+  //ランダムお題を決定
+  useEffect(() => {
+    const rand = Math.floor(Math.random() * 50)
+    const randThemeTemp = randThemeList[rand]
+    setRandTheme(randThemeTemp)
+    setUserDai(randThemeTemp)
+  }, [])
+
+  //お題の状態を管理
+  useEffect(() => {
+    if (userDai === "") {
+      setUserDai(randTheme)
+    }
+  }, [userDai])
 
   //リアルタイムで決定数を取得
   useEffect(() => {
@@ -61,6 +94,8 @@ export default function Start() {
 
     const dai = userDai;
     const index = myIndex;
+
+    setdoneCheck(true)
 
     if (index === 1) {
       await setDoc(doc(db, invitationID, 'Dai1'), {
@@ -89,6 +124,12 @@ export default function Start() {
     });
   }
 
+  const autoDone = () =>{
+    console.log("autodone")
+    if(doneCheck === false){
+      daiDone()
+    }
+  }
 
   return (
     <>
@@ -114,10 +155,12 @@ export default function Start() {
                             isPlaying
                             size={60}
                             strokeWidth={8}
-                            duration={20}
+                            duration={30}
                             colors={["#838383"]}
-                            onComplete={() => ({ delay: 1 })}
+                            trailColor={["#FFFFFF"]}
+                            onComplete={() => autoDone()}
                           >
+                            {renderTime}
                           </CountdownCircleTimer>
                         </div>
                         <div className="doneCount">
@@ -125,10 +168,14 @@ export default function Start() {
                         </div>
                       </div>
                       <div className="odai">
-                        <h1>お題を入力しよう</h1>
                         <div className="odaiBox">
-                          <input type="text" onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
-                          <button className="odaiButton" onClick={daiDone}>決定</button>
+                        <h1>お題を決めよう</h1>
+                        <h2>※16文字まで</h2>
+                          <input type="text" placeholder={userDai} onChange={(e) => setUserDai(e.target.value)} maxLength={16} />                         
+                            {!doneCheck
+                            ?(<button className="odaiButton" onClick={daiDone}>決定</button>)
+                            :(<button disabled={true} className="odaiButtonDone" onClick={daiDone}>決定<img className="buttonCheck" src={check}></img></button>)
+                            }
                         </div>
                       </div>
                     </Fade>

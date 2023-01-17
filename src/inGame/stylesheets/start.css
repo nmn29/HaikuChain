@@ -2,8 +2,18 @@
   font-size:50px;
 }
 
+.odai h2{
+  font-family:"Noto Sans JP";
+  font-size:20px;
+  color:#757575;
+  padding-bottom:30px;
+}
+
 .odai{
-  height:80%;
+  height:62%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .odai input{
@@ -12,6 +22,10 @@
   border-radius: 5px;
   vertical-align:top;
   height:65px;
+}
+
+.odaiBox{
+  text-align:center;
 }
 
 .odaiButton{
@@ -23,6 +37,21 @@
   margin-left:20px;
   height:65px;
   transition:0.5s;
-  width: 200px;
+  width: 150px;
 }
 
+.odaiButtonDone{
+  background-color:rgb(215, 215, 215);
+  border: 2px solid rgb(175, 175, 175);
+  border-radius: 5px;
+  vertical-align:top;
+  padding:10px 20px;
+  margin-left:20px;
+  height:65px;
+  transition:0.5s;
+  width: 150px;
+}
+
+.odaiButton:hover{
+  background-color:rgb(215, 215, 215);
+}

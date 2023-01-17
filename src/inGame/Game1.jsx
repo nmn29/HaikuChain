@@ -3,6 +3,7 @@ import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, getDoc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
+import './stylesheets/header.css'
 
 export default function Game1() {
 
@@ -110,20 +111,20 @@ export default function Game1() {
 
   return (
     <>
-      {!loading
-        ?
-        (
-          <>
-            {!user
-              ?
-              (
-                <Navigate to={"/"} />
-              )
-              :
-              // ここにコードを記述
-              (
-                <div className="global">
-                  <div className="main">
+      <div className="global">
+        <div className="main">
+          {!loading
+            ?
+            (
+              <>
+                {!user
+                  ?
+                  (
+                    <Navigate to={"/"} />
+                  )
+                  :
+                  // ここにコードを記述
+                  (
                     <div className="haiku">
                       <h2>1文字目</h2>
                       <p>ひらがなを入力してください（1文字）</p>
@@ -143,16 +144,18 @@ export default function Game1() {
                       }
                       <h2>俳句</h2>
                     </div>
-                  </div>
-                </div>
-              )
-            }
-          </>
-        )
-        :
-        <>
-        </>
-      }
+
+                  )
+                }
+              </>
+            )
+            :
+            <>
+            </>
+          }
+        </div>
+      </div>
     </>
+
   );
 }

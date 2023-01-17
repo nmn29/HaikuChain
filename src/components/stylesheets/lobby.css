@@ -52,10 +52,14 @@
 }
 
 .invitationID{
-  font-size:40px;
-  letter-spacing:3px;
-  padding:10px 100px;
-  background-color:rgb(255, 255, 255);
+  font-family:"Noto Sans JP";
+  font-size:50px;
+  letter-spacing:5px;
+  margin-top:10px;
+  padding:10px 30px;
+  border-radius:15px;
+  background-color:rgb(100, 100, 100);
+  color:white;
 }
 
 .leaveButton{
@@ -75,6 +79,7 @@
   padding-right:25px;
 }
 
+
 .startButton{
   padding-top:5px;
   text-align:right;
@@ -90,4 +95,10 @@
 .startButton:hover{
   background-color:rgb(215, 215, 215);
   padding-right:15px;
+}
+
+.buttonCheck{
+  position:absolute;
+  height:40px;
+  margin:-20px 0px 0px 10px;
 }

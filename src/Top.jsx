@@ -16,6 +16,7 @@ export default function Top() {
   const [invitationID, setInvitationID] = useState("");
   const [createLoading, setCreateLoading] = useState(false);
   const [enterLoading, setEnterLoading] = useState(false);
+  const [disable, setDisable] = useState(false)
 
   console.log(ID)
 
@@ -30,13 +31,14 @@ export default function Top() {
 
   //名前の状態を管理
   useEffect(() => {
-    if(ID == ""){
+    if(ID === ""){
       setID(IDTemp)
     }
   }, [ID])
 
   //部屋を作る
   const loginLobby = async (event) => {
+    setDisable(true)
     setCreateLoading(true)
     event.preventDefault();
 
@@ -67,6 +69,7 @@ export default function Top() {
     } catch (error) {
       alert("セッションの更新が必要です");
       setCreateLoading(false)
+      setDisable(false)
       console.log(error)
     }
   };
@@ -74,6 +77,7 @@ export default function Top() {
   //部屋に入る
   const enterLobby = async (event) => {
     event.preventDefault();
+    setDisable(true)
     setEnterLoading(true);
 
     try {
@@ -112,17 +116,19 @@ export default function Top() {
 
       } else {
         alert("人数オーバーです")
+        setDisable(false)
         setEnterLoading(false)
       }
 
     } catch (error) {
       alert("招待コードが違います");
       console.log(error)
+      setDisable(false)
       setEnterLoading(false)
     }
   };
 
-  const [Modal, open, close, isOpen] = useModal('root', {
+  const [Modal, open] = useModal('root', {
     preventScroll: true,
   });
 
@@ -131,8 +137,6 @@ export default function Top() {
     borderRadius: '10px',
     padding:'20px 50px'
   };
-
-
 
   return (
     <>
@@ -143,15 +147,15 @@ export default function Top() {
             <div className="startBox">
               <div className="start-child">
                 <p>名前を入力</p>
-                <input type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
+                <input disabled={disable} type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
                 <p>
-                  <button className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>
+                  <button disabled={disable} className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>
                     {!createLoading
                     ?(<>部屋を作る</>)
                     :<span className="loader"></span>
                     }
                   </button>
-                  <button className="lobbyButton enterRoom" onClick={open}>部屋に入る</button>
+                  <button disabled={disable} className="lobbyButton enterRoom" onClick={open}>部屋に入る</button>
                 </p>
               </div>
             </div>
@@ -163,7 +167,7 @@ export default function Top() {
                 <div className="modal" style={modalStyle}>
                   <div className="modalBox">
                     <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
-                    <button className="modalEnterRoom" onClick={(e) => enterLobby(e)}>
+                    <button disabled={disable} className="modalEnterRoom" onClick={(e) => enterLobby(e)}>
                       {!enterLoading
                       ?(<>部屋に入る</>)
                       :
