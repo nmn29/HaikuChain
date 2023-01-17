@@ -3,7 +3,7 @@ import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
-import Fade from 'react-reveal';
+import { Fade, Zoom } from 'react-reveal';
 import './stylesheets/start.css';
 import './stylesheets/header.css';
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -15,9 +15,10 @@ export default function Start() {
   const [loading, setLoading] = useState(true);
   const [userDai, setUserDai] = useState(" ")
   const [done, setDone] = useState({done:0})
-  const [doneCheck, setdoneCheck] = useState(false)
   let userCount = 0
 
+  const [doneCheck, setdoneCheck] = useState(false)
+  //制限時間を表示するための関数
   const renderTime = ({ remainingTime }) => {
     return (
       <div className="timer">
@@ -25,6 +26,14 @@ export default function Start() {
       </div>
     );
   };
+
+  //制限時間後に決定されなければ自動遷移
+  const autoDone = () =>{
+    console.log("autodone")
+    if(doneCheck === false){
+      daiDone()
+    }
+  }
 
   //ランダムお題
   const randThemeList =
@@ -124,12 +133,7 @@ export default function Start() {
     });
   }
 
-  const autoDone = () =>{
-    console.log("autodone")
-    if(doneCheck === false){
-      daiDone()
-    }
-  }
+
 
   return (
     <>
@@ -174,7 +178,7 @@ export default function Start() {
                           <input type="text" placeholder={userDai} onChange={(e) => setUserDai(e.target.value)} maxLength={16} />                         
                             {!doneCheck
                             ?(<button className="odaiButton" onClick={daiDone}>決定</button>)
-                            :(<button disabled={true} className="odaiButtonDone" onClick={daiDone}>決定<img className="buttonCheck" src={check}></img></button>)
+                            :(<button disabled={true} className="odaiButtonDone" onClick={daiDone}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
                             }
                         </div>
                       </div>

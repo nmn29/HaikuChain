@@ -3,6 +3,10 @@ import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, getDoc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
+import { Fade, Zoom } from 'react-reveal';
+import './stylesheets/game.css';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import check from '../images/peke.png'
 import './stylesheets/header.css'
 
 export default function Game1() {
@@ -13,6 +17,24 @@ export default function Game1() {
   const [enterHaiku, setEnterHaiku] = useState("");
   const [done, setDone] = useState("")
   const [userDai, setUserDai] = useState([])
+
+  const [doneCheck, setdoneCheck] = useState(false)
+  //制限時間を表示するための関数
+  const renderTime = ({ remainingTime }) => {
+    return (
+      <div className="timer">
+        <div className="value">{remainingTime}</div>
+      </div>
+    );
+  };
+
+  //制限時間後に決定されなければ自動遷移
+  const autoDone = () => {
+    console.log("autodone")
+    if (doneCheck === false) {
+      console.log("じかんぎれ")
+    }
+  }
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -125,26 +147,52 @@ export default function Game1() {
                   :
                   // ここにコードを記述
                   (
-                    <div className="haiku">
-                      <h2>1文字目</h2>
-                      <p>ひらがなを入力してください（1文字）</p>
-                      <input type="text" pattern="[\u3041-\u3096]*" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
-                      <button onClick={setHaiku}>決定</button>
-                      {userDai[currentIndex - 1]
-                        ?
-                        (
-                          <p>お題：{userDai[currentIndex - 1]}</p>
-                        )
-                        :
-                        (
-                          <>
-                            <p>お題：</p>
-                          </>
-                        )
-                      }
-                      <h2>俳句</h2>
-                    </div>
-
+                    <>
+                      <Fade>
+                        <div className="header">
+                          <div className="timer-wrapper">
+                            <CountdownCircleTimer
+                              isPlaying
+                              size={60}
+                              strokeWidth={8}
+                              duration={30}
+                              colors={["#838383"]}
+                              trailColor={["#FFFFFF"]}
+                              onComplete={() => autoDone()}
+                            >
+                              {renderTime}
+                            </CountdownCircleTimer>
+                          </div>
+                          <div className="doneCount">
+                            <img src={check} />{done.done} / {userCount}
+                          </div>
+                        </div>
+                        <div className="haiku">
+                          <div className="haikuInputBox">
+                          <h2>1文字目</h2>
+                          <p>1文字）</p>
+                          <input type="text" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />                         
+                            {!doneCheck
+                            ?(<button className="haikuButton" onClick={setHaiku}>決定</button>)
+                            :(<button disabled={true} className="haikuButtonDone" onClick={setHaiku}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
+                            }
+                          </div>
+                          {userDai[currentIndex - 1]
+                            ?
+                            (
+                              <p>お題：{userDai[currentIndex - 1]}</p>
+                            )
+                            :
+                            (
+                              <>
+                                <p>お題：</p>
+                              </>
+                            )
+                          }
+                          <h2>俳句</h2>
+                        </div>
+                      </Fade>
+                    </>
                   )
                 }
               </>
