@@ -175,7 +175,7 @@ export default function Start() {
                         <div className="odaiBox">
                         <h1>お題を決めよう</h1>
                         <h2>※16文字まで</h2>
-                          <input type="text" placeholder={userDai} onChange={(e) => setUserDai(e.target.value)} maxLength={16} />                         
+                          <input disabled={doneCheck} type="text" placeholder={userDai} onChange={(e) => setUserDai(e.target.value)} maxLength={16} />                         
                             {!doneCheck
                             ?(<button className="odaiButton" onClick={daiDone}>決定</button>)
                             :(<button disabled={true} className="odaiButtonDone" onClick={daiDone}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)

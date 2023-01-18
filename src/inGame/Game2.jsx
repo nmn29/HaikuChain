@@ -3,15 +3,47 @@ import { db, auth } from '../firebase/firebase.js';
 import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, getDoc, onSnapshot, updateDoc, increment } from 'firebase/firestore';
+import { Fade, Zoom } from 'react-reveal';
+import './stylesheets/game.css';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import check from '../images/peke.png'
+import './stylesheets/header.css'
 
 export default function Game2() {
 
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [userHaiku, setUserHaiku] = useState("");
+  const [userHaiku, setUserHaiku] = useState({haiku:""});
   const [enterHaiku, setEnterHaiku] = useState("");
-  const [done, setDone] = useState("")
+  const [done, setDone] = useState({done:0})
+
+  const randCharList = [
+    'あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ',
+    'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と',
+    'な', 'に', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ',
+    'ま', 'み', 'む', 'め', 'も', 'や', 'ゆ', 'よ',
+    'ら', 'り', 'る', 'れ', 'ろ', 'わ', 'を', 'ん'
+  ]
+
+  const [randChar, setRandChar] = useState("")
+  const [doneCheck, setdoneCheck] = useState(false)
+
+  //制限時間を表示するための関数
+  const renderTime = ({ remainingTime }) => {
+    return (
+      <div className="timer">
+        <div className="value">{remainingTime}</div>
+      </div>
+    );
+  };
+
+  //制限時間後に決定されなければ自動遷移
+  const autoDone = () => {
+    if (doneCheck === false) {
+      setHaiku()
+    }
+  }
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -59,18 +91,22 @@ export default function Game2() {
       setUserHaiku(snap.data());
     });
 
+    //ランダムにひらがなを決定
+    const rand = Math.floor(Math.random() * 46)
+    const randCharTemp = randCharList[rand]
+    setRandChar(randCharTemp)
+    setEnterHaiku(randCharTemp)
+
     await setLoading(false);
   }
 
   //リアルタイムで決定数を取得
   useEffect(() => {
-    if (user) {
-      const userDocumentRef = doc(db, invitationID, 'Done');
-      const unsub = onSnapshot(userDocumentRef, (documentSnapshot) => {
-        setDone(documentSnapshot.data())
-      });
-      return unsub;
-    }
+    const userDocumentRef = doc(db, invitationID, 'doneHaiku');
+    const unsub = onSnapshot(userDocumentRef, (documentSnapshot) => {
+      setDone(documentSnapshot.data())
+    });
+    return unsub;
   }, []);
 
   const navigate = useNavigate();
@@ -87,7 +123,9 @@ export default function Game2() {
   const setHaiku = async () => {
     if (user) {
       const index = currentIndex;
-      const haiku = userHaiku[index] + enterHaiku;
+      const haiku = userHaiku['haiku'] + enterHaiku;
+
+      await setdoneCheck(true)
 
       if (index === 1) {
         await updateDoc(doc(db, invitationID, 'Haiku1'), {
@@ -119,55 +157,156 @@ export default function Game2() {
 
   return (
     <>
-      {!loading
-        ?
-        (
-          <>
-            {!user
-              ?
-              (
-                <Navigate to={"/"} />
-              )
-              :
-              // ここにコードを記述
-              (
-                <div className="haiku">
-                  <h2>2文字目</h2>
-                  <p>ひらがなを入力してください（1文字）</p>
-                  <input type="text" pattern="[\u3041-\u3096]*" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
-                  <button onClick={setHaiku}>決定</button>
-                  <p>
-                    お題：
-                    {userDai[currentIndex]
-                      ?(<>{userDai[currentIndex]}</>)
-                      :(<></>)
-                    }
-                  </p>
-                  <h2>俳句</h2>
-                  {userHaiku['haiku']
-                    ?
-                    (
-                      <>
-                        <h2>{userHaiku['haiku'].substring(0, 5)}</h2>
-                        <h2>{userHaiku['haiku'].substring(5, 12)}</h2>
-                        <h2>{userHaiku['haiku'].substring(12, 17)}</h2>
-                      </>
-                    )
-                    :
-                    (
-                      <>
-                      </>
-                    )
-                  }
-                </div>
-              )
-            }
-          </>
-        )
-        :
-        <>
-        </>
-      }
+      <div className="global">
+        <div className="main">
+          {!loading
+            ?
+            (
+              <>
+                {!user
+                  ?
+                  (
+                    <Navigate to={"/"} />
+                  )
+                  :
+                  // ここにコードを記述
+                  (
+                    <>
+                      <Fade>
+                        <div className="header">
+                          <div className="timer-wrapper">
+                            <CountdownCircleTimer
+                              isPlaying
+                              size={60}
+                              strokeWidth={8}
+                              duration={30}
+                              colors={["#838383"]}
+                              trailColor={["#FFFFFF"]}
+                              onComplete={() => autoDone()}
+                            >
+                              {renderTime}
+                            </CountdownCircleTimer>
+                          </div>
+                          <div className="doneCount">
+                            <img src={check} />{done.done - userCount} / {userCount}
+                          </div>
+                        </div>
+                        <div className="haiku">
+                          <div className="haikuInputBox">
+                            <h2 className="charCount"><span className="charCountNum">2</span>文字目</h2>
+                            <div className="inputText">
+                              <p>文字を入力してください（1文字）</p>
+                              <p className="attention">※制限時間を過ぎた場合、現在表示されている文字が入力されます</p>
+                            </div>
+                            <input disabled={doneCheck} type="text" placeholder={randChar} onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
+                            {!doneCheck
+                              ? (<button className="haikuButton" onClick={setHaiku}>決定</button>)
+                              : (<button disabled={true} className="haikuButtonDone" onClick={setHaiku}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
+                            }
+                          </div>
+                          <div className="haikuShowBox">
+                            <h1>お題：</h1>
+                            <div className="daiShow">
+                              {userDai[currentIndex]
+                                ?
+                                (
+                                  <><h2>{userDai[currentIndex]}</h2></>
+                                )
+                                :
+                                (
+                                  <><h2>　</h2></>
+                                )
+                              }
+                            </div>
+                            <h1>俳句</h1>
+                            <div className="haikuShow">
+                              {!userHaiku['haiku']
+                                ?
+                                (
+                                  <>
+                                    <div className="haikuTop">
+                                      <p>
+                                        <span>
+                                          　
+                                        </span>
+                                        <span>{enterHaiku.charAt(0)}</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                      </p>
+                                    </div>
+                                    <div className="haikuMiddle">
+                                      <p>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                      </p>
+                                    </div>
+                                    <div className="haikuBottom">
+                                      <p>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                      </p>
+                                    </div>
+                                  </>
+                                )
+                                :
+                                (
+                                  <>
+                                    <div className="haikuTop">
+                                      <p>
+                                        <span>{userHaiku['haiku']}</span>
+                                        <span>{enterHaiku.charAt(0)}</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                      </p>
+                                    </div>
+                                    <div className="haikuMiddle">
+                                      <p>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                      </p>
+                                    </div>
+                                    <div className="haikuBottom">
+                                      <p>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                        <span>　</span>
+                                      </p>
+                                    </div>
+                                  </>
+                                )
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      </Fade>
+                    </>
+                  )
+                }
+              </>
+            )
+            :
+            <>
+            </>
+          }
+        </div>
+      </div>
     </>
   );
 }

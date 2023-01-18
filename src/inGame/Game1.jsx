@@ -15,9 +15,18 @@ export default function Game1() {
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0)
   const [enterHaiku, setEnterHaiku] = useState("");
-  const [done, setDone] = useState("")
+  const [done, setDone] = useState({ done: 0 })
   const [userDai, setUserDai] = useState([])
 
+  const randCharList = [
+    'あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ',
+    'さ', 'し', 'す', 'せ', 'そ', 'た', 'ち', 'つ', 'て', 'と',
+    'な', 'に', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ',
+    'ま', 'み', 'む', 'め', 'も', 'や', 'ゆ', 'よ',
+    'ら', 'り', 'る', 'れ', 'ろ', 'わ', 'を', 'ん'
+  ]
+
+  const [randChar, setRandChar] = useState("")
   const [doneCheck, setdoneCheck] = useState(false)
   //制限時間を表示するための関数
   const renderTime = ({ remainingTime }) => {
@@ -30,9 +39,8 @@ export default function Game1() {
 
   //制限時間後に決定されなければ自動遷移
   const autoDone = () => {
-    console.log("autodone")
     if (doneCheck === false) {
-      console.log("じかんぎれ")
+      setHaiku()
     }
   }
 
@@ -48,6 +56,13 @@ export default function Game1() {
       }
     });
   }, []);
+
+  //入力文字の状態を管理
+  useEffect(() => {
+    if (enterHaiku === "") {
+      setEnterHaiku(randChar)
+    }
+  }, [enterHaiku])
 
   //招待ID、自身の番号、人数、ホストをルータから取得
   const invitationID = useLocation().state.id;
@@ -68,12 +83,17 @@ export default function Game1() {
       await pushDai(i)
     }
 
+    //ランダムにひらがなを決定
+    const rand = Math.floor(Math.random() * 46)
+    const randCharTemp = randCharList[rand]
+    setRandChar(randCharTemp)
+    setEnterHaiku(randCharTemp)
+
     await setLoading(false);
   }
 
   const pushDai = async (index) => {
     const docTemp = await "Dai" + index
-    await console.log(docTemp)
     const daiRef = await doc(db, invitationID, docTemp);
     await getDoc(daiRef).then((snap) => {
       setUserDai((userDai) => [...userDai, snap.data().dai]);
@@ -103,24 +123,26 @@ export default function Game1() {
     const index = currentIndex;
     const haiku = enterHaiku;
 
+    await setdoneCheck(true)
+
     if (index === 1) {
-      setDoc(doc(db, invitationID, 'Haiku1'), {
+      await setDoc(doc(db, invitationID, 'Haiku1'), {
         haiku: haiku
       });
     } else if (index === 2) {
-      setDoc(doc(db, invitationID, 'Haiku2'), {
+      await setDoc(doc(db, invitationID, 'Haiku2'), {
         haiku: haiku
       });
     } else if (index === 3) {
-      setDoc(doc(db, invitationID, 'Haiku3'), {
+      await setDoc(doc(db, invitationID, 'Haiku3'), {
         haiku: haiku
       });
     } else if (index === 4) {
-      setDoc(doc(db, invitationID, 'Haiku4'), {
+      await setDoc(doc(db, invitationID, 'Haiku4'), {
         haiku: haiku
       });
     } else if (index === 5) {
-      setDoc(doc(db, invitationID, 'Haiku5'), {
+      await setDoc(doc(db, invitationID, 'Haiku5'), {
         haiku: haiku
       });
     }
@@ -169,27 +191,66 @@ export default function Game1() {
                         </div>
                         <div className="haiku">
                           <div className="haikuInputBox">
-                          <h2>1文字目</h2>
-                          <p>1文字）</p>
-                          <input type="text" onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />                         
+                            <h2 className="charCount"><span className="charCountNum">1</span>文字目</h2>
+                            <div className="inputText">
+                              <p>文字を入力してください（1文字）</p>
+                              <p className="attention">※制限時間を過ぎた場合、現在表示されている文字が入力されます</p>
+                            </div>
+                            <input disabled={doneCheck} type="text" placeholder={randChar} onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
                             {!doneCheck
-                            ?(<button className="haikuButton" onClick={setHaiku}>決定</button>)
-                            :(<button disabled={true} className="haikuButtonDone" onClick={setHaiku}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
+                              ? (<button className="haikuButton" onClick={setHaiku}>決定</button>)
+                              : (<button disabled={true} className="haikuButtonDone" onClick={setHaiku}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
                             }
                           </div>
-                          {userDai[currentIndex - 1]
-                            ?
-                            (
-                              <p>お題：{userDai[currentIndex - 1]}</p>
-                            )
-                            :
-                            (
-                              <>
-                                <p>お題：</p>
-                              </>
-                            )
-                          }
-                          <h2>俳句</h2>
+                          <div className="haikuShowBox">
+                            <h1>お題：</h1>
+                            <div className="daiShow">
+                              {userDai[currentIndex - 1]
+                                ?
+                                (
+                                  <><h2>{userDai[currentIndex - 1]}</h2></>
+                                )
+                                :
+                                (
+                                  <><h2>　</h2></>
+                                )
+                              }
+                            </div>
+                            <h1>俳句</h1>
+                            <div className="haikuShow">
+                              <div className="haikuTop">
+                                <p>
+                                  <span>
+                                    {enterHaiku.charAt(0)}
+                                  </span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                </p>
+                              </div>
+                              <div className="haikuMiddle">
+                                <p>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                </p>
+                              </div>
+                              <div className="haikuBottom">
+                                <p>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                  <span>　</span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </Fade>
                     </>
@@ -204,6 +265,5 @@ export default function Game1() {
         </div>
       </div>
     </>
-
   );
 }
