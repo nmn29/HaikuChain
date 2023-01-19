@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/firebase.js';
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, getDoc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
 import { Fade, Zoom } from 'react-reveal';
@@ -70,6 +70,7 @@ export default function Game1() {
   const userCount = useLocation().state.count;
 
   const setUp = async () => {
+
     //現在の番号を計算（+1する）
     if (myIndex === userCount) {
       setCurrentIndex(1);
@@ -150,7 +151,6 @@ export default function Game1() {
     await updateDoc(doc(db, invitationID, 'doneHaiku'), {
       done: increment(1)
     });
-
   }
 
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/firebase.js';
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestore';
 import { Fade, Zoom } from 'react-reveal';
@@ -14,7 +14,7 @@ export default function Start() {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [userDai, setUserDai] = useState(" ")
-  const [done, setDone] = useState({done:0})
+  const [done, setDone] = useState({ done: 0 })
   let userCount = 0
 
   const [doneCheck, setdoneCheck] = useState(false)
@@ -28,9 +28,9 @@ export default function Start() {
   };
 
   //制限時間後に決定されなければ自動遷移
-  const autoDone = () =>{
+  const autoDone = () => {
     console.log("autodone")
-    if(doneCheck === false){
+    if (doneCheck === false) {
       daiDone()
     }
   }
@@ -133,8 +133,6 @@ export default function Start() {
     });
   }
 
-
-
   return (
     <>
       <div className="global">
@@ -173,13 +171,13 @@ export default function Start() {
                       </div>
                       <div className="odai">
                         <div className="odaiBox">
-                        <h1>お題を決めよう</h1>
-                        <h2>※16文字まで</h2>
-                          <input disabled={doneCheck} type="text" placeholder={userDai} onChange={(e) => setUserDai(e.target.value)} maxLength={16} />                         
-                            {!doneCheck
-                            ?(<button className="odaiButton" onClick={daiDone}>決定</button>)
-                            :(<button disabled={true} className="odaiButtonDone" onClick={daiDone}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
-                            }
+                          <h1>お題を決めよう</h1>
+                          <h2>※16文字まで</h2>
+                          <input disabled={doneCheck} type="text" placeholder={userDai} onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
+                          {!doneCheck
+                            ? (<button className="odaiButton" onClick={daiDone}>決定</button>)
+                            : (<button disabled={true} className="odaiButtonDone" onClick={daiDone}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
+                          }
                         </div>
                       </div>
                     </Fade>

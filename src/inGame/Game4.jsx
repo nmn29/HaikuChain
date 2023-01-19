@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/firebase.js';
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, getDoc, onSnapshot, updateDoc, increment } from 'firebase/firestore';
 import { Fade, Zoom } from 'react-reveal';
@@ -9,14 +9,16 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import check from '../images/peke.png'
 import './stylesheets/header.css'
 
-export default function Game3() {
+export default function Game4() {
 
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [userHaiku, setUserHaiku] = useState({haiku:""});
+  const [userHaiku, setUserHaiku] = useState({ haiku: "" });
   const [enterHaiku, setEnterHaiku] = useState("");
-  const [done, setDone] = useState({done:0})
+  const [done, setDone] = useState({ done: 0 })
+
+  const pagenum = 4;
 
   const randCharList = [
     'あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ',
@@ -114,7 +116,7 @@ export default function Game3() {
     if (user) {
       const doneTemp = done.done
       //全員が決定したら遷移
-      if (doneTemp === userCount * 4) {
+      if (doneTemp === userCount * pagenum) {
         navigate("/Game5", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: userDai[1], dai2: userDai[2], dai3: userDai[3], dai4: userDai[4], dai5: userDai[5] } });
       }
     }
@@ -188,12 +190,12 @@ export default function Game3() {
                             </CountdownCircleTimer>
                           </div>
                           <div className="doneCount">
-                            <img src={check} />{done.done - userCount * 3} / {userCount}
+                            <img src={check} />{done.done - userCount * (pagenum - 1)} / {userCount}
                           </div>
                         </div>
                         <div className="haiku">
                           <div className="haikuInputBox">
-                            <h2 className="charCount"><span className="charCountNum">4</span>文字目</h2>
+                            <h2 className="charCount"><span className="charCountNum">{pagenum}</span>文字目</h2>
                             <div className="inputText">
                               <p>文字を入力してください（1文字）</p>
                               <p className="attention">※制限時間を過ぎた場合、現在表示されている文字が入力されます</p>
@@ -227,7 +229,7 @@ export default function Game3() {
                                     <div className="haikuTop">
                                       <p>
                                         <span>
-                                          　
+
                                         </span>
                                         <span>　</span>
                                         <span>　</span>
