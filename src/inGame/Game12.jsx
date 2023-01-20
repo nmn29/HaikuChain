@@ -117,7 +117,7 @@ export default function Game12() {
       const doneTemp = done.done
       //全員が決定したら遷移
       if (doneTemp === userCount * pagenum) {
-        navigate("/Game7", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: userDai[1], dai2: userDai[2], dai3: userDai[3], dai4: userDai[4], dai5: userDai[5] } });
+        navigate("/Game13", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: userDai[1], dai2: userDai[2], dai3: userDai[3], dai4: userDai[4], dai5: userDai[5] } });
       }
     }
   }, [done]);

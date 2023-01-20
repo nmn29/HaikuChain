@@ -20,6 +20,7 @@ export default function Start() {
   const [doneCheck, setdoneCheck] = useState(false)
   //制限時間を表示するための関数
   const renderTime = ({ remainingTime }) => {
+
     return (
       <div className="timer">
         <div className="value">{remainingTime}</div>
@@ -41,7 +42,7 @@ export default function Start() {
       '自由', '春', '夏', '秋', '冬', '学校', '仕事', 'スポーツ', 'アウトドア', 'インドア',
       '恋愛', '友情', '家族', '食', '日常', '午前', '午後', '朝', '昼', '夜',
       'ゲーム', '本', '料理', 'テレビ', '勉強', '旅行', 'スマホ', 'カメラ', '服', '車',
-      '過去', '現在', '未来', '人生', '動物', '音楽', 'オタク', '卒業', '東京', '新生活',
+      '過去', '現在', '未来', '人生', '動物', '音楽', '入学', '卒業', '東京', '新生活',
       'クリスマス', '正月', '年末', 'ハロウィン', '平成', '令和', '日本', '地元', '釣り', '苦難'
     ]
   const [randTheme, setRandTheme] = useState("")
@@ -160,7 +161,7 @@ export default function Start() {
                             duration={30}
                             colors={["#838383"]}
                             trailColor={["#FFFFFF"]}
-                            onComplete={() => autoDone()}
+                            onComplete={() => autoDone() }
                           >
                             {renderTime}
                           </CountdownCircleTimer>

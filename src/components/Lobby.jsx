@@ -13,7 +13,6 @@ export default function Lobby() {
   const [userList, setUserList] = useState([{ id: null }]);
   const [hostID, setHostID] = useState([])
 
-
   //認証の確認  
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
