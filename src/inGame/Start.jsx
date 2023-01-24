@@ -6,6 +6,7 @@ import { doc, onSnapshot, setDoc, updateDoc, increment } from 'firebase/firestor
 import { Fade, Zoom } from 'react-reveal';
 import './stylesheets/start.css';
 import './stylesheets/header.css';
+import './stylesheets/recite.css'
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import check from '../images/peke.png'
 

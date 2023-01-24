@@ -21,6 +21,8 @@ import Game16 from "./inGame/Game16.jsx";
 import Game17 from "./inGame/Game17.jsx";
 import Recite from "./inGame/Recite.jsx";
 
+import ReciteTest from "./inGame/ReciteTest.jsx";
+
 export default function Router(){
   return(
     <div>
@@ -47,6 +49,7 @@ export default function Router(){
           <Route path="/Game16" element={<Game16 />}></Route>
           <Route path="/Game17" element={<Game17 />}></Route>                        
           <Route path="/recite" element={<Recite />}></Route>
+          <Route path="/test" element={<ReciteTest />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

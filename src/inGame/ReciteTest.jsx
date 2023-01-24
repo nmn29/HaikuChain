@@ -7,77 +7,27 @@ import { Fade } from 'react-reveal';
 import './stylesheets/game.css';
 import './stylesheets/header.css'
 
-export default function Recite() {
+export default function ReciteTest() {
 
   const [user, setUser] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [userHaiku, setUserHaiku] = useState([]);
+  const userHaiku = ["あああああああああああああああああ", "いいいいいいいいいいいいいいいいい", "ううううううううううううううううう", "えええええええええええええええええ", "おおおおおおおおおおおおおおおおお"]
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        //ユーザが存在する場合
-        setUser(currentUser);
-        setUp()
-      } else {
-        //ユーザが存在しない場合
-        setLoading(false);
-      }
-    });
-  }, []);
-
-  //招待ID、自身の番号、人数をルータから取得
-  const invitationID = useLocation().state.id;
-  const myIndex = useLocation().state.index;
-  const userCount = useLocation().state.count;
 
   //前のページから受け取ったお題を配列に代入する
   let userDai = []
-  userDai[1] = useLocation().state.dai1;
-  userDai[2] = useLocation().state.dai2;
-  userDai[3] = useLocation().state.dai3;
-  userDai[4] = useLocation().state.dai4;
-  userDai[5] = useLocation().state.dai5;
+  userDai[1] = "お題1";
+  userDai[2] = "お題2";
+  userDai[3] = "お題3";
+  userDai[4] = "お題4";
+  userDai[5] = "お題5";
 
-  const user1 = useLocation().state.user1;
-  const user2 = useLocation().state.user2;
-  const user3 = useLocation().state.user3;
-  const user4 = useLocation().state.user4;
-  const user5 = useLocation().state.user5;
-
-  console.log(user1)
-  console.log(user2)
-
-  const setUp = async () => {
-
-    let thisCurrentIndex = 0
-
-    //現在の番号を計算（+1する）
-    if (myIndex === userCount) {
-      setCurrentIndex(1);
-      thisCurrentIndex = 1
-    } else {
-      setCurrentIndex(myIndex + 1);
-      thisCurrentIndex = myIndex + 1
-    }
-
-    //俳句を配列に追加する
-    for (let i = 1; i <= userCount; i++) {
-      await pushHaiku(i)
-    }
-
-    await setLoading(false);
-  }
-
-  const pushHaiku = async (index) => {
-    const docTemp = await "Haiku" + index
-    const daiRef = await doc(db, invitationID, docTemp);
-    await getDoc(daiRef).then((snap) => {
-      setUserHaiku((userHaiku) => [...userHaiku, snap.data().haiku]);
-    });
-  }
-  const navigate = useNavigate();
+  const user1 = "ユーザ1";
+  const user2 = "ユーザ2";
+  const user3 = "ユーザ3";
+  const user4 = "ユーザ4";
+  const user5 = "ユーザ5";
 
   return (
     <>
@@ -87,7 +37,7 @@ export default function Recite() {
             ?
             (
               <>
-                {!user
+                {user
                   ?
                   (
                     <Navigate to={"/"} />
