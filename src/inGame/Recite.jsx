@@ -40,6 +40,12 @@ export default function Recite() {
   userDai[4] = useLocation().state.dai4;
   userDai[5] = useLocation().state.dai5;
 
+  const user1 = useLocation().state.user1;
+  const user2 = useLocation().state.user2;
+  const user3 = useLocation().state.user3;
+  const user4 = useLocation().state.user4;
+  const user5 = useLocation().state.user5;
+
   const setUp = async () => {
 
     let thisCurrentIndex = 0
@@ -68,8 +74,6 @@ export default function Recite() {
       setUserHaiku((userHaiku) => [...userHaiku, snap.data().haiku]);
     });
   }
-
-  console.log(userHaiku)
   const navigate = useNavigate();
 
   return (
@@ -91,7 +95,162 @@ export default function Recite() {
                     <>
                       <Fade>
                         <div className="reciteHeader">
-                          <h1 className="ReciteHeader">鑑賞会</h1>
+                          <h1>鑑賞会</h1>
+                        </div>
+                        <div className="userlistBox">
+
+                          {/* 1人目 */}
+                          {!user1 === ""
+                            ?
+                            (
+                              <div className="users none">
+                                <p>
+                                  <span className="number">
+                                    1
+                                  </span>
+                                  <span className="username">
+                                  </span>
+                                </p>
+                              </div>
+                            )
+                            :
+                            (
+                              <div className="users">
+                                <p>
+                                  <span className="number">
+                                    1
+                                  </span>
+                                  <span className="username">
+                                    {user1}
+                                  </span>
+                                </p>
+                              </div>
+                            )
+                          }
+
+                          {/* 2人目 */}
+                          {!user2 === ""
+                            ?
+                            (
+                              <div className="users none">
+                                <p>
+                                  <span className="number">
+                                    2
+                                  </span>
+                                  <span className="username">
+                                  </span>
+                                </p>
+                              </div>
+                            )
+                            :
+                            (
+                              <Fade>
+                                <div className="users">
+                                  <p>
+                                    <span className="number">
+                                      2
+                                    </span>
+                                    <span className="username">
+                                      {user2}
+                                    </span>
+                                  </p>
+                                </div>
+                              </Fade>
+                            )
+                          }
+
+                          {/* 3人目 */}
+                          {!user3 === ""
+                            ?
+                            (
+                              <div className="users none">
+                                <p>
+                                  <span className="number">
+                                    3
+                                  </span>
+                                  <span className="username">
+                                  </span>
+                                </p>
+                              </div>
+                            )
+                            :
+                            (
+                              <Fade>
+                                <div className="users">
+                                  <p>
+                                    <span className="number">
+                                      3
+                                    </span>
+                                    <span className="username">
+                                      {user3}
+                                    </span>
+                                  </p>
+                                </div>
+                              </Fade>
+                            )
+                          }
+
+                          {/* 4人目 */}
+                          {!user4 === ""
+                            ?
+                            (
+                              <div className="users none">
+                                <p>
+                                  <span className="number">
+                                    4
+                                  </span>
+                                  <span className="username">
+                                  </span>
+                                </p>
+                              </div>
+                            )
+                            :
+                            (
+                              <Fade>
+                                <div className="users">
+                                  <p>
+                                    <span className="number">
+                                      4
+                                    </span>
+                                    <span className="username">
+                                      {user4}
+                                    </span>
+                                  </p>
+                                </div>
+                              </Fade>
+                            )
+                          }
+
+                          {/* 5人目 */}
+                          {!user5 === ""
+                            ?
+                            (
+                              <div className="users none">
+                                <p>
+                                  <span className="number">
+                                    5
+                                  </span>
+                                  <span className="username">
+                                  </span>
+                                </p>
+                              </div>
+                            )
+                            :
+                            (
+                              <Fade>
+                                <div className="users">
+                                  <p>
+                                    <span className="number">
+                                      5
+                                    </span>
+                                    <span className="username">
+                                      {user5}
+                                    </span>
+                                  </p>
+                                </div>
+                              </Fade>
+                            )
+                          }
                         </div>
                         <div className="haiku">
                           <div className="haikuShowBox">
@@ -109,8 +268,8 @@ export default function Recite() {
                               }
                             </div>
                             <h1>俳句</h1>
-                            {/* <div className="haikuShow">
-                              {!userHaiku['haiku']
+                            <div className="haikuShow">
+                              {!userHaiku[0]
                                 ?
                                 (
                                   <>
@@ -152,37 +311,37 @@ export default function Recite() {
                                   <>
                                     <div className="haikuTop">
                                       <p>
-                                        <span>{userHaiku['haiku'].charAt(0)}</span>
-                                        <span>{userHaiku['haiku'].charAt(1)}</span>
-                                        <span>{userHaiku['haiku'].charAt(2)}</span>
-                                        <span>{userHaiku['haiku'].charAt(3)}</span>
-                                        <span>{userHaiku['haiku'].charAt(4)}</span>
+                                        <span>{userHaiku[0].charAt(0)}</span>
+                                        <span>{userHaiku[0].charAt(1)}</span>
+                                        <span>{userHaiku[0].charAt(2)}</span>
+                                        <span>{userHaiku[0].charAt(3)}</span>
+                                        <span>{userHaiku[0].charAt(4)}</span>
                                       </p>
                                     </div>
                                     <div className="haikuMiddle">
                                       <p>
-                                        <span>{userHaiku['haiku'].charAt(5)}</span>
-                                        <span>{userHaiku['haiku'].charAt(6)}</span>
-                                        <span>{userHaiku['haiku'].charAt(7)}</span>
-                                        <span>{userHaiku['haiku'].charAt(8)}</span>
-                                        <span>{userHaiku['haiku'].charAt(9)}</span>
-                                        <span>{userHaiku['haiku'].charAt(10)}</span>
-                                        <span>{userHaiku['haiku'].charAt(11)}</span>
+                                        <span>{userHaiku[0].charAt(5)}</span>
+                                        <span>{userHaiku[0].charAt(6)}</span>
+                                        <span>{userHaiku[0].charAt(7)}</span>
+                                        <span>{userHaiku[0].charAt(8)}</span>
+                                        <span>{userHaiku[0].charAt(9)}</span>
+                                        <span>{userHaiku[0].charAt(10)}</span>
+                                        <span>{userHaiku[0].charAt(11)}</span>
                                       </p>
                                     </div>
                                     <div className="haikuBottom">
                                       <p>
-                                        <span>{userHaiku['haiku'].charAt(12)}</span>
-                                        <span>{userHaiku['haiku'].charAt(13)}</span>
-                                        <span>{userHaiku['haiku'].charAt(14)}</span>
-                                        <span>{userHaiku['haiku'].charAt(15)}</span>
-                                        <span>{userHaiku['haiku'].charAt(16)}</span>
+                                        <span>{userHaiku[0].charAt(12)}</span>
+                                        <span>{userHaiku[0].charAt(13)}</span>
+                                        <span>{userHaiku[0].charAt(14)}</span>
+                                        <span>{userHaiku[0].charAt(15)}</span>
+                                        <span>{userHaiku[0].charAt(16)}</span>
                                       </p>
                                     </div>
                                   </>
                                 )
                               }
-                            </div> */}
+                            </div>
                           </div>
                         </div>
                       </Fade>

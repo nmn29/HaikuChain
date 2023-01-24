@@ -55,7 +55,24 @@ export default function Lobby() {
         const totalCount = userList.length - 1
         const userIndex = (userList.findIndex((users) => users.id === user.uid) + 1)
         //招待ID、自分の番号、人数をゲームに送信
-        navigate("/start", { state: { id: invitationID, index: userIndex, count: totalCount } });
+
+        switch (totalCount) {
+          case 1:
+            navigate("/start", { state: { id: invitationID, index: userIndex, count: totalCount, user1: userList[0].name, user2: "", user3: "", user4: "", user5: "" } });
+            break;
+          case 2:
+            navigate("/start", { state: { id: invitationID, index: userIndex, count: totalCount, user1: userList[0].name, user2: userList[1].name, user3: "", user4: "", user5: "" } });
+            break;
+          case 3:
+            navigate("/start", { state: { id: invitationID, index: userIndex, count: totalCount, user1: userList[0].name, user2: userList[1].name, user3: userList[2].name, user4: "", user5: "" } });
+            break;
+          case 4:
+            navigate("/start", { state: { id: invitationID, index: userIndex, count: totalCount, user1: userList[0].name, user2: userList[1].name, user3: userList[2].name, user4: userList[3].name, user5: "" } });
+            break;
+          case 5:
+            navigate("/start", { state: { id: invitationID, index: userIndex, count: totalCount, user1: userList[0].name, user2: userList[1].name, user3: userList[2].name, user4: userList[3].name, user5: userList[4].name } });
+            break;
+        }
       }
 
       if (userList[0].id !== null) {
@@ -89,7 +106,6 @@ export default function Lobby() {
     });
 
     await setDoc(doc(db, invitationID, 'Game'), {
-      turn: 1,
       people: totalCount,
       timestamp: Timestamp.fromDate(new Date())
     });

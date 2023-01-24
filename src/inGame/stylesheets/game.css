@@ -85,10 +85,9 @@
 
 .haikuShowBox h1{
   font-size:60px;
-  border:1px solid black;
+  border:8px solid rgb(87, 87, 87);
   background-color:rgb(245, 245, 245);
   padding:30px 5px 5px 5px;
-  border-radius:5px;
 }
 
 .charCountNum{

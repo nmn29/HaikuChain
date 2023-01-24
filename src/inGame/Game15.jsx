@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase/firebase.js';
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, getDoc, onSnapshot, updateDoc, increment } from 'firebase/firestore';
 import { Fade, Zoom } from 'react-reveal';
@@ -73,6 +73,12 @@ export default function Game15() {
   userDai[4] = useLocation().state.dai4;
   userDai[5] = useLocation().state.dai5;
 
+  const user1 = useLocation().state.user1;
+  const user2 = useLocation().state.user2;
+  const user3 = useLocation().state.user3;
+  const user4 = useLocation().state.user4;
+  const user5 = useLocation().state.user5;
+
   const setUp = async () => {
 
     let thisCurrentIndex = 0
@@ -117,7 +123,13 @@ export default function Game15() {
       const doneTemp = done.done
       //全員が決定したら遷移
       if (doneTemp === userCount * pagenum) {
-        navigate("/Game16", { state: { id: invitationID, index: currentIndex, count: userCount, dai1: userDai[1], dai2: userDai[2], dai3: userDai[3], dai4: userDai[4], dai5: userDai[5] } });
+        navigate("/Game16", {
+          state: {
+            id: invitationID, index: currentIndex, count: userCount,
+            dai1: userDai[0], dai2: userDai[1], dai3: userDai[2], dai4: userDai[3], dai5: userDai[4],
+            user1: user1, user2: user2, user3: user3, user4: user4, user5: user5
+          }
+        });
       }
     }
   }, [done]);

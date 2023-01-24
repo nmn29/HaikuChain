@@ -7,7 +7,7 @@ import './stylesheets/Top.css';
 import Fade from 'react-reveal/Fade';
 import { useModal } from 'react-hooks-use-modal';
 import Rules from './Rules.jsx'
-
+import GameTitle from './images/GameTitle.png'
 
 export default function Top() {
 
@@ -17,8 +17,6 @@ export default function Top() {
   const [createLoading, setCreateLoading] = useState(false);
   const [enterLoading, setEnterLoading] = useState(false);
   const [disable, setDisable] = useState(false)
-
-  console.log(ID)
 
   //ランダムIDの生成
   useEffect(() => {
@@ -142,7 +140,7 @@ export default function Top() {
     <>
       <div className="global">
         <div className="main">
-          <h1 className="title">俳句チェイン</h1>
+          <div className="title"><img src={GameTitle}></img></div>
           <div className="top">
             <div className="startBox">
               <div className="start-child">

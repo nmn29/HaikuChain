@@ -65,7 +65,14 @@ export default function Start() {
   const myIndex = useLocation().state.index;
   userCount = useLocation().state.count;
 
-  console.log("myIndex:" + myIndex)
+  const user1 = useLocation().state.user1;
+  const user2 = useLocation().state.user2;
+  const user3 = useLocation().state.user3;
+  const user4 = useLocation().state.user4;
+  const user5 = useLocation().state.user5;
+
+  console.log(user1)
+  console.log(user2)
 
   //ランダムお題を決定
   useEffect(() => {
@@ -96,7 +103,7 @@ export default function Start() {
     const doneTemp = done.done
     //全員が決定したら遷移
     if (doneTemp === userCount) {
-      navigate("/Game1", { state: { id: invitationID, index: myIndex, count: userCount } });
+      navigate("/Game1", { state: { id: invitationID, index: myIndex, count: userCount, user1: user1, user2: user2, user3: user3, user4: user4, user5: user5 } });
     }
   }, [done]);
 
