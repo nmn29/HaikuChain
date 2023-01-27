@@ -17,7 +17,6 @@ export default function Rules(){
 
   return(
     <div className="rules">
-      <h1>ルール</h1>
       <Slider {...settings}>
         <div className="inRule">
           <h3>俳句を作ろう！</h3>

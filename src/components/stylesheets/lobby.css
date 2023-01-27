@@ -9,6 +9,7 @@
 .userlistBox{
   width:50%;
   margin: 0 auto;
+  
 }
 
 .lobby-child{
@@ -20,8 +21,8 @@
 .users{
   position:relative;
   background-color:rgba(255, 255, 255);
-  border: 2px solid rgb(116, 116, 116);
-  border-radius: 5px;
+  border: 3px solid rgb(116, 116, 116);
+  
   width:100%;
   color:gray;
   font-family:"Noto Sans JP";
@@ -35,11 +36,11 @@
 .number{
   color:rgb(58, 58, 58);
   padding:20px;
-  border-right:2px solid rgb(116, 116, 116);
+  border-right:1px solid rgb(116, 116, 116);
 }
 
 .username{
-  padding:20px;
+  padding-left:20px;
 }
 
 .none{
@@ -63,6 +64,7 @@
 }
 
 .leaveButton{
+  position:relative;
   padding-top:5px;
   text-align:right;
   background-color:rgb(233, 233, 233);
@@ -70,7 +72,7 @@
   border-radius: 5px;
   width:120px;
   padding-right:15px;
-  margin:20px;
+  margin:3px;
   transition:0.5s;
 }
 
@@ -101,4 +103,9 @@
   position:absolute;
   height:40px;
   margin:-20px 0px 0px 10px;
+}
+
+.crown img{
+  height:24px;
+  padding-left:20px;
 }

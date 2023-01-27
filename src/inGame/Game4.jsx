@@ -127,7 +127,7 @@ export default function Game4() {
           state:
           {
             id: invitationID, index: currentIndex, count: userCount,
-            dai1: userDai[0], dai2: userDai[1], dai3: userDai[2], dai4: userDai[3], dai5: userDai[4],
+            dai1: userDai[1], dai2: userDai[2], dai3: userDai[3], dai4: userDai[4], dai5: userDai[5],
             user1: user1, user2: user2, user3: user3, user4: user4, user5: user5
           }
         });

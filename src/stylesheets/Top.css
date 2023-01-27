@@ -1,13 +1,28 @@
 .top{
   display:flex;
   justify-content: center;
+  height:70%;
+  overflow:hidden;
+  white-space:nowrap;
+  margin: 0 auto;
+}
+
+.title{
+  position:relative;
+  background-image: url('../images/washi.jpg');
+  background-color:rgba(255,255,255,0.6);
+  background-blend-mode:lighten;
+  border:solid rgba(107, 107, 107, 0.4);
+  border-width:5px 35px 5px 35px;
+  border-collapse:separate;
+  margin-top:15px;
 }
 
 .title img{
   display:block;
   margin: 0 auto;
-  width:25%;
-  padding-top:20px;
+  width:30%;
+  padding:25px;
 }
 
 input::placeholder{
@@ -50,7 +65,7 @@ input::placeholder{
 }
 
 .startBox{
-  width:45%;
+  width:50%;
   text-align:center;
   position:relative;
   display: flex;

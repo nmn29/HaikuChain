@@ -4,6 +4,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, deleteDoc, collection, onSnapshot, query, orderBy, setDoc, Timestamp } from 'firebase/firestore';
 import Fade from 'react-reveal/Fade';
+import Crown from '../images/hostCrown.png'
 import './stylesheets/lobby.css'
 
 export default function Lobby() {
@@ -129,8 +130,10 @@ export default function Lobby() {
                   (
 
                     <Fade>
-                      <div className="leave">
-                        <button className="leaveButton" onClick={logout}><span>◀</span>退室</button>
+                      <div className="header">
+                        <div className="leave">
+                          <button className="leaveButton" onClick={logout}><span>◀</span>退室</button>
+                        </div>
                       </div>
                       <div className="lobby">
                         <div className="lobby-child">
@@ -152,16 +155,22 @@ export default function Lobby() {
                               )
                               :
                               (
-                                <div className="users">
-                                  <p>
-                                    <span className="number">
-                                      1
-                                    </span>
-                                    <span className="username">
-                                      {userList[0].name}
-                                    </span>
-                                  </p>
-                                </div>
+                                <>
+                                  <div className="users">
+                                    <p>
+                                      <span className="number">
+                                        1
+                                      </span>
+                                      <span className="username">
+                                        {userList[0].name}
+                                      </span>
+                                      <span className="crown">
+                                        <img src={Crown} />
+                                      </span>
+                                    </p>
+                                  </div>
+
+                                </>
                               )
                             }
 
