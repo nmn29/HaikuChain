@@ -1,4 +1,103 @@
-.r-userlistBox{
-  width:30%;
+.recite-userlistBox {
+  position: relative;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-right: 5px solid rgba(0, 0, 0, 0.3);
+}
+
+.userlistBoxItem {
+  width: 80%;
   margin: 0 auto;
+}
+
+.haiku-recite {
+  position: relative;
+  width: 60%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.reciteHaikuBox {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.recite-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85%;
+  position: relative;
+}
+
+
+.reciteHeader {
+  display: flex;
+  padding: 20px;
+  background-color: #f1f1f1;
+  background-clip: padding-box;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px 10px 0px 0px;
+  vertical-align: top;
+  position: relative;
+  height: 15%;
+  overflow: hidden;
+}
+
+.timer {
+  overflow: hidden;
+}
+
+.reciteHaikuShowBox{
+  writing-mode: vertical-rl;
+  text-orientation:upright;
+  margin: 0 auto;
+}
+
+.reciteHaikuShowBox h1{
+  font-size:60px;
+  border:solid rgba(107, 107, 107, 0.4);
+  border-width:4px 10px 4px 10px;
+  border-collapse:separate;
+  background-color:rgb(245, 245, 245);
+  padding:30px 5px 5px 5px;
+}
+
+.haikuUser{
+  background-color:rgba(0, 0, 0, 0.3);
+  width:100%;
+  position:absolute;
+  text-align:center;
+  top:0;
+  font-family:"Noto Sans JP";
+  white-space: nowrap;
+  color:rgb(255, 255, 255);
+  font-size:20px;
+  padding:5px 0px;
+}
+
+.haikuUser span{
+  font-size:30px;
+  padding-right:5px;
+}
+
+.reciteStart{
+  background-color:rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 60%;
+  height: 100%;
+
+}
+
+.startText{
+  font-family:"Noto Sans JP";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }

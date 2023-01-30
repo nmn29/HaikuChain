@@ -1,16 +1,16 @@
 .odai h1{
-  font-size:50px;
+  font-size:70px;
 }
 
 .odai h2{
   font-family:"Noto Sans JP";
   font-size:20px;
   color:#757575;
-  padding-bottom:30px;
+  padding-bottom:20px;
 }
 
 .odai{
-  height:80%;
+  height:85%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,6 +26,7 @@
 
 .odaiBox{
   text-align:center;
+  padding-bottom:30px;
 }
 
 .odaiButton{

@@ -161,21 +161,23 @@ export default function Start() {
 
                     <Fade>
                       <div className="header">
-                        <div className="timer-wrapper">
-                          <CountdownCircleTimer
-                            isPlaying
-                            size={60}
-                            strokeWidth={8}
-                            duration={30}
-                            colors={["#838383"]}
-                            trailColor={["#FFFFFF"]}
-                            onComplete={() => autoDone() }
-                          >
-                            {renderTime}
-                          </CountdownCircleTimer>
-                        </div>
-                        <div className="doneCount">
-                          <img src={check} />{done.done} / {userCount}
+                        <div className="headerBox">
+                          <div className="timer-wrapper">
+                            <CountdownCircleTimer
+                              isPlaying
+                              size={60}
+                              strokeWidth={8}
+                              duration={30}
+                              colors={["#838383"]}
+                              trailColor={["#FFFFFF"]}
+                              onComplete={() => autoDone()}
+                            >
+                              {renderTime}
+                            </CountdownCircleTimer>
+                          </div>
+                          <div className="doneCount">
+                            <img src={check} />{done.done} / {userCount}
+                          </div>
                         </div>
                       </div>
                       <div className="odai">

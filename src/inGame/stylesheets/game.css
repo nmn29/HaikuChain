@@ -2,7 +2,7 @@
   display:flex;
   justify-content: center;
   align-items: center;
-  height:80%;
+  height:85%;
 }
 
 .haiku input{
@@ -47,8 +47,9 @@
 }
 
 .haikuInputBox{
-  padding-right:50px;
+  padding-right:20px;
 }
+
 .haikuShowBox{
   writing-mode: vertical-rl;
   text-orientation:upright;
