@@ -57,7 +57,7 @@
   margin: 0 auto;
 }
 
-.reciteHaikuShowBox h1{
+.gamehead{
   font-size:60px;
   border:solid rgba(107, 107, 107, 0.4);
   border-width:4px 10px 4px 10px;
@@ -65,6 +65,23 @@
   background-color:rgb(245, 245, 245);
   padding:30px 5px 5px 5px;
 }
+
+.gamehead-none{
+  font-size:60px;
+  border:solid rgba(107, 107, 107, 0);
+  border-width:4px 10px 4px 10px;
+  border-collapse:separate;
+  padding:30px 5px 5px 5px;
+}
+
+.dai-text{
+  padding-top:30px;
+  padding-left:20px;
+  padding-right:20px;
+  font-family:"Noto Sans JP";
+  font-size:25px;
+}
+
 
 .haikuUser{
   background-color:rgba(0, 0, 0, 0.3);
@@ -93,6 +110,7 @@
 }
 
 .startText{
+  white-space: nowrap;
   font-family:"Noto Sans JP";
   position: absolute;
   top: 50%;
@@ -100,4 +118,42 @@
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+  color:white;
+  text-align:center;
+  font-size:25px;
+}
+
+.startText h1{
+  font-size:50px;
+  margin-bottom:30px;
+}
+
+.startText span{
+  color:rgb(240, 240, 240);
+  font-size:28px;
+}
+
+.soundAttentionBox{
+  margin-top:25px;
+  margin-bottom:50px;
+}
+.soundAttention{
+  font-size:16px;
+  color:rgb(235, 235, 235)
+}
+
+.recite-haikuShow{
+  padding-right:10px;
+  padding-top:20px;
+}
+.recite-haikuShow span{
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  text-align:center;
+  line-height: 70px;
+  font-family:"Noto Sans JP";
+  font-size:45px;
+  margin-top:4px;
+  color:rgb(0, 0, 0)
 }

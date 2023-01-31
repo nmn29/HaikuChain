@@ -131,8 +131,10 @@ export default function Lobby() {
 
                     <Fade>
                       <div className="header">
-                        <div className="leave">
-                          <button className="leaveButton" onClick={logout}><span>◀</span>退室</button>
+                        <div className="headerBox">
+                          <div className="leave">
+                            <button className="leaveButton" onClick={logout}><span>◀</span>退室</button>
+                          </div>
                         </div>
                       </div>
                       <div className="lobby">

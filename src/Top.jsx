@@ -166,7 +166,7 @@ export default function Top() {
           <div className="top">
             <div className="startBox">
               <div className="start-child">
-                <p>名前を入力</p>
+                <p className="namehead">名前を入力</p>
                 <input disabled={disable} type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
                 <p>
                   <button disabled={disable} className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>
