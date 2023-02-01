@@ -144,7 +144,7 @@ export default function Top() {
   };
 
   //入室時の音声の設定
-  const [play] = useSound(enterRoom)
+  const [play] = useSound(enterRoom, {volume: 0.05})
 
   return (
     <>

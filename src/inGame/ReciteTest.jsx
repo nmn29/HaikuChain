@@ -7,14 +7,14 @@ import { Fade } from 'react-reveal';
 import './stylesheets/game.css';
 import './stylesheets/header.css'
 import './stylesheets/startButton.css'
-import { hasSelectionSupport } from '@testing-library/user-event/dist/utils/index.js';
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 export default function ReciteTest() {
 
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const userHaiku = ["あああああああああああああああああ", "いいいいいいいいいいいいいいいいい", "ううううううううううううううううう", "えええええええええええええええええ", "おおおおおおおおおおおおおおおおお"]
+  const userHaiku = ["ごちょううごちょうしんやごちょうう", "いいいいいいいいいいいいいいいいい", "ううううううううううううううううう", "えええええええええええええええええ", "おおおおおおおおおおおおおおおおお"]
 
 
   //前のページから受け取ったお題を配列に代入する
@@ -25,11 +25,12 @@ export default function ReciteTest() {
   userDai[4] = "お題4";
   userDai[5] = "お題5";
 
-  const user1 = "ユーザ1";
-  const user2 = "ユーザ2";
-  const user3 = "ユーザ3";
-  const user4 = "ユーザ4";
-  const user5 = "ユーザ5";
+  let userList = []
+  userList[1] = "ユーザ1";
+  userList[2] = "ユーザ2";
+  userList[3] = "ユーザ3";
+  userList[4] = "ユーザ4";
+  userList[5] = "ユーザ5";
 
   const userCount = 5;
 
@@ -37,6 +38,11 @@ export default function ReciteTest() {
   const [reciteCount, setReciteCount] = useState(0)
   //画面の進行を管理（現在の画面）
   const [reciteFlag, setReciteFlag] = useState(0)
+  //読み上げの設定
+  const { speak, voices, cancel } = useSpeechSynthesis();
+  //読み上げの可否の設定
+  const [speakBool, setSpeakBool] = useState(true)
+  const [speakVolume, setSpeakVolume] = useState(0.5)
 
   //アニメーション用の時間停止
   const wait = async (ms) => {
@@ -47,23 +53,58 @@ export default function ReciteTest() {
     });
   }
 
+  //俳句の読み上げ
+  const speakHaiku = async (str) => {
+    await speak({ text: str, voice: voices[3], rate: 0.7, volume: speakVolume })
+  }
+
   //開始・次へ進むが押されたらフラグをリセットし、次のユーザの俳句を表示する
-  const countUp = () => {
-    setReciteFlag(0)
-    setReciteCount((prevCount) => prevCount + 1);
-    changeWindow()
+  const countUp = async () => {
+    await setReciteFlag(0)
+    await setReciteCount((prevCount) => prevCount + 1);
+    await changeWindow(reciteCount)
   }
 
   //画面を変化させる
-  const changeWindow = async () => {
-    await wait(2000)
+  const changeWindow = async (count) => {
+    //お題（見出し）
+    await wait(1500)
     setReciteFlag((prevCount) => prevCount + 1);
-    await wait(2000)
+    //お題
+    await wait(1500)
     setReciteFlag((prevCount) => prevCount + 1);
-    await wait(2000)
+    //俳句（見出し）
+    await wait(1500)
     setReciteFlag((prevCount) => prevCount + 1);
+    //俳句（上）
     await wait(2000)
-    setReciteFlag((prevCount) => prevCount + 1);
+    await setReciteFlag((prevCount) => prevCount + 1);
+    await speakHaiku(userHaiku[count].substring(0, 5));
+    //俳句（中）
+    await wait(2000)
+    await cancel()
+    await setReciteFlag((prevCount) => prevCount + 1);
+    await speakHaiku(userHaiku[count].substring(5, 12));
+    //俳句（下）
+    await wait(2000)
+    await cancel()
+    await setReciteFlag((prevCount) => prevCount + 1);
+    await speakHaiku(userHaiku[count].substring(12, 17));
+    //ボタンを表示
+    await wait(2000)
+    await cancel()
+    await setReciteFlag((prevCount) => prevCount + 1);
+
+  }
+
+  const SpeakerOff = () => {
+    setSpeakVolume(0)
+    setSpeakBool(false)
+  }
+
+  const SpeakerOn = () => {
+    setSpeakVolume(0.5)
+    setSpeakBool(true)
   }
 
   console.log(reciteFlag)
@@ -89,11 +130,11 @@ export default function ReciteTest() {
                           <h1>詠み会</h1>
                         </div>
                         <div className="recite-child">
-                          <div className="recite-userlistBox">
+                          <div className="recite-userlistBox">                                         
                             <div className="userlistBoxItem">
 
                               {/* 1人目 */}
-                              {user1 === ""
+                              {userList[1] === ""
                                 ?
                                 (
                                   <div className="users none">
@@ -114,7 +155,7 @@ export default function ReciteTest() {
                                         1
                                       </span>
                                       <span className="username">
-                                        {user1}
+                                        {userList[1]}
                                       </span>
                                     </p>
                                   </div>
@@ -122,7 +163,7 @@ export default function ReciteTest() {
                               }
 
                               {/* 2人目 */}
-                              {user2 === ""
+                              {userList[2] === ""
                                 ?
                                 (
                                   <div className="users none">
@@ -144,7 +185,7 @@ export default function ReciteTest() {
                                           2
                                         </span>
                                         <span className="username">
-                                          {user2}
+                                          {userList[2]}
                                         </span>
                                       </p>
                                     </div>
@@ -153,7 +194,7 @@ export default function ReciteTest() {
                               }
 
                               {/* 3人目 */}
-                              {user3 === ""
+                              {userList[3] === ""
                                 ?
                                 (
                                   <div className="users none">
@@ -175,7 +216,7 @@ export default function ReciteTest() {
                                           3
                                         </span>
                                         <span className="username">
-                                          {user3}
+                                          {userList[3]}
                                         </span>
                                       </p>
                                     </div>
@@ -184,7 +225,7 @@ export default function ReciteTest() {
                               }
 
                               {/* 4人目 */}
-                              {user4 === ""
+                              {userList[4] === ""
                                 ?
                                 (
                                   <div className="users none">
@@ -206,7 +247,7 @@ export default function ReciteTest() {
                                           4
                                         </span>
                                         <span className="username">
-                                          {user4}
+                                          {userList[4]}
                                         </span>
                                       </p>
                                     </div>
@@ -215,7 +256,7 @@ export default function ReciteTest() {
                               }
 
                               {/* 5人目 */}
-                              {user5 === ""
+                              {userList[5] === ""
                                 ?
                                 (
                                   <div className="users none">
@@ -237,7 +278,7 @@ export default function ReciteTest() {
                                           5
                                         </span>
                                         <span className="username">
-                                          {user5}
+                                          {userList[5]}
                                         </span>
                                       </p>
                                     </div>
@@ -273,7 +314,7 @@ export default function ReciteTest() {
                                 <Fade>
                                   <div className="haiku-recite">
                                     <div className="haikuUser">
-                                      <span>{user1}</span>の俳句
+                                      <span>{userList[reciteCount]}</span>の俳句
                                     </div>
                                     <div className="reciteHaikuBox">
                                       <div className="reciteHaikuShowBox">
@@ -289,11 +330,11 @@ export default function ReciteTest() {
                                           {reciteFlag >= 2 || reciteFlag === 10
                                             ?
                                             <>
-                                              {userDai[1]
+                                              {userDai[reciteCount]
                                                 ?
                                                 (
                                                   <Fade top distance="10%">
-                                                    <><h2 className="dai-text">{userDai[1]}</h2></>
+                                                    <><h2 className="dai-text">{userDai[reciteCount]}</h2></>
                                                   </Fade>
                                                 )
                                                 :
@@ -315,7 +356,8 @@ export default function ReciteTest() {
                                           <h1 className="gamehead-none">　</h1>
                                         }
                                         <div className="recite-haikuShow">
-                                          {!userHaiku[0]
+
+                                          {!userHaiku[reciteCount - 1]
                                             ?
                                             (
                                               <>
@@ -355,41 +397,116 @@ export default function ReciteTest() {
                                             :
                                             (
                                               <>
-                                                <div className="haikuTop">
-                                                  <p>
-                                                    <span>{userHaiku[0].charAt(0)}</span>
-                                                    <span>{userHaiku[0].charAt(1)}</span>
-                                                    <span>{userHaiku[0].charAt(2)}</span>
-                                                    <span>{userHaiku[0].charAt(3)}</span>
-                                                    <span>{userHaiku[0].charAt(4)}</span>
-                                                  </p>
-                                                </div>
-                                                <div className="haikuMiddle">
-                                                  <p>
-                                                    <span>{userHaiku[0].charAt(5)}</span>
-                                                    <span>{userHaiku[0].charAt(6)}</span>
-                                                    <span>{userHaiku[0].charAt(7)}</span>
-                                                    <span>{userHaiku[0].charAt(8)}</span>
-                                                    <span>{userHaiku[0].charAt(9)}</span>
-                                                    <span>{userHaiku[0].charAt(10)}</span>
-                                                    <span>{userHaiku[0].charAt(11)}</span>
-                                                  </p>
-                                                </div>
-                                                <div className="haikuBottom">
-                                                  <p>
-                                                    <span>{userHaiku[0].charAt(12)}</span>
-                                                    <span>{userHaiku[0].charAt(13)}</span>
-                                                    <span>{userHaiku[0].charAt(14)}</span>
-                                                    <span>{userHaiku[0].charAt(15)}</span>
-                                                    <span>{userHaiku[0].charAt(16)}</span>
-                                                  </p>
-                                                </div>
+                                                {reciteFlag >= 4 || reciteFlag === 10
+                                                  ?
+                                                  (
+                                                    <Fade top distance="10%">
+                                                      <div className="haikuTop">
+                                                        <p>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(0)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(1)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(2)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(3)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(4)}</span>
+                                                        </p>
+                                                      </div>
+                                                    </Fade>
+                                                  )
+                                                  :
+                                                  (
+                                                    <div className="haikuTop">
+                                                      <p>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                      </p>
+                                                    </div>
+                                                  )
+                                                }
+                                                {reciteFlag >= 5 || reciteFlag === 10
+                                                  ?
+                                                  (
+                                                    <Fade top distance="10%">
+                                                      <div className="haikuMiddle">
+                                                        <p>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(5)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(6)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(7)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(8)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(9)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(10)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(11)}</span>
+                                                        </p>
+                                                      </div>
+                                                    </Fade>
+                                                  )
+                                                  :
+                                                  (
+                                                    <div className="haikuMiddle">
+                                                      <p>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                      </p>
+                                                    </div>
+                                                  )
+                                                }
+                                                {reciteFlag >= 6 || reciteFlag === 10
+                                                  ?
+                                                  (
+                                                    <Fade top distance="10%">
+                                                      <div className="haikuBottom">
+                                                        <p>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(12)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(13)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(14)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(15)}</span>
+                                                          <span>{userHaiku[reciteCount - 1].charAt(16)}</span>
+                                                        </p>
+                                                      </div>
+                                                    </Fade>
+                                                  )
+                                                  :
+                                                  (
+                                                    <div className="haikuBottom">
+                                                      <p>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                        <span>　</span>
+                                                      </p>
+                                                    </div>
+                                                  )
+                                                }
                                               </>
                                             )
                                           }
                                         </div>
                                       </div>
                                     </div>
+                                    {reciteFlag >= 7 || reciteFlag === 10
+                                      ?
+                                      <Fade>
+                                        <div className="reciteButtonBox">
+                                          <a class="btn2 btn-custom02" onClick={countUp}>
+                                            <span class="btn-custom02-front"><p>次の俳句を詠む</p></span>
+                                          </a>
+                                          <a class="btn2 btn-custom03" onClick={countUp}>
+                                            <span class="btn-custom03-front"><p>結果をツイート</p></span>
+                                          </a>
+                                        </div>
+                                      </Fade>
+                                      :
+                                      <>
+                                      </>
+                                    }
                                   </div>
                                 </Fade>
                               </>
