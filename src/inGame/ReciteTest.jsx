@@ -7,6 +7,8 @@ import { Fade } from 'react-reveal';
 import './stylesheets/game.css';
 import './stylesheets/header.css'
 import './stylesheets/startButton.css'
+import volumeOn from './svg/volume-high-solid.svg';
+import volumeOff from './svg/volume-xmark-solid.svg'
 import { useSpeechSynthesis } from 'react-speech-kit';
 
 export default function ReciteTest() {
@@ -14,7 +16,7 @@ export default function ReciteTest() {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const userHaiku = ["ごちょううごちょうしんやごちょうう", "いいいいいいいいいいいいいいいいい", "ううううううううううううううううう", "えええええええええええええええええ", "おおおおおおおおおおおおおおおおお"]
+  const userHaiku = ["あああああああああああああああああ", "いいいいいいいいいいいいいいいいい", "ううううううううううううううううう", "えええええええええええええええええ", "おおおおおおおおおおおおおおおおお"]
 
 
   //前のページから受け取ったお題を配列に代入する
@@ -130,9 +132,16 @@ export default function ReciteTest() {
                           <h1>詠み会</h1>
                         </div>
                         <div className="recite-child">
-                          <div className="recite-userlistBox">                                         
+                          <div className="recite-userlistBox">
+                            <div className="speaker">
+                              {speakBool
+                                ?
+                                <img onClick={() => SpeakerOff()} src={volumeOn}></img>
+                                :
+                                <img onClick={() => SpeakerOn()} src={volumeOff}></img>
+                              }
+                            </div>
                             <div className="userlistBoxItem">
-
                               {/* 1人目 */}
                               {userList[1] === ""
                                 ?

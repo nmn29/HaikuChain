@@ -11,6 +11,7 @@ import enterRoom from './sounds/enterRoom.mp3'
 
 import './stylesheets/Top.css';
 import './stylesheets/cherryblossom.css'
+import './stylesheets/top-button.css'
 
 import GameTitle from './images/GameTitle.png'
 
@@ -144,7 +145,7 @@ export default function Top() {
   };
 
   //入室時の音声の設定
-  const [play] = useSound(enterRoom, {volume: 0.05})
+  const [play] = useSound(enterRoom, { volume: 0.05 })
 
   return (
     <>
@@ -169,13 +170,33 @@ export default function Top() {
                 <p className="namehead">名前を入力</p>
                 <input disabled={disable} type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
                 <p>
-                  <button disabled={disable} className="lobbyButton makeRoom" onClick={(e) => loginLobby(e)}>
-                    {!createLoading
-                      ? (<>部屋を作る</>)
-                      : <span className="loader"></span>
-                    }
-                  </button>
-                  <button disabled={disable} className="lobbyButton enterRoom" onClick={open}>部屋に入る</button>
+                  {!createLoading
+                    ?
+                    (
+                      <>
+                        <a disabled={disable} className="btn3 btn-custom04" onClick={(e) => loginLobby(e)}>
+                          <span class="btn-custom04-front">
+                            <p>部屋を作る</p>
+                          </span>
+                        </a>
+                      </>
+                    )
+                    :
+                    (
+                      <>
+                        <a disabled={disable} className="btn3 btn-custom05" onClick={(e) => loginLobby(e)}>
+                          <span className="btn-custom05-front">
+                            <p><span className="loader"></span></p>
+                          </span>
+                        </a>
+                      </>
+                    )
+                  }
+                  <a class="btn3 btn-custom06" onClick={open}>
+                    <span class="btn-custom06-front">
+                      <p>部屋に入る</p>
+                    </span>
+                  </a>
                 </p>
               </div>
             </div>
@@ -187,7 +208,29 @@ export default function Top() {
                 <div className="modal" style={modalStyle}>
                   <div className="modalBox">
                     <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
-                    <button disabled={disable} className="modalEnterRoom" onClick={(e) => enterLobby(e)}>
+                    {!enterLoading
+                    ?
+                    (
+                      <>
+                        <a class="btn3 btn-custom06" onClick={(e) => loginLobby(e)}>
+                          <span class="btn-custom06-front">
+                            <p>部屋に入る</p>
+                          </span>
+                        </a>
+                      </>
+                    )
+                    :
+                    (
+                      <>
+                        <a class="btn3 btn-custom05" onClick={(e) => loginLobby(e)}>
+                          <span class="btn-custom05-front">
+                            <p><span className="loader"></span></p>
+                          </span>
+                        </a>
+                      </>
+                    )
+                  }
+                    {/* <button disabled={disable} className="modalEnterRoom" onClick={(e) => enterLobby(e)}>
                       {!enterLoading
                         ? (<>部屋に入る</>)
                         :
@@ -197,7 +240,7 @@ export default function Top() {
                           </div>
                         )
                       }
-                    </button>
+                    </button> */}
 
                   </div>
                 </div>
