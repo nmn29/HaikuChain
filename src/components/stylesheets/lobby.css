@@ -21,25 +21,33 @@
 .users{
   position:relative;
   background-color:rgba(255, 255, 255);
-  border: 3px solid rgb(116, 116, 116);
+  border:solid rgba(107, 107, 107, 0.4);
+  border-width:1px 10px 1px 10px;
   width:100%;
   color:gray;
-  font-family:"Noto Sans JP";
   white-space:nowrap;
-  overflow: hidden;
   text-overflow:ellipsis;
   padding:5px 0px;
-  margin-bottom:20px;
+  margin-bottom:25px;
 }
 
+.users p{
+  position:relative;
+}
 .number{
+  font-size:40px;
+  position:absolute;
   color:rgb(58, 58, 58);
-  padding:20px;
-  border-right:1px solid rgb(116, 116, 116);
+  padding:5px 15px;
+  border:1px solid rgb(116, 116, 116);
+  background-color:rgb(255, 255, 255);
+  top: -15px;
+  left: -20px;
 }
 
 .username{
-  padding-left:20px;
+  padding-left:60px;
+  font-family:"Noto Sans JP";
 }
 
 .none{
@@ -49,37 +57,34 @@
 .gameStartBox{
   text-align:center;
   margin: 0 auto;
+  width:40%;
+}
+
+.invhead{
+  font-size:45px;
+  background-color:rgb(155, 155, 155);
+  color:rgb(255, 255, 255);
+  padding:5px 15px;
+  width:80%;
+  margin:0 auto;
 }
 
 .invitationID{
   font-family:"Noto Sans JP";
   font-size:50px;
-  letter-spacing:5px;
+  letter-spacing:2px;
   margin-top:10px;
   padding:10px 30px;
-  border-radius:15px;
-  background-color:rgb(100, 100, 100);
-  color:white;
+  border:solid rgba(107, 107, 107, 0.4);
+  border-width:1px 20px 1px 20px;
+  background-color:rgb(255, 255, 255);
+  color:rgb(90, 90, 90);
 }
 
 .leaveButton{
-  position:relative;
-  padding-top:5px;
-  text-align:right;
-  background-color:rgb(233, 233, 233);
-  border: 2px solid rgb(175, 175, 175);
-  border-radius: 5px;
-  width:120px;
-  padding-right:15px;
-  margin:3px;
-  transition:0.5s;
+  position:absolute;
+  left:0;
 }
-
-.leaveButton:hover{
-  background-color:rgb(215, 215, 215);
-  padding-right:25px;
-}
-
 
 .startButton{
   padding-top:5px;

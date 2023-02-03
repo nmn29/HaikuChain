@@ -4,8 +4,9 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { doc, deleteDoc, collection, onSnapshot, query, orderBy, setDoc, Timestamp } from 'firebase/firestore';
 import Fade from 'react-reveal/Fade';
-import Crown from '../images/hostCrown.png'
-import './stylesheets/lobby.css'
+import Crown from '../images/hostCrown.png';
+import './stylesheets/lobby.css';
+import './stylesheets/lobbyButton.css';
 
 export default function Lobby() {
 
@@ -132,12 +133,16 @@ export default function Lobby() {
                     <Fade>
                       <div className="header">
                         <div className="headerBox">
-                          <div className="leave">
-                            <button className="leaveButton" onClick={logout}><span>◀</span>退室</button>
-                          </div>
                         </div>
                       </div>
                       <div className="lobby">
+                        <div className="leaveButton">
+                          <a class="btn3 btn-custom07" onClick={logout}>
+                            <span class="btn-custom07-front">
+                              <p>部屋を出る</p>
+                            </span>
+                          </a>
+                        </div>
                         <div className="lobby-child">
                           <div className="userlistBox">
 
@@ -147,7 +152,7 @@ export default function Lobby() {
                               (
                                 <div className="users none">
                                   <p>
-                                    <span className="number">
+                                    <span className="number none">
                                       1
                                     </span>
                                     <span className="username">
@@ -182,7 +187,7 @@ export default function Lobby() {
                               (
                                 <div className="users none">
                                   <p>
-                                    <span className="number">
+                                    <span className="number none">
                                       2
                                     </span>
                                     <span className="username">
@@ -213,7 +218,7 @@ export default function Lobby() {
                               (
                                 <div className="users none">
                                   <p>
-                                    <span className="number">
+                                    <span className="number none">
                                       3
                                     </span>
                                     <span className="username">
@@ -244,7 +249,7 @@ export default function Lobby() {
                               (
                                 <div className="users none">
                                   <p>
-                                    <span className="number">
+                                    <span className="number none">
                                       4
                                     </span>
                                     <span className="username">
@@ -275,7 +280,7 @@ export default function Lobby() {
                               (
                                 <div className="users none">
                                   <p>
-                                    <span className="number">
+                                    <span className="number none">
                                       5
                                     </span>
                                     <span className="username">
@@ -302,14 +307,18 @@ export default function Lobby() {
                           </div>
                           <div className="gameStartBox">
 
-                            <p>招待コード</p>
+                            <p className="invhead">招待コード</p>
                             <p className="invitationID">{invitationID}</p>
 
                             {hostID === user.uid
                               ?
                               (
                                 <>
-                                  <button className="startButton" onClick={startGame}>ゲームを開始<span>▶</span></button>
+                                  <a class="btn3 btn-custom08" onClick={startGame}>
+                                    <span class="btn-custom08-front">
+                                      <p>ゲーム開始</p>
+                                    </span>
+                                  </a>
                                 </>
                               )
                               :

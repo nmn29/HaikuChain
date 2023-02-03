@@ -32,7 +32,7 @@ export default function ReciteTest() {
   userList[2] = "ユーザ2";
   userList[3] = "ユーザ3";
   userList[4] = "ユーザ4";
-  userList[5] = "ユーザ5";
+  userList[5] = "あああ";
 
   const userCount = 5;
 
@@ -146,15 +146,7 @@ export default function ReciteTest() {
                               {userList[1] === ""
                                 ?
                                 (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        1
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
+                                  <></>
                                 )
                                 :
                                 (
@@ -175,15 +167,7 @@ export default function ReciteTest() {
                               {userList[2] === ""
                                 ?
                                 (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        2
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
+                                  <></>
                                 )
                                 :
                                 (
@@ -206,15 +190,7 @@ export default function ReciteTest() {
                               {userList[3] === ""
                                 ?
                                 (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        3
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
+                                  <></>
                                 )
                                 :
                                 (
@@ -237,15 +213,7 @@ export default function ReciteTest() {
                               {userList[4] === ""
                                 ?
                                 (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        4
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
+                                  <></>
                                 )
                                 :
                                 (
@@ -268,15 +236,7 @@ export default function ReciteTest() {
                               {userList[5] === ""
                                 ?
                                 (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        5
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
+                                  <></>
                                 )
                                 :
                                 (

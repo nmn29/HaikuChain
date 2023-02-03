@@ -134,14 +134,14 @@ export default function Top() {
     }
   };
 
-  const [Modal, open] = useModal('root', {
+  const [Modal, open, close] = useModal('root', {
     preventScroll: true,
   });
 
   const modalStyle = {
     backgroundColor: '#fff',
     borderRadius: '10px',
-    padding: '20px 50px'
+
   };
 
   //入室時の音声の設定
@@ -184,7 +184,7 @@ export default function Top() {
                     :
                     (
                       <>
-                        <a disabled={disable} className="btn3 btn-custom05" onClick={(e) => loginLobby(e)}>
+                        <a disabled={disable} className="btn3 btn-custom05">
                           <span className="btn-custom05-front">
                             <p><span className="loader"></span></p>
                           </span>
@@ -205,44 +205,37 @@ export default function Top() {
             </div>
             <Modal>
               <Fade>
+
                 <div className="modal" style={modalStyle}>
-                  <div className="modalBox">
-                    <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
-                    {!enterLoading
+                  <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
+                  <i onClick={close} class="fa-solid fa-xmark"></i>
+                  {!enterLoading
                     ?
                     (
                       <>
-                        <a class="btn3 btn-custom06" onClick={(e) => loginLobby(e)}>
-                          <span class="btn-custom06-front">
-                            <p>部屋に入る</p>
-                          </span>
-                        </a>
+                        <p>
+                          <a class="btn3 btn-custom06" onClick={(e) => enterLobby(e)}>
+                            <span class="btn-custom06-front">
+                              <p>部屋に入る</p>
+                            </span>
+                          </a>
+                        </p>
                       </>
                     )
                     :
                     (
                       <>
-                        <a class="btn3 btn-custom05" onClick={(e) => loginLobby(e)}>
-                          <span class="btn-custom05-front">
-                            <p><span className="loader"></span></p>
-                          </span>
-                        </a>
+                        <p>
+                          <a class="btn3 btn-custom05">
+                            <span class="btn-custom05-front">
+                              <p><span className="loader"></span></p>
+                            </span>
+                          </a>
+                        </p>
                       </>
                     )
                   }
-                    {/* <button disabled={disable} className="modalEnterRoom" onClick={(e) => enterLobby(e)}>
-                      {!enterLoading
-                        ? (<>部屋に入る</>)
-                        :
-                        (
-                          <div className="loaderBox">
-                            <span className="loader"></span>
-                          </div>
-                        )
-                      }
-                    </button> */}
 
-                  </div>
                 </div>
               </Fade>
             </Modal>

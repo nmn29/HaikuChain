@@ -13,10 +13,9 @@
   background-image: url('../images/washi.jpg');
   background-color:rgba(255,255,255,0.6);
   background-blend-mode:lighten;
-  border:solid rgba(0, 0, 0, 0.4);
-  border-width:0px 35px 0px 35px;
+
   width:95%;
-  border-collapse:separate;
+
   margin-top:15px;
 }
 
@@ -41,30 +40,22 @@ input::placeholder{
   margin-top:10px;
 }
 
-.modalBox{
-  margin: auto;
+.modal{
+  width:100%;
+  text-align:center;
+  margin:0 auto;
+  padding: 60px 80px;
 }
 
 .modal input{
   background-color:rgba(255, 255, 255, 0.5);
   border: 4px solid rgb(175, 175, 175);
   border-radius: 5px;
-  vertical-align:top;
   height:65px;
 }
 
-.lobbyButton{
-  background-color:rgb(233, 233, 233);
-  border: 2px solid rgb(175, 175, 175);
-  border-radius: 5px;
-  width:200px;
-  padding:10px;
-  margin:10px;
-  transition:0.5s;
-}
-
-.lobbyButton:hover{
-  background-color:rgb(215, 215, 215);
+.modalBox{
+  width:100%;
 }
 
 .startBox{
@@ -114,6 +105,13 @@ input::placeholder{
   animation: rotation 1s linear infinite;
 }
 
+.fa-solid{
+  position:absolute;
+  top:2%;
+  right:2%;
+  font-size:50px;
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
@@ -123,3 +121,14 @@ input::placeholder{
   }
 } 
 
+@media screen and (max-width: 480px) {
+  .modal{
+    width:100%;
+    padding:80px 0px;
+  }
+  
+  .modal input{
+    width:350px;
+  }
+
+}
