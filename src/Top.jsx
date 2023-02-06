@@ -144,6 +144,12 @@ export default function Top() {
 
   };
 
+  const openModal = () =>{
+    if(!disable){
+      open()
+    }
+  }
+
   //入室時の音声の設定
   const [play] = useSound(enterRoom, { volume: 0.05 })
 
@@ -193,7 +199,7 @@ export default function Top() {
                       </>
                     )
                   }
-                  <a class="btn3 btn-custom06" onClick={open}>
+                  <a disabled={disable} class="btn3 btn-custom06" onClick={() => openModal()}>
                     <span class="btn-custom06-front">
                       <p>部屋に入る</p>
                     </span>
