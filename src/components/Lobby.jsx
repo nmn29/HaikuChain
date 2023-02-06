@@ -139,7 +139,7 @@ export default function Lobby() {
                         <div className="leaveButton">
                           <a class="btn3 btn-custom07" onClick={logout}>
                             <span class="btn-custom07-front">
-                              <p>部屋を出る</p>
+                              <p>退室</p>
                             </span>
                           </a>
                         </div>
@@ -156,6 +156,7 @@ export default function Lobby() {
                                       1
                                     </span>
                                     <span className="username">
+                                      　
                                     </span>
                                   </p>
                                 </div>
@@ -191,6 +192,7 @@ export default function Lobby() {
                                       2
                                     </span>
                                     <span className="username">
+                                      　
                                     </span>
                                   </p>
                                 </div>
@@ -222,6 +224,7 @@ export default function Lobby() {
                                       3
                                     </span>
                                     <span className="username">
+                                      　
                                     </span>
                                   </p>
                                 </div>
@@ -253,6 +256,7 @@ export default function Lobby() {
                                       4
                                     </span>
                                     <span className="username">
+                                      　
                                     </span>
                                   </p>
                                 </div>
@@ -284,6 +288,7 @@ export default function Lobby() {
                                       5
                                     </span>
                                     <span className="username">
+                                      　
                                     </span>
                                   </p>
                                 </div>
@@ -306,29 +311,29 @@ export default function Lobby() {
                             }
                           </div>
                           <div className="gameStartBox">
+                            <div className="gameStart-child">
+                              <p className="invhead">招待コード</p>
+                              <p className="invitationID">{invitationID}</p>
 
-                            <p className="invhead">招待コード</p>
-                            <p className="invitationID">{invitationID}</p>
-
-                            {hostID === user.uid
-                              ?
-                              (
-                                <>
-                                  <a class="btn3 btn-custom08" onClick={startGame}>
-                                    <span class="btn-custom08-front">
-                                      <p>ゲーム開始</p>
-                                    </span>
-                                  </a>
-                                </>
-                              )
-                              :
-                              (
-                                <>
-                                  <div>ホストが選択中</div>
-                                </>
-                              )
-                            }
-
+                              {hostID === user.uid
+                                ?
+                                (
+                                  <>
+                                    <a class="btn3 btn-custom08" onClick={startGame}>
+                                      <span class="btn-custom08-front">
+                                        <p>ゲーム開始</p>
+                                      </span>
+                                    </a>
+                                  </>
+                                )
+                                :
+                                (
+                                  <>
+                                    <div>ホストが選択中</div>
+                                  </>
+                                )
+                              }
+                            </div>
                           </div>
                         </div>
                       </div>

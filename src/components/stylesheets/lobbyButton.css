@@ -190,3 +190,11 @@ a.btn-custom08:active:before {
 a.btn-custom08:active:after {
   content: "\f04b";
 }
+
+@media screen and (max-width: 600px) {
+
+  .btn-custom07-front{
+    padding: 0.5rem 4rem 0.5rem 4rem;
+    white-space:nowrap;
+  }
+}

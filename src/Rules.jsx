@@ -22,8 +22,7 @@ export default function Rules(){
           <h3>俳句を作ろう！</h3>
           <p>
             最大5人のリレー形式で<br/>
-            名句を作成しましょう<br/>
-            
+            名句を作成しましょう<br/>            
           </p>
         </div>
         <div className="inRule">

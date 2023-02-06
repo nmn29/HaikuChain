@@ -20,6 +20,7 @@
 
 .users{
   position:relative;
+  display: block;
   background-color:rgba(255, 255, 255);
   border:solid rgba(107, 107, 107, 0.4);
   border-width:1px 10px 1px 10px;
@@ -48,6 +49,10 @@
 .username{
   padding-left:60px;
   font-family:"Noto Sans JP";
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  display:block;
 }
 
 .none{
@@ -58,15 +63,20 @@
   text-align:center;
   margin: 0 auto;
   width:40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.gameStart-child{
+  width:100%;
+}
 .invhead{
   font-size:45px;
-  background-color:rgb(155, 155, 155);
-  color:rgb(255, 255, 255);
   padding:5px 15px;
   width:80%;
   margin:0 auto;
+  color:rgb(100, 100, 100);
 }
 
 .invitationID{
@@ -110,6 +120,54 @@
 }
 
 .crown img{
-  height:24px;
-  padding-left:20px;
+  position:absolute;
+  bottom:35px;
+  left:-35px;
+  height:30px;
+}
+
+@media screen and (max-width: 1170px) {
+  .lobby-child{
+    display:block;
+  }
+
+  .userlistBox{
+    width:80%;
+  }
+
+  .gameStartBox{
+    width:90%;
+  }
+
+  .users{
+    margin-bottom:2px;
+  }
+
+  .invhead{
+    font-size:45px;
+    padding:5px 15px;
+  }
+
+  .invitationID{
+    font-size:30px;
+    margin-top:0px;
+  }
+
+  .invhead{
+    font-size:3rem;
+  }
+
+  .leaveButton{
+    margin:0 auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .lobby-child{
+    padding-top:55px;
+  }
+
+  .username{
+
+  }
 }

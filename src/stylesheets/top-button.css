@@ -1,7 +1,7 @@
 .btn3,
 a.btn3,
 button.btn3 {
-  width:230px;
+  width: 230px;
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 1.5;
@@ -21,20 +21,20 @@ button.btn3 {
   letter-spacing: 0.1em;
   color: #212529;
   border-radius: 0.5rem;
-  margin:10px;
+  margin: 10px;
 }
 
-a.btn-custom04{
-  font-family:"Noto Sans JP";
+a.btn-custom04 {
+  font-family: "Noto Sans JP";
   margin-bottom: 0.5rem;
   padding: 0;
   border-radius: 0.75rem;
 }
 
-.btn-custom04-front p{
-  color:rgb(87, 87, 87);
+.btn-custom04-front p {
+  color: rgb(87, 87, 87);
   padding-left: 10px;
-  font-size:20px;
+  font-size: 20px;
 }
 
 a.btn-custom04:before {
@@ -53,7 +53,7 @@ a.btn-custom04:before {
   -webkit-transform: translate3d(0, 0.75rem, -1rem);
   transform: translate3d(0, 0.75rem, -1rem);
 
-  
+
   border-radius: inherit;
   background: #5e5e5e;
 
@@ -70,7 +70,7 @@ a.btn-custom04:after {
   margin: 0;
   padding: 0;
   content: "\f1fc";
-  transition:0.5s;
+  transition: 0.5s;
 }
 
 .btn-custom04-front {
@@ -80,7 +80,7 @@ a.btn-custom04:after {
 
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  
+
   border-radius: inherit;
   background: #ececec;
 }
@@ -88,8 +88,9 @@ a.btn-custom04:after {
 a.btn-custom04:hover {
   -webkit-transform: translate(0, 0.25rem);
   transform: translate(0, 0.25rem);
-  background: #ececec;;
-  
+  background: #ececec;
+  ;
+
 }
 
 a.btn-custom04:hover:before {
@@ -120,15 +121,15 @@ a.btn-custom04:active:after {
 }
 
 /* 5 */
-a.btn-custom05{
-  font-family:"Noto Sans JP";
+a.btn-custom05 {
+  font-family: "Noto Sans JP";
   margin-bottom: 0.5rem;
   padding: 0;
   border-radius: 0.75rem;
 }
 
-.btn-custom05-front p{
-  color:rgb(87, 87, 87);
+.btn-custom05-front p {
+  color: rgb(87, 87, 87);
 }
 
 a.btn-custom05:before {
@@ -147,7 +148,7 @@ a.btn-custom05:before {
   -webkit-transform: translate3d(0, 0.75rem, -1rem);
   transform: translate3d(0, 0.75rem, -1rem);
 
-  
+
   border-radius: inherit;
   background: #5e5e5e;
 
@@ -162,7 +163,7 @@ a.btn-custom05:after {
   top: calc(50% - 0.8rem);
   margin: 0;
   padding: 0;
-  transition:0.5s;
+  transition: 0.5s;
 }
 
 .btn-custom05-front {
@@ -172,25 +173,25 @@ a.btn-custom05:after {
 
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  
+
   border-radius: inherit;
   background: #ececec;
 }
 
 /* 6 */
-a.btn-custom06{
-  
-  font-family:"Noto Sans JP";
+a.btn-custom06 {
+
+  font-family: "Noto Sans JP";
   margin-bottom: 0.5rem;
   padding: 0;
   border-radius: 0.75rem;
 }
 
-.btn-custom06-front p{
-  
-  color:rgb(87, 87, 87);
+.btn-custom06-front p {
+
+  color: rgb(87, 87, 87);
   padding-left: 10px;
-  font-size:20px;
+  font-size: 20px;
 }
 
 a.btn-custom06:before {
@@ -209,7 +210,7 @@ a.btn-custom06:before {
   -webkit-transform: translate3d(0, 0.75rem, -1rem);
   transform: translate3d(0, 0.75rem, -1rem);
 
-  
+
   border-radius: inherit;
   background: #5e5e5e;
 
@@ -226,7 +227,7 @@ a.btn-custom06:after {
   margin: 0;
   padding: 0;
   content: "\f52a";
-  transition:0.5s;
+  transition: 0.5s;
 }
 
 .btn-custom06-front {
@@ -236,7 +237,7 @@ a.btn-custom06:after {
 
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  
+
   border-radius: inherit;
   background: #ececec;
 }
@@ -244,8 +245,9 @@ a.btn-custom06:after {
 a.btn-custom06:hover {
   -webkit-transform: translate(0, 0.25rem);
   transform: translate(0, 0.25rem);
-  background: #ececec;;
-  
+  background: #ececec;
+  ;
+
 }
 
 a.btn-custom06:hover:before {
@@ -272,4 +274,13 @@ a.btn-custom06:active:before {
 
 a.btn-custom06:active:after {
   content: "\f52a";
+}
+
+@media screen and (max-width: 600px) {
+
+  .btn3,
+  a.btn3,
+  button.btn3 {
+    width:80%;
+  }
 }

@@ -170,6 +170,7 @@ export default function Top() {
                 <p className="namehead">名前を入力</p>
                 <input disabled={disable} type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
                 <p>
+                  <div className="buttonBox">
                   {!createLoading
                     ?
                     (
@@ -197,6 +198,7 @@ export default function Top() {
                       <p>部屋に入る</p>
                     </span>
                   </a>
+                  </div>
                 </p>
               </div>
             </div>
