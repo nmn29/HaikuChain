@@ -33,7 +33,7 @@ export default function Start() {
   const autoDone = () => {
     console.log("autodone")
     if (doneCheck === false) {
-      daiDone()
+      // daiDone()
     }
   }
 
@@ -185,10 +185,23 @@ export default function Start() {
                           <h1>お題を決めよう</h1>
                           <h2>※16文字まで</h2>
                           <input disabled={doneCheck} type="text" placeholder={userDai} onChange={(e) => setUserDai(e.target.value)} maxLength={16} />
-                          {!doneCheck
-                            ? (<button className="odaiButton" onClick={daiDone}>決定</button>)
-                            : (<button disabled={true} className="odaiButtonDone" onClick={daiDone}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
-                          }
+                          <div className="gameButtonBox">
+                            {!doneCheck
+                              ?
+                              <a class="btn3 btn-custom09" onClick={daiDone}>
+                                <span class="btn-custom09-front">
+                                  <p>決定</p>
+                                </span>
+                              </a>
+                              :
+                              <a disabled={true} class="btn3 btn-custom09" onClick={daiDone}>
+                                <span class="btn-custom09-front">
+                                  <p>決定</p><Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom>
+                                </span>
+                              </a>
+                            }
+                          </div>
+
                         </div>
                       </div>
                     </Fade>
