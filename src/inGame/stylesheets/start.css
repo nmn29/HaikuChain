@@ -56,3 +56,13 @@
 .odaiButton:hover{
   background-color:rgb(215, 215, 215);
 }
+
+@media screen and (max-width: 600px) {
+  .odaiBox h1{
+    font-size:50px;
+  }
+
+  .odai input{
+    width:90%;
+  }
+}

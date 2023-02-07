@@ -215,10 +215,22 @@ export default function Game14() {
                               <p className="attention">※制限時間を過ぎた場合、現在表示されている文字が入力されます</p>
                             </div>
                             <input disabled={doneCheck} type="text" placeholder={randChar} onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
-                            {!doneCheck
-                              ? (<button className="haikuButton" onClick={setHaiku}>決定</button>)
-                              : (<button disabled={true} className="haikuButtonDone" onClick={setHaiku}>決定<Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom></button>)
-                            }
+                            <div className="gameButtonBox">
+                              {!doneCheck
+                                ?
+                                <a class="btn3 btn-custom09" onClick={setHaiku}>
+                                  <span class="btn-custom09-front">
+                                    <p>決定</p>
+                                  </span>
+                                </a>
+                                :
+                                <a disabled={true} class="btn3 btn-custom09" onClick={setHaiku}>
+                                  <span class="btn-custom09-front">
+                                    <p>決定</p><Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom>
+                                  </span>
+                                </a>
+                              }
+                            </div>
                           </div>
                           <div className="haikuShowBox">
                             <h1>お題：</h1>

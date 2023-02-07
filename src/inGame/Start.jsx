@@ -33,7 +33,7 @@ export default function Start() {
   const autoDone = () => {
     console.log("autodone")
     if (doneCheck === false) {
-      // daiDone()
+      daiDone()
     }
   }
 

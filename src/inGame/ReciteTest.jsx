@@ -30,16 +30,18 @@ export default function ReciteTest() {
   let userList = []
   userList[1] = "ユーザ1";
   userList[2] = "ユーザ2";
-  userList[3] = "ユーザ3";
-  userList[4] = "ユーザ4";
-  userList[5] = "あああ";
+  userList[3] = "";
+  userList[4] = "";
+  userList[5] = "";
 
-  const userCount = 5;
+  const userCount = 2;
 
   //画面の進行を管理（現在のユーザ）
   const [reciteCount, setReciteCount] = useState(0)
   //画面の進行を管理（現在の画面）
   const [reciteFlag, setReciteFlag] = useState(0)
+  //終了を管理
+  const [end, setEnd] = useState(false)
   //読み上げの設定
   const { speak, voices, cancel } = useSpeechSynthesis();
   //読み上げの可否の設定
@@ -70,32 +72,38 @@ export default function ReciteTest() {
   //画面を変化させる
   const changeWindow = async (count) => {
     //お題（見出し）
-    await wait(1500)
+    await wait(1500);
     setReciteFlag((prevCount) => prevCount + 1);
     //お題
-    await wait(1500)
+    await wait(1500);
     setReciteFlag((prevCount) => prevCount + 1);
     //俳句（見出し）
-    await wait(1500)
+    await wait(1500);
     setReciteFlag((prevCount) => prevCount + 1);
     //俳句（上）
     await wait(2000)
     await setReciteFlag((prevCount) => prevCount + 1);
     await speakHaiku(userHaiku[count].substring(0, 5));
     //俳句（中）
-    await wait(2000)
-    await cancel()
+    await wait(2000);
+    await cancel();
     await setReciteFlag((prevCount) => prevCount + 1);
     await speakHaiku(userHaiku[count].substring(5, 12));
     //俳句（下）
-    await wait(2000)
-    await cancel()
+    await wait(2000);
+    await cancel();
     await setReciteFlag((prevCount) => prevCount + 1);
     await speakHaiku(userHaiku[count].substring(12, 17));
     //ボタンを表示
-    await wait(2000)
-    await cancel()
-    await setReciteFlag((prevCount) => prevCount + 1);
+    await wait(2000);
+    await cancel();
+    //人数と同じになったら鑑賞を終了、退室ボタンを表示
+    if (reciteCount === userCount - 1) {
+      await setEnd(true);
+      await setReciteFlag((prevCount) => prevCount + 1);
+    } else {
+      await setReciteFlag((prevCount) => prevCount + 1);
+    }
 
   }
 
@@ -463,14 +471,26 @@ export default function ReciteTest() {
                                     {reciteFlag >= 7 || reciteFlag === 10
                                       ?
                                       <Fade>
-                                        <div className="reciteButtonBox">
-                                          <a class="btn2 btn-custom02" onClick={countUp}>
-                                            <span class="btn-custom02-front"><p>次の俳句を詠む</p></span>
-                                          </a>
-                                          <a class="btn2 btn-custom03" onClick={countUp}>
-                                            <span class="btn-custom03-front"><p>結果をツイート</p></span>
-                                          </a>
-                                        </div>
+                                        {!end
+                                          ?
+                                          <div className="reciteButtonBox">
+                                            <a class="btn2 btn-custom02" onClick={countUp}>
+                                              <span class="btn-custom02-front"><p>次の俳句</p></span>
+                                            </a>
+                                            <a class="btn2 btn-custom03" onClick={countUp}>
+                                              <span class="btn-custom03-front"><p>ツイート</p></span>
+                                            </a>
+                                          </div>
+                                          :
+                                          <div className="reciteButtonBox">
+                                            <a class="btn2 btn-custom02" onClick={countUp}>
+                                              <span class="btn-custom02-front"><p>　退室　</p></span>
+                                            </a>
+                                            <a class="btn2 btn-custom03" onClick={countUp}>
+                                              <span class="btn-custom03-front"><p>ツイート</p></span>
+                                            </a>
+                                          </div>
+                                        }
                                       </Fade>
                                       :
                                       <>
