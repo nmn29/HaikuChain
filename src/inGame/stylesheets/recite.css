@@ -51,119 +51,266 @@
   overflow: hidden;
 }
 
-.reciteHaikuShowBox{
+.reciteHaikuShowBox {
   writing-mode: vertical-rl;
-  text-orientation:upright;
+  text-orientation: upright;
   margin: 0 auto;
 }
 
-.gamehead{
-  font-size:60px;
-  border:solid rgba(107, 107, 107, 0.4);
-  border-width:4px 10px 4px 10px;
-  border-collapse:separate;
-  background-color:rgb(245, 245, 245);
-  padding:30px 5px 5px 5px;
+.gamehead {
+  font-size: 60px;
+  border: solid rgba(107, 107, 107, 0.4);
+  border-width: 4px 10px 4px 10px;
+  border-collapse: separate;
+  background-color: rgb(245, 245, 245);
+  padding: 30px 5px 5px 5px;
 }
 
-.gamehead-none{
-  font-size:60px;
-  border:solid rgba(107, 107, 107, 0);
-  border-width:4px 10px 4px 10px;
-  border-collapse:separate;
-  padding:30px 5px 5px 5px;
+.gamehead-none {
+  font-size: 60px;
+  border: solid rgba(107, 107, 107, 0);
+  border-width: 4px 10px 4px 10px;
+  border-collapse: separate;
+  padding: 30px 5px 5px 5px;
 }
 
-.dai-text{
-  padding-top:30px;
-  padding-left:20px;
-  padding-right:20px;
-  font-family:"Noto Sans JP";
-  font-size:25px;
+.dai-text {
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: "Noto Sans JP";
+  font-size: 25px;
 }
 
 
-.haikuUser{
-  background-color:rgba(0, 0, 0, 0.3);
-  width:100%;
-  position:absolute;
-  text-align:center;
-  top:0;
-  font-family:"Noto Sans JP";
+.haikuUser {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  font-family: "Noto Sans JP";
   white-space: nowrap;
-  color:rgb(255, 255, 255);
-  font-size:20px;
-  padding:5px 0px;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  padding: 5px 0px;
 }
 
-.haikuUser span{
-  font-size:30px;
-  padding-right:5px;
+.haikuUser span {
+  font-size: 30px;
+  padding-right: 5px;
 }
 
-.reciteStart{
-  background-color:rgba(0, 0, 0, 0.3);
+.reciteStart {
+  background-color: rgba(0, 0, 0, 0.3);
   position: relative;
   width: 60%;
   height: 100%;
-
 }
 
-.startText{
-  white-space: nowrap;
+.username-r{
+  padding-left:60px;
   font-family:"Noto Sans JP";
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  display:block;
+}
+
+.users-r{
+  position:relative;
+  display: block;
+  background-color:rgba(255, 255, 255);
+  border:solid rgba(107, 107, 107, 0.4);
+  border-width:1px 10px 1px 10px;
+  width:100%;
+  color:gray;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  padding:5px 0px;
+  margin-bottom:25px;
+}
+.startText {
+  white-space: nowrap;
+  font-family: "Noto Sans JP";
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  color:white;
-  text-align:center;
-  font-size:25px;
+  color: white;
+  text-align: center;
+  font-size: 25px;
 }
 
-.startText h1{
-  font-size:50px;
-  margin-bottom:30px;
+.startText h1 {
+  font-size: 50px;
+  margin-bottom: 30px;
 }
 
-.startText span{
-  color:rgb(240, 240, 240);
-  font-size:28px;
+.startText span {
+  color: rgb(240, 240, 240);
+  font-size: 28px;
 }
 
-.soundAttentionBox{
-  margin-top:25px;
-  margin-bottom:50px;
-}
-.soundAttention{
-  font-size:16px;
-  color:rgb(235, 235, 235)
+.soundAttentionBox {
+  margin-top: 25px;
+  margin-bottom: 50px;
 }
 
-.recite-haikuShow{
-  padding-right:10px;
-  padding-top:20px;
+.soundAttention {
+  font-size: 16px;
+  color: rgb(235, 235, 235)
 }
-.recite-haikuShow span{
+
+.recite-haikuShow {
+  padding-right: 10px;
+  padding-top: 20px;
+}
+
+.recite-haikuShow span {
   display: inline-block;
   width: 55px;
   height: 55px;
-  text-align:center;
+  text-align: center;
   line-height: 70px;
-  font-family:"Noto Sans JP";
-  font-size:45px;
-  margin-top:4px;
-  color:rgb(0, 0, 0)
+  font-family: "Noto Sans JP";
+  font-size: 45px;
+  margin-top: 4px;
+  color: rgb(0, 0, 0)
 }
 
-.speaker{
-  position:absolute;
-  top:0%;
-  padding:10px;
+.speaker {
+  position: absolute;
+  top: 0%;
+  padding: 10px;
 }
 
-.speaker img{
-  height:60px;
+.speaker img {
+  height: 60px;
+}
+
+.numberHead {
+  display: none;
+}
+
+.responsive-recite-head {
+  width: 100%;
+}
+
+@media screen and (max-width: 910px) {
+
+  .recite-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recite-userlistBox {
+    border-right: 0px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .reciteStart {
+    width: 100%;
+  }
+
+  .haiku-recite {
+    width: 100%;
+  }
+
+  .recite-userlistBox {
+
+    width: 100%;
+    height: 30%;
+  }
+
+  .username-r {
+    display: none;
+  }
+
+  .users-r{
+    position:relative;
+    display: block;
+    border-width:0px 0px 0px 0px;
+    margin: 0 auto;
+    width:100%;
+    color:gray;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    padding:5px 0px;
+    margin-bottom:25px;
+  }
+
+  .userlistBoxItem {
+    padding-top: 20px;
+    top: 50%;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .numberHead {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .responsive-recite-head {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .speaker img {
+    height: 40px;
+  }
+
+  .startText {
+    font-size: 20px;
+  }
+
+  .startText h1 {
+    font-size: 35px;
+  }
+
+  .soundAttention {
+    font-size: 15px;
+    white-space: normal;
+  }
+
+  .recite-haikuShow span {
+    display: inline-block;
+    width: 5px;
+    height: 35px;
+    text-align: center;
+    line-height: 60px;
+    font-family: "Noto Sans JP";
+    font-size: 30px;
+    margin-top: 4px;
+    color: rgb(0, 0, 0)
+  }
+
+  .recite-haikuShow {
+    padding: 0;
+  }
+
+  .gamehead {
+    font-size: 30px;
+  }
+
+  .gamehead-none {
+    font-size: 30px;
+  }
+  .dai-text {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: "Noto Sans JP";
+    font-size: 18px;
+  }
 }

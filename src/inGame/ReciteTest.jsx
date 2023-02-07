@@ -30,9 +30,9 @@ export default function ReciteTest() {
   let userList = []
   userList[1] = "ユーザ1";
   userList[2] = "ユーザ2";
-  userList[3] = "";
-  userList[4] = "";
-  userList[5] = "";
+  userList[3] = "a";
+  userList[4] = "a";
+  userList[5] = "a";
 
   const userCount = 2;
 
@@ -140,6 +140,7 @@ export default function ReciteTest() {
                           <h1>詠み会</h1>
                         </div>
                         <div className="recite-child">
+
                           <div className="recite-userlistBox">
                             <div className="speaker">
                               {speakBool
@@ -149,121 +150,126 @@ export default function ReciteTest() {
                                 <img onClick={() => SpeakerOn()} src={volumeOff}></img>
                               }
                             </div>
-                            <div className="userlistBoxItem">
-                              {/* 1人目 */}
-                              {userList[1] === ""
-                                ?
-                                (
-                                  <></>
-                                )
-                                :
-                                (
-                                  <div className="users">
-                                    <p>
-                                      <span className="number">
-                                        1
-                                      </span>
-                                      <span className="username">
-                                        {userList[1]}
-                                      </span>
-                                    </p>
-                                  </div>
-                                )
-                              }
+                            <div className="responsive-recite-head">
+                              <div className="numberHead">ユーザ番号</div>
+                              <div className="userlistBoxItem">
 
-                              {/* 2人目 */}
-                              {userList[2] === ""
-                                ?
-                                (
-                                  <></>
-                                )
-                                :
-                                (
-                                  <Fade>
-                                    <div className="users">
+                                {/* 1人目 */}
+                                {userList[1] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <div className="users-r">
                                       <p>
                                         <span className="number">
-                                          2
+                                          1
                                         </span>
-                                        <span className="username">
-                                          {userList[2]}
+                                        <span className="username-r">
+                                          {userList[1]}
                                         </span>
                                       </p>
                                     </div>
-                                  </Fade>
-                                )
-                              }
+                                  )
+                                }
 
-                              {/* 3人目 */}
-                              {userList[3] === ""
-                                ?
-                                (
-                                  <></>
-                                )
-                                :
-                                (
-                                  <Fade>
-                                    <div className="users">
-                                      <p>
-                                        <span className="number">
-                                          3
-                                        </span>
-                                        <span className="username">
-                                          {userList[3]}
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </Fade>
-                                )
-                              }
+                                {/* 2人目 */}
+                                {userList[2] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <Fade>
+                                      <div className="users-r">
+                                        <p>
+                                          <span className="number">
+                                            2
+                                          </span>
+                                          <span className="username-r">
+                                            {userList[2]}
+                                          </span>
+                                        </p>
+                                      </div>
+                                    </Fade>
+                                  )
+                                }
 
-                              {/* 4人目 */}
-                              {userList[4] === ""
-                                ?
-                                (
-                                  <></>
-                                )
-                                :
-                                (
-                                  <Fade>
-                                    <div className="users">
-                                      <p>
-                                        <span className="number">
-                                          4
-                                        </span>
-                                        <span className="username">
-                                          {userList[4]}
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </Fade>
-                                )
-                              }
+                                {/* 3人目 */}
+                                {userList[3] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <Fade>
+                                      <div className="users-r">
+                                        <p>
+                                          <span className="number">
+                                            3
+                                          </span>
+                                          <span className="username-r">
+                                            {userList[3]}
+                                          </span>
+                                        </p>
+                                      </div>
+                                    </Fade>
+                                  )
+                                }
 
-                              {/* 5人目 */}
-                              {userList[5] === ""
-                                ?
-                                (
-                                  <></>
-                                )
-                                :
-                                (
-                                  <Fade>
-                                    <div className="users">
-                                      <p>
-                                        <span className="number">
-                                          5
-                                        </span>
-                                        <span className="username">
-                                          {userList[5]}
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </Fade>
-                                )
-                              }
+                                {/* 4人目 */}
+                                {userList[4] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <Fade>
+                                      <div className="users-r">
+                                        <p>
+                                          <span className="number">
+                                            4
+                                          </span>
+                                          <span className="username-r">
+                                            {userList[4]}
+                                          </span>
+                                        </p>
+                                      </div>
+                                    </Fade>
+                                  )
+                                }
+
+                                {/* 5人目 */}
+                                {userList[5] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <Fade>
+                                      <div className="users-r">
+                                        <p>
+                                          <span className="number">
+                                            5
+                                          </span>
+                                          <span className="username-r">
+                                            {userList[5]}
+                                          </span>
+                                        </p>
+                                      </div>
+                                    </Fade>
+                                  )
+                                }
+                              </div>
                             </div>
                           </div>
+
                           {reciteCount === 0
                             ?
                             (
