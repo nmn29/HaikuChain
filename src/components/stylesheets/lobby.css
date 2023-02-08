@@ -32,8 +32,6 @@
   margin-bottom:25px;
 }
 
-
-
 .users p{
   position:relative;
 }
@@ -95,7 +93,7 @@
 
 .leaveButton{
   position:absolute;
-  left:0;
+  left:0%;
 }
 
 .startButton{
@@ -117,9 +115,9 @@
 
 .crown img{
   position:absolute;
-  bottom:35px;
-  left:-35px;
-  height:30px;
+  bottom:20px;
+  left:-30px;
+  height:25px;
 }
 
 @media screen and (max-width: 1170px) {
@@ -136,7 +134,7 @@
   }
 
   .users{
-    margin-bottom:2px;
+    margin-bottom:5px;
   }
 
   .invhead{
@@ -163,7 +161,12 @@
     padding-top:55px;
   }
 
-  .username{
-
+  .leaveButton{
+    position:absolute;
+    right:0%;
+    left:auto
+    
   }
+
+
 }

@@ -78,7 +78,7 @@
   padding-top: 30px;
   padding-left: 20px;
   padding-right: 20px;
-  font-family: "Noto Sans JP";
+  font-family: 'Shippori Mincho B1', serif;
   font-size: 25px;
 }
 
@@ -129,6 +129,7 @@
   text-overflow:ellipsis;
   padding:5px 0px;
   margin-bottom:25px;
+  transition: 0.5s;
 }
 .startText {
   white-space: nowrap;
@@ -175,7 +176,7 @@
   height: 55px;
   text-align: center;
   line-height: 70px;
-  font-family: "Noto Sans JP";
+  font-family: 'Shippori Mincho B1', serif;
   font-size: 45px;
   margin-top: 4px;
   color: rgb(0, 0, 0)
@@ -198,6 +199,28 @@
 .responsive-recite-head {
   width: 100%;
 }
+
+.read-active{
+  margin-left:20px;
+}
+
+.number-r{
+  font-size:40px;
+  position:absolute;
+  color:rgb(58, 58, 58);
+  padding:5px 15px;
+  border:1px solid rgb(116, 116, 116);
+  background-color:rgb(199, 199, 199);
+  top: -15px;
+  left: -20px;
+  transition: 0.5s;
+}
+
+.read-active-bg{
+  background-color:white;
+}
+
+
 
 @media screen and (max-width: 910px) {
 
@@ -234,18 +257,19 @@
     display: block;
     border-width:0px 0px 0px 0px;
     margin: 0 auto;
-    width:100%;
+    width:0;
     color:gray;
     white-space:nowrap;
     text-overflow:ellipsis;
-    padding:5px 0px;
+    
     margin-bottom:25px;
   }
 
   .userlistBoxItem {
     padding-top: 20px;
+    padding-right:20px;
     top: 50%;
-    width: 100%;
+    width: 95%;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -255,6 +279,9 @@
   .numberHead {
     display: block;
     margin: 0 auto;
+    position:absolute;
+    margin-top:65px;
+    font-size:20px;
   }
 
   .responsive-recite-head {
@@ -263,11 +290,15 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .read-active{
+    
+  }
 }
 
 @media screen and (max-width: 600px) {
   .speaker img {
-    height: 40px;
+    height: 30px;
   }
 
   .startText {
@@ -289,7 +320,8 @@
     height: 35px;
     text-align: center;
     line-height: 60px;
-    font-family: "Noto Sans JP";
+    font-family: 'Shippori Mincho B1', serif;
+
     font-size: 30px;
     margin-top: 4px;
     color: rgb(0, 0, 0)
@@ -310,7 +342,7 @@
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    font-family: "Noto Sans JP";
+    font-family: 'Shippori Mincho B1', serif;
     font-size: 18px;
   }
 }

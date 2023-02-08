@@ -7,13 +7,14 @@ import { Fade } from 'react-reveal';
 import './stylesheets/game.css';
 import './stylesheets/header.css'
 import './stylesheets/startButton.css'
+import volumeOn from './svg/volume-high-solid.svg';
+import volumeOff from './svg/volume-xmark-solid.svg'
 import { useSpeechSynthesis } from 'react-speech-kit';
 
 export default function Recite() {
 
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0)
   const [userHaiku, setUserHaiku] = useState([]);
 
   useEffect(() => {
@@ -31,7 +32,6 @@ export default function Recite() {
 
   //招待ID、自身の番号、人数をルータから取得
   const invitationID = useLocation().state.id;
-  const myIndex = useLocation().state.index;
   const userCount = useLocation().state.count;
 
   //前のページから受け取ったお題を配列に代入する
@@ -51,17 +51,6 @@ export default function Recite() {
 
   const setUp = async () => {
 
-    let thisCurrentIndex = 0
-
-    //現在の番号を計算（+1する）
-    if (myIndex === userCount) {
-      setCurrentIndex(1);
-      thisCurrentIndex = 1
-    } else {
-      setCurrentIndex(myIndex + 1);
-      thisCurrentIndex = myIndex + 1
-    }
-
     //俳句を配列に追加する
     for (let i = 1; i <= userCount; i++) {
       await pushHaiku(i)
@@ -77,15 +66,23 @@ export default function Recite() {
       setUserHaiku((userHaiku) => [...userHaiku, snap.data().haiku]);
     });
   }
+
   const navigate = useNavigate();
+  const logout = async () => {
+    await signOut(auth);
+    await navigate("/");
+  }
 
   //画面の進行を管理（現在のユーザ）
   const [reciteCount, setReciteCount] = useState(0)
   //画面の進行を管理（現在の画面）
   const [reciteFlag, setReciteFlag] = useState(0)
+  //終了を管理
+  const [end, setEnd] = useState(false)
   //読み上げの設定
   const { speak, voices, cancel } = useSpeechSynthesis();
   //読み上げの可否の設定
+  const [speakBool, setSpeakBool] = useState(true)
   const [speakVolume, setSpeakVolume] = useState(0.5)
 
   //アニメーション用の時間停止
@@ -112,43 +109,51 @@ export default function Recite() {
   //画面を変化させる
   const changeWindow = async (count) => {
     //お題（見出し）
-    await wait(1500)
+    await wait(1500);
     setReciteFlag((prevCount) => prevCount + 1);
     //お題
-    await wait(1500)
+    await wait(1500);
     setReciteFlag((prevCount) => prevCount + 1);
     //俳句（見出し）
-    await wait(1500)
+    await wait(1500);
     setReciteFlag((prevCount) => prevCount + 1);
     //俳句（上）
     await wait(2000)
     await setReciteFlag((prevCount) => prevCount + 1);
     await speakHaiku(userHaiku[count].substring(0, 5));
     //俳句（中）
-    await wait(2000)
-    await cancel()
+    await wait(2000);
+    await cancel();
     await setReciteFlag((prevCount) => prevCount + 1);
     await speakHaiku(userHaiku[count].substring(5, 12));
     //俳句（下）
-    await wait(2000)
-    await cancel()
+    await wait(2000);
+    await cancel();
     await setReciteFlag((prevCount) => prevCount + 1);
     await speakHaiku(userHaiku[count].substring(12, 17));
     //ボタンを表示
-    await wait(2000)
-    await cancel()
-    await setReciteFlag((prevCount) => prevCount + 1);
+    await wait(2000);
+    await cancel();
+    //人数と同じになったら鑑賞を終了、退室ボタンを表示
+    if (reciteCount === userCount - 1) {
+      await setEnd(true);
+      await setReciteFlag((prevCount) => prevCount + 1);
+    } else {
+      await setReciteFlag((prevCount) => prevCount + 1);
+    }
+
   }
 
   const SpeakerOff = () => {
     setSpeakVolume(0)
+    setSpeakBool(false)
   }
 
   const SpeakerOn = () => {
     setSpeakVolume(0.5)
+    setSpeakBool(true)
   }
 
-  console.log(reciteFlag)
   return (
     <>
       <div className="global">
@@ -171,164 +176,208 @@ export default function Recite() {
                           <h1>詠み会</h1>
                         </div>
                         <div className="recite-child">
+
                           <div className="recite-userlistBox">
-
-                            <div className="userlistBoxItem">
-
-                              {/* 1人目 */}
-                              {userList[1] === ""
+                            <div className="speaker">
+                              {speakBool
                                 ?
-                                (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        1
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
-                                )
+                                <img onClick={() => SpeakerOff()} src={volumeOn}></img>
                                 :
-                                (
-                                  <div className="users">
-                                    <p>
-                                      <span className="number">
-                                        1
-                                      </span>
-                                      <span className="username">
-                                        {userList[1]}
-                                      </span>
-                                    </p>
-                                  </div>
-                                )
-                              }
-
-                              {/* 2人目 */}
-                              {userList[2] === ""
-                                ?
-                                (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        2
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
-                                )
-                                :
-                                (
-                                  <Fade>
-                                    <div className="users">
-                                      <p>
-                                        <span className="number">
-                                          2
-                                        </span>
-                                        <span className="username">
-                                          {userList[2]}
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </Fade>
-                                )
-                              }
-
-                              {/* 3人目 */}
-                              {userList[3] === ""
-                                ?
-                                (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        3
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
-                                )
-                                :
-                                (
-                                  <Fade>
-                                    <div className="users">
-                                      <p>
-                                        <span className="number">
-                                          3
-                                        </span>
-                                        <span className="username">
-                                          {userList[3]}
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </Fade>
-                                )
-                              }
-
-                              {/* 4人目 */}
-                              {userList[4] === ""
-                                ?
-                                (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        4
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
-                                )
-                                :
-                                (
-                                  <Fade>
-                                    <div className="users">
-                                      <p>
-                                        <span className="number">
-                                          4
-                                        </span>
-                                        <span className="username">
-                                          {userList[4]}
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </Fade>
-                                )
-                              }
-
-                              {/* 5人目 */}
-                              {userList[5] === ""
-                                ?
-                                (
-                                  <div className="users none">
-                                    <p>
-                                      <span className="number">
-                                        5
-                                      </span>
-                                      <span className="username">
-                                      </span>
-                                    </p>
-                                  </div>
-                                )
-                                :
-                                (
-                                  <Fade>
-                                    <div className="users">
-                                      <p>
-                                        <span className="number">
-                                          5
-                                        </span>
-                                        <span className="username">
-                                          {userList[5]}
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </Fade>
-                                )
+                                <img onClick={() => SpeakerOn()} src={volumeOff}></img>
                               }
                             </div>
+                            <div className="responsive-recite-head">
+                              <div className="numberHead">ユーザ番号</div>
+                              <div className="userlistBoxItem">
+
+                                {/* 1人目 */}
+                                {userList[1] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <>
+                                      {reciteCount === 1
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              1
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[1]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              1
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[1]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
+                                  )
+                                }
+
+                                {/* 2人目 */}
+                                {userList[2] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <>
+                                      {reciteCount === 2
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              2
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[2]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              2
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[2]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
+                                  )
+                                }
+
+                                {/* 3人目 */}
+                                {userList[3] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <>
+                                      {reciteCount === 3
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              3
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[3]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              3
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[3]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
+                                  )
+                                }
+
+                                {/* 4人目 */}
+                                {userList[4] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <>
+                                      {reciteCount === 4
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              4
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[4]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              4
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[4]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
+                                  )
+                                }
+
+                                {/* 5人目 */}
+                                {userList[5] === ""
+                                  ?
+                                  (
+                                    <></>
+                                  )
+                                  :
+                                  (
+                                    <>
+                                      {reciteCount === 5
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              5
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[5]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              5
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[5]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
+                                  )
+                                }
+                              </div>
+                            </div>
                           </div>
+
                           {reciteCount === 0
                             ?
                             (
@@ -536,14 +585,26 @@ export default function Recite() {
                                     {reciteFlag >= 7 || reciteFlag === 10
                                       ?
                                       <Fade>
-                                        <div className="reciteButtonBox">
-                                          <a class="btn2 btn-custom02" onClick={countUp}>
-                                            <span class="btn-custom02-front"><p>次の俳句を詠む</p></span>
-                                          </a>
-                                          <a class="btn2 btn-custom03" onClick={countUp}>
-                                            <span class="btn-custom03-front"><p>結果をツイート</p></span>
-                                          </a>
-                                        </div>
+                                        {!end
+                                          ?
+                                          <div className="reciteButtonBox">
+                                            <a class="btn2 btn-custom02" onClick={countUp}>
+                                              <span class="btn-custom02-front"><p>次の俳句</p></span>
+                                            </a>
+                                            <a class="btn2 btn-custom03" onClick={countUp}>
+                                              <span class="btn-custom03-front"><p>ツイート</p></span>
+                                            </a>
+                                          </div>
+                                          :
+                                          <div className="reciteButtonBox">
+                                            <a class="btn2 btn-custom10" onClick={logout}>
+                                              <span class="btn-custom10-front"><p>　退室　</p></span>
+                                            </a>
+                                            <a class="btn2 btn-custom03" onClick={countUp}>
+                                              <span class="btn-custom03-front"><p>ツイート</p></span>
+                                            </a>
+                                          </div>
+                                        }
                                       </Fade>
                                       :
                                       <>

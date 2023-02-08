@@ -162,16 +162,32 @@ export default function ReciteTest() {
                                   )
                                   :
                                   (
-                                    <div className="users-r">
-                                      <p>
-                                        <span className="number">
-                                          1
-                                        </span>
-                                        <span className="username-r">
-                                          {userList[1]}
-                                        </span>
-                                      </p>
-                                    </div>
+                                    <>
+                                      {reciteCount === 1
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              1
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[1]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              1
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[1]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
                                   )
                                 }
 
@@ -183,18 +199,32 @@ export default function ReciteTest() {
                                   )
                                   :
                                   (
-                                    <Fade>
-                                      <div className="users-r">
-                                        <p>
-                                          <span className="number">
-                                            2
-                                          </span>
-                                          <span className="username-r">
-                                            {userList[2]}
-                                          </span>
-                                        </p>
-                                      </div>
-                                    </Fade>
+                                    <>
+                                      {reciteCount === 2
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              2
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[2]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              2
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[2]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
                                   )
                                 }
 
@@ -206,18 +236,32 @@ export default function ReciteTest() {
                                   )
                                   :
                                   (
-                                    <Fade>
-                                      <div className="users-r">
-                                        <p>
-                                          <span className="number">
-                                            3
-                                          </span>
-                                          <span className="username-r">
-                                            {userList[3]}
-                                          </span>
-                                        </p>
-                                      </div>
-                                    </Fade>
+                                    <>
+                                      {reciteCount === 3
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              3
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[3]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              3
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[3]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
                                   )
                                 }
 
@@ -229,18 +273,32 @@ export default function ReciteTest() {
                                   )
                                   :
                                   (
-                                    <Fade>
-                                      <div className="users-r">
-                                        <p>
-                                          <span className="number">
-                                            4
-                                          </span>
-                                          <span className="username-r">
-                                            {userList[4]}
-                                          </span>
-                                        </p>
-                                      </div>
-                                    </Fade>
+                                    <>
+                                      {reciteCount === 4
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              4
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[4]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              4
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[4]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
                                   )
                                 }
 
@@ -252,18 +310,32 @@ export default function ReciteTest() {
                                   )
                                   :
                                   (
-                                    <Fade>
-                                      <div className="users-r">
-                                        <p>
-                                          <span className="number">
-                                            5
-                                          </span>
-                                          <span className="username-r">
-                                            {userList[5]}
-                                          </span>
-                                        </p>
-                                      </div>
-                                    </Fade>
+                                    <>
+                                      {reciteCount === 5
+                                        ?
+                                        <div className="users-r read-active">
+                                          <p>
+                                            <span className="number-r read-active-bg">
+                                              5
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[5]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        :
+                                        <div className="users-r">
+                                          <p>
+                                            <span className="number-r">
+                                              5
+                                            </span>
+                                            <span className="username-r">
+                                              {userList[5]}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      }
+                                    </>
                                   )
                                 }
                               </div>
@@ -489,8 +561,8 @@ export default function ReciteTest() {
                                           </div>
                                           :
                                           <div className="reciteButtonBox">
-                                            <a class="btn2 btn-custom02" onClick={countUp}>
-                                              <span class="btn-custom02-front"><p>　退室　</p></span>
+                                            <a class="btn2 btn-custom10" onClick={countUp}>
+                                              <span class="btn-custom10-front"><p>　退室　</p></span>
                                             </a>
                                             <a class="btn2 btn-custom03" onClick={countUp}>
                                               <span class="btn-custom03-front"><p>ツイート</p></span>

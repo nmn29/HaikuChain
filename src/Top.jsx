@@ -26,7 +26,7 @@ export default function Top() {
 
   //ランダムIDの生成
   useEffect(() => {
-    const randomID = "詠み人" + Math.floor(Math.random() * (100000 - 10000) + 10000);
+    const randomID = "ユーザ" + Math.floor(Math.random() * (100000 - 10000) + 10000);
     setID(randomID);
     setIDTemp(randomID);
   }, []);

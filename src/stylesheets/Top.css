@@ -143,6 +143,14 @@ input::placeholder {
 @media screen and (max-width: 600px) {
   .top {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .rulesBox {
+    height:100%
   }
 
   .modal {
