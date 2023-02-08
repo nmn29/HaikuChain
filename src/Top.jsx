@@ -6,6 +6,7 @@ import { signInAnonymously } from 'firebase/auth';
 import Fade from 'react-reveal/Fade';
 import { useModal } from 'react-hooks-use-modal';
 import Rules from './Rules.jsx'
+import RuleModal from './RuleModal.jsx';
 import useSound from 'use-sound'
 import enterRoom from './sounds/enterRoom.mp3'
 
@@ -141,11 +142,10 @@ export default function Top() {
   const modalStyle = {
     backgroundColor: '#fff',
     borderRadius: '10px',
-
   };
 
-  const openModal = () =>{
-    if(!disable){
+  const openModal = () => {
+    if (!disable) {
       open()
     }
   }
@@ -177,35 +177,42 @@ export default function Top() {
                 <input disabled={disable} type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
                 <p>
                   <div className="buttonBox">
-                  {!createLoading
-                    ?
-                    (
-                      <>
-                        <a disabled={disable} className="btn3 btn-custom04" onClick={(e) => loginLobby(e)}>
-                          <span class="btn-custom04-front">
-                            <p>部屋を作る</p>
-                          </span>
-                        </a>
-                      </>
-                    )
-                    :
-                    (
-                      <>
-                        <a disabled={disable} className="btn3 btn-custom05">
-                          <span className="btn-custom05-front">
-                            <p><span className="loader"></span></p>
-                          </span>
-                        </a>
-                      </>
-                    )
-                  }
-                  <a disabled={disable} class="btn3 btn-custom06" onClick={() => openModal()}>
-                    <span class="btn-custom06-front">
-                      <p>部屋に入る</p>
-                    </span>
-                  </a>
+                    {!createLoading
+                      ?
+                      (
+                        <>
+                          <a disabled={disable} className="btn3 btn-custom04" onClick={(e) => loginLobby(e)}>
+                            <span class="btn-custom04-front">
+                              <p>部屋を作る</p>
+                            </span>
+                          </a>
+                        </>
+                      )
+                      :
+                      (
+                        <>
+                          <a disabled={disable} className="btn3 btn-custom05">
+                            <span className="btn-custom05-front">
+                              <p><span className="loader"></span></p>
+                            </span>
+                          </a>
+                        </>
+                      )
+                    }
+                    <a disabled={disable} class="btn3 btn-custom06" onClick={() => openModal()}>
+                      <span class="btn-custom06-front">
+                        <p>部屋に入る</p>
+                      </span>
+                    </a>
                   </div>
                 </p>
+                <div className="ruleButton">
+                  <a disabled={disable} class="btn3 btn-custom11" onClick={() => openModal()}>
+                    <span class="btn-custom11-front">
+                      <p>ルール</p>
+                    </span>
+                  </a>
+                </div>
               </div>
             </div>
             <div className="rulesBox">

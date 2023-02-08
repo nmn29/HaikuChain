@@ -276,6 +276,104 @@ a.btn-custom06:active:after {
   content: "\f52a";
 }
 
+/* 11 */
+a.btn-custom11 {
+
+  font-family: "Noto Sans JP";
+  margin-bottom: 0.5rem;
+  padding: 0;
+  border-radius: 0.75rem;
+}
+
+.btn-custom11-front p {
+
+  color: rgb(87, 87, 87);
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+a.btn-custom11:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  content: "";
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: translate3d(0, 0.75rem, -1rem);
+  transform: translate3d(0, 0.75rem, -1rem);
+
+
+  border-radius: inherit;
+  background: #5e5e5e;
+
+}
+
+a.btn-custom11:after {
+  font-family: "Font Awesome 6 Free";
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  position: absolute;
+  top: calc(50% - 0.8rem);
+  left: 1.5rem;
+  margin: 0;
+  padding: 0;
+  content: "\f518";
+  transition: 0.5s;
+}
+
+.btn-custom11-front {
+  position: relative;
+  display: block;
+  padding: 1.5rem 5rem 1.5rem 5rem;
+
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+
+  border-radius: inherit;
+  background: #ececec;
+}
+
+a.btn-custom11:hover {
+  -webkit-transform: translate(0, 0.25rem);
+  transform: translate(0, 0.25rem);
+  background: #ececec;
+  ;
+
+}
+
+a.btn-custom11:hover:before {
+  -webkit-transform: translate3d(0, 0.5rem, -1rem);
+  transform: translate3d(0, 0.5rem, -1rem);
+
+}
+
+a.btn-custom11:hover:after {
+  content: "\f5da";
+}
+
+a.btn-custom11:active {
+  -webkit-transform: translate(0rem, 0.75rem);
+  transform: translate(0rem, 0.75rem);
+}
+
+a.btn-custom11:active:before {
+  -webkit-transform: translate3d(0, 0, -1rem);
+  transform: translate3d(0, 0, -1rem);
+  -webkit-box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.35rem 0 0 rgba(0, 0, 0, 0.2);
+}
+
+a.btn-custom11:active:after {
+  content: "\f518";
+}
+
 @media screen and (max-width: 600px) {
 
   .btn3,
