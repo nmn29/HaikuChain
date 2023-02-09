@@ -206,13 +206,13 @@ export default function Top() {
                     </a>
                   </div>
                 </p>
-                <div className="ruleButton">
+                {/* <div className="ruleButton">
                   <a disabled={disable} class="btn3 btn-custom11" onClick={() => openModal()}>
                     <span class="btn-custom11-front">
                       <p>ルール</p>
                     </span>
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="rulesBox">

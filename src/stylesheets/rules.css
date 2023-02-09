@@ -1,11 +1,13 @@
 .rules{
   margin:0 auto;
   width:80%;
+
 }
 
 .rulesBox{
   width:45%;
   margin:auto;
+  
 }
 
 .inRule{
@@ -14,6 +16,7 @@
   background-color:rgba(0, 0, 0, 0.2);
   color:white;
   height:40rem;
+
 }
 
 .inRule h3{
@@ -50,3 +53,33 @@
   font-size:20px;
   text-align:center;
 }
+
+.rule-image{
+  height:200px;
+  margin:0 auto;
+  margin:20px 0px;
+}
+
+.rule-image img{
+  display:block;
+  margin:0 auto;
+  height:200px;
+}
+
+@media screen and (max-width: 600px) {
+  
+  .rule-image{
+    height:100px;
+    margin:0 auto;
+    margin:0px 0px;
+  }
+  
+  .rule-image img{
+    display:block;
+    margin:0 auto;
+    height:100px;
+  }
+  
+}
+
+
