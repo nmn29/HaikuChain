@@ -59,7 +59,7 @@ export default function Game1() {
 
   //入力文字の状態を管理
   useEffect(() => {
-    if (enterHaiku === "") {
+    if (enterHaiku === "　" || enterHaiku === " " || enterHaiku === "") {
       setEnterHaiku(randChar)
     }
   }, [enterHaiku])
@@ -229,7 +229,7 @@ export default function Game1() {
                             </div>
                           </div>
                           <div className="haikuShowBox">
-                            <h1>お題：</h1>
+                            <h1>お題</h1>
                             <div className="daiShow">
                               {userDai[currentIndex - 1]
                                 ?

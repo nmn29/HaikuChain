@@ -550,6 +550,6 @@ a.btn-custom10:active:after {
 
 @media screen and (max-width: 600px) {
   .btn2, a.btn2, button.btn2 {
-    font-size:1.5rem;
+    font-size:1rem;
   }
 }

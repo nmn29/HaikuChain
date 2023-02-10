@@ -96,7 +96,7 @@ export default function Recite() {
 
   //俳句の読み上げ
   const speakHaiku = async (str) => {
-    await speak({ text: str, voice: voices[3], rate: 0.7, volume: speakVolume })
+    await speak({ text: str, voice: voices[2], rate: 0.6, volume: speakVolume })
   }
 
   //開始・次へ進むが押されたらフラグをリセットし、次のユーザの俳句を表示する
@@ -412,7 +412,7 @@ export default function Recite() {
                                         {reciteFlag >= 1 || reciteFlag === 10
                                           ?
                                           <Fade top distance="10%">
-                                            <h1 className="gamehead">お題：</h1>
+                                            <h1 className="gamehead">お題</h1>
                                           </Fade>
                                           :
                                           <h1 className="gamehead-none">　</h1>
@@ -591,7 +591,7 @@ export default function Recite() {
                                             <a class="btn2 btn-custom02" onClick={countUp}>
                                               <span class="btn-custom02-front"><p>次の俳句</p></span>
                                             </a>
-                                            <a class="btn2 btn-custom03" onClick={countUp}>
+                                            <a class="btn2 btn-custom03">
                                               <span class="btn-custom03-front"><p>ツイート</p></span>
                                             </a>
                                           </div>
@@ -600,7 +600,7 @@ export default function Recite() {
                                             <a class="btn2 btn-custom10" onClick={logout}>
                                               <span class="btn-custom10-front"><p>　退室　</p></span>
                                             </a>
-                                            <a class="btn2 btn-custom03" onClick={countUp}>
+                                            <a class="btn2 btn-custom03">
                                               <span class="btn-custom03-front"><p>ツイート</p></span>
                                             </a>
                                           </div>

@@ -60,6 +60,14 @@ export default function Game17() {
     });
   }, []);
 
+  //入力文字の状態を管理
+  useEffect(() => {
+    if (enterHaiku === "　" || enterHaiku === " " || enterHaiku === "") {
+      setEnterHaiku(randChar)
+    }
+  }, [enterHaiku])
+
+
   //招待ID、自身の番号、人数をルータから取得
   const invitationID = useLocation().state.id;
   const myIndex = useLocation().state.index;
@@ -187,7 +195,7 @@ export default function Game17() {
                   (
                     <>
                       <Fade>
-                      <div className="header">
+                        <div className="header">
                           <div className="headerBox">
                             <div className="timer-wrapper">
                               <CountdownCircleTimer
@@ -233,7 +241,7 @@ export default function Game17() {
                             </div>
                           </div>
                           <div className="haikuShowBox">
-                            <h1>お題：</h1>
+                            <h1>お題</h1>
                             <div className="daiShow">
                               {userDai[currentIndex]
                                 ?
