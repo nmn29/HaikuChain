@@ -171,6 +171,7 @@ export default function Top() {
         <div className="main">
           <div className="title"><img src={GameTitle}></img></div>
           <div className="top">
+            
             <div className="startBox">
               <div className="start-child">
                 <p className="namehead">名前を入力</p>

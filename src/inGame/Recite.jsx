@@ -424,7 +424,7 @@ export default function Recite() {
                                               {userDai[reciteCount]
                                                 ?
                                                 (
-                                                  <Fade top distance="10%">
+                                                  <Fade>
                                                     <><h2 className="dai-text">{userDai[reciteCount]}</h2></>
                                                   </Fade>
                                                 )

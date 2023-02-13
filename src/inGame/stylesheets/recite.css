@@ -21,7 +21,7 @@
 }
 
 .reciteHaikuBox {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -78,7 +78,7 @@
   padding-top: 30px;
   padding-left: 20px;
   padding-right: 20px;
-  font-family: 'Shippori Mincho B1', serif;
+  font-family: 'Noto Sans JP';
   font-size: 25px;
 }
 
@@ -342,7 +342,7 @@
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    font-family: 'Shippori Mincho B1', serif;
+    font-family: 'Noto Sans JP';
     font-size: 18px;
   }
 }
