@@ -35,33 +35,39 @@ export default function Rules() {
           </div>
         </div>
         <div className="inRule">
-          <h3>お題を出す</h3>
-          <div className="rule-image">
-            <img src={rule2} />
-          </div>
-          <div className="rule-text">
-            ユニークなお題を決めて<br />
-            友達を信じましょう<br />
-          </div>
-        </div>
-        <div className="inRule">
-          <h3>文字を入力</h3>
-          <div className="rule-image">
-            <img src={rule3} />
-          </div>
-          <div className="rule-text">
-            一文字ずつ俳句を埋めて<br />
-            完成へと導きましょう<br />
+          <div className="inRuleBox">
+            <h3>お題を出す</h3>
+            <div className="rule-image">
+              <img src={rule2} />
+            </div>
+            <div className="rule-text">
+              ユニークなお題を決めて<br />
+              友達を信じましょう<br />
+            </div>
           </div>
         </div>
         <div className="inRule">
-          <h3>俳句を詠む</h3>
-          <div className="rule-image">
-            <img src={rule4} />
+          <div className="inRuleBox">
+            <h3>文字を入力</h3>
+            <div className="rule-image">
+              <img src={rule3} />
+            </div>
+            <div className="rule-text">
+              一文字ずつ俳句を埋めて<br />
+              完成へと導きましょう<br />
+            </div>
           </div>
-          <div className="rule-text">
-            名句になることを祈りつつ<br />
-            俳句を鑑賞しましょう<br />
+        </div>
+        <div className="inRule">
+          <div className="inRuleBox">
+            <h3>俳句を詠む</h3>
+            <div className="rule-image">
+              <img src={rule4} />
+            </div>
+            <div className="rule-text">
+              名句になることを祈りつつ<br />
+              俳句を鑑賞しましょう<br />
+            </div>
           </div>
         </div>
       </Slider>

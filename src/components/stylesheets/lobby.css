@@ -162,11 +162,22 @@
   }
 
   .leaveButton{
+    height:10vh;
     position:absolute;
     right:0%;
     left:auto
-    
   }
   
+  .lobby-child{
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 
+  .lobby{
+    height:100vh;
+    
+  }
 }

@@ -4,10 +4,15 @@
     url(../../fonts/AoyagiKouzanTOTF.woff2);
 }
 
+html{
+  height: -webkit-fill-available;
+}
 body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   margin: 0;
   font-size:30px;
-  font-family: -apple-system, BlinkMacSystemFont, 'jp-font', 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans JP", 'jp-font', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -16,9 +21,11 @@ body {
 
 /* 全ページで使用する背景の設定 */
 .global{
+  
   position: relative;
   width: 100%;
   min-height: 100vh;
+
   overflow:hidden;
 
   /* 背景の設定（画像） */
@@ -28,6 +35,8 @@ body {
 
 /* 全ページで使用するゲーム画面の設定 */
 .main{
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   margin :auto;
   position: absolute;
   top:0;

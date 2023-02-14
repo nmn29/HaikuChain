@@ -1,7 +1,6 @@
 .rules{
   margin:0 auto;
   width:80%;
-
 }
 
 .rulesBox{
@@ -12,6 +11,7 @@
 
 .inRule{
   padding:20px;
+  position: relative;
   font-family: "Noto Sans JP";
   background-color:rgba(0, 0, 0, 0.2);
   color:white;
@@ -38,7 +38,7 @@
 
 .slick-prev, .slick-next{
   background-color:rgb(172, 172, 172)!important;
-  height:100%!important;
+  height:90%!important;
 }
 
 .slick-prev:hover, .slick-next:hover{
@@ -64,6 +64,13 @@
   display:block;
   margin:0 auto;
   height:200px;
+}
+
+.inRuleBox{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width: 600px) {

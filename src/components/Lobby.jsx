@@ -131,7 +131,7 @@ export default function Lobby() {
                   (
 
                     <Fade>
-                      <div className="header">
+                      <div className="header lobby-head">
                         <div className="headerBox">
                         </div>
                       </div>
