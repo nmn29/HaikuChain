@@ -170,91 +170,93 @@ export default function Top() {
         </ul>
         <div className="main">
           <div className="title"><img src={GameTitle}></img></div>
-          <div className="top">
-            
-            <div className="startBox">
-              <div className="start-child">
-                <p className="namehead">名前を入力</p>
-                <input disabled={disable} type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
-                <p>
-                  <div className="buttonBox">
-                    {!createLoading
-                      ?
-                      (
-                        <>
-                          <a disabled={disable} className="btn3 btn-custom04" onClick={(e) => loginLobby(e)}>
-                            <span class="btn-custom04-front">
-                              <p>部屋を作る</p>
-                            </span>
-                          </a>
-                        </>
-                      )
-                      :
-                      (
-                        <>
-                          <a disabled={disable} className="btn3 btn-custom05">
-                            <span className="btn-custom05-front">
-                              <p><span className="loader"></span></p>
-                            </span>
-                          </a>
-                        </>
-                      )
-                    }
-                    <a disabled={disable} class="btn3 btn-custom06" onClick={() => openModal()}>
-                      <span class="btn-custom06-front">
-                        <p>部屋に入る</p>
-                      </span>
-                    </a>
-                  </div>
-                </p>
-                {/* <div className="ruleButton">
+          <div className="top-box">
+            <div className="top">
+
+              <div className="startBox">
+                <div className="start-child">
+                  <p className="namehead">名前を入力</p>
+                  <input disabled={disable} type="text" placeholder={ID} onChange={(e) => setID(e.target.value)} maxLength={16} />
+                  <p>
+                    <div className="buttonBox">
+                      {!createLoading
+                        ?
+                        (
+                          <>
+                            <a disabled={disable} className="btn3 btn-custom04" onClick={(e) => loginLobby(e)}>
+                              <span class="btn-custom04-front">
+                                <p>部屋を作る</p>
+                              </span>
+                            </a>
+                          </>
+                        )
+                        :
+                        (
+                          <>
+                            <a disabled={disable} className="btn3 btn-custom05">
+                              <span className="btn-custom05-front">
+                                <p><span className="loader"></span></p>
+                              </span>
+                            </a>
+                          </>
+                        )
+                      }
+                      <a disabled={disable} class="btn3 btn-custom06" onClick={() => openModal()}>
+                        <span class="btn-custom06-front">
+                          <p>部屋に入る</p>
+                        </span>
+                      </a>
+                    </div>
+                  </p>
+                  {/* <div className="ruleButton">
                   <a disabled={disable} class="btn3 btn-custom11" onClick={() => openModal()}>
                     <span class="btn-custom11-front">
                       <p>ルール</p>
                     </span>
                   </a>
                 </div> */}
-              </div>
-            </div>
-            <div className="rulesBox">
-              <Rules />
-            </div>
-            <Modal>
-              <Fade>
-
-                <div className="modal" style={modalStyle}>
-                  <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
-                  <i onClick={close} class="fa-solid fa-xmark"></i>
-                  {!enterLoading
-                    ?
-                    (
-                      <>
-                        <p>
-                          <a class="btn3 btn-custom06" onClick={(e) => enterLobby(e)}>
-                            <span class="btn-custom06-front">
-                              <p>部屋に入る</p>
-                            </span>
-                          </a>
-                        </p>
-                      </>
-                    )
-                    :
-                    (
-                      <>
-                        <p>
-                          <a class="btn3 btn-custom05">
-                            <span class="btn-custom05-front">
-                              <p><span className="loader"></span></p>
-                            </span>
-                          </a>
-                        </p>
-                      </>
-                    )
-                  }
-
                 </div>
-              </Fade>
-            </Modal>
+              </div>
+              <div className="rulesBox">
+                <Rules />
+              </div>
+              <Modal>
+                <Fade>
+
+                  <div className="modal" style={modalStyle}>
+                    <input type="text" placeholder="招待コードを入力" onChange={(e) => setInvitationID((e.target.value).toUpperCase())} maxLength={8} />
+                    <i onClick={close} class="fa-solid fa-xmark"></i>
+                    {!enterLoading
+                      ?
+                      (
+                        <>
+                          <p>
+                            <a class="btn3 btn-custom06" onClick={(e) => enterLobby(e)}>
+                              <span class="btn-custom06-front">
+                                <p>部屋に入る</p>
+                              </span>
+                            </a>
+                          </p>
+                        </>
+                      )
+                      :
+                      (
+                        <>
+                          <p>
+                            <a class="btn3 btn-custom05">
+                              <span class="btn-custom05-front">
+                                <p><span className="loader"></span></p>
+                              </span>
+                            </a>
+                          </p>
+                        </>
+                      )
+                    }
+
+                  </div>
+                </Fade>
+              </Modal>
+            </div>
           </div>
         </div>
       </div>
