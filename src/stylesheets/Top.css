@@ -215,5 +215,7 @@ input::placeholder {
     display: none;
   }
 
-  
+  .inRule{
+    padding:10px;
+  }
 }
