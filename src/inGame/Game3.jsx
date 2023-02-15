@@ -53,6 +53,7 @@ export default function Game3() {
         //ユーザが存在する場合
         setUser(currentUser);
         setUp()
+        liftSleep()
       } else {
         //ユーザが存在しない場合
         setLoading(false);
@@ -60,13 +61,13 @@ export default function Game3() {
     });
   }, []);
 
-    //入力文字の状態を管理
-    useEffect(() => {
-      if (enterHaiku === "　" || enterHaiku === " " || enterHaiku === "") {
-        setEnterHaiku(randChar)
-      }
-    }, [enterHaiku])
-  
+  //入力文字の状態を管理
+  useEffect(() => {
+    if (enterHaiku === "　" || enterHaiku === " " || enterHaiku === "") {
+      setEnterHaiku(randChar)
+    }
+  }, [enterHaiku])
+
 
   //招待ID、自身の番号、人数をルータから取得
   const invitationID = useLocation().state.id;
@@ -178,6 +179,23 @@ export default function Game3() {
     }
   }
 
+  //クールタイムの設定
+  const [doneSleep, setDoneSleep] = useState(false);
+
+  //クールタイム用の時間停止
+  const wait = async (ms) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, ms)
+    });
+  }
+
+  const liftSleep = async () => {
+    await wait(2000)
+    await setDoneSleep(true)
+  }
+
   return (
     <>
       <div className="global">
@@ -225,19 +243,30 @@ export default function Game3() {
                             </div>
                             <input disabled={doneCheck} type="text" placeholder={randChar} onChange={(e) => setEnterHaiku(e.target.value)} maxLength={1} />
                             <div className="gameButtonBox">
-                              {!doneCheck
+                              {!doneSleep
                                 ?
-                                <a class="btn3 btn-custom09" onClick={setHaiku}>
-                                  <span class="btn-custom09-front">
+                                <a class="btn3 btn-customGray">
+                                  <span class="btn-customGray-front">
                                     <p>決定</p>
                                   </span>
                                 </a>
                                 :
-                                <a disabled={true} class="btn3 btn-custom09" onClick={setHaiku}>
-                                  <span class="btn-custom09-front">
-                                    <p>決定</p><Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom>
-                                  </span>
-                                </a>
+                                <>
+                                  {!doneCheck
+                                    ?
+                                    <a class="btn3 btn-custom09" onClick={setHaiku}>
+                                      <span class="btn-custom09-front">
+                                        <p>決定</p>
+                                      </span>
+                                    </a>
+                                    :
+                                    <a disabled={true} class="btn3 btn-custom09" onClick={setHaiku}>
+                                      <span class="btn-custom09-front">
+                                        <p>決定</p><Zoom duration={300}><img className="buttonCheck" src={check}></img></Zoom>
+                                      </span>
+                                    </a>
+                                  }
+                                </>
                               }
                             </div>
                           </div>

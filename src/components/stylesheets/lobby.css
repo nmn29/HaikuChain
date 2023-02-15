@@ -36,7 +36,7 @@
   position:relative;
 }
 .number{
-  font-size:40px;
+  font-size:30px;
   position:absolute;
   color:rgb(58, 58, 58);
   padding:5px 15px;
@@ -44,6 +44,7 @@
   background-color:rgb(255, 255, 255);
   top: -15px;
   left: -20px;
+  font-family:"Noto Sans JP";
 }
 
 .username{
@@ -115,8 +116,8 @@
 
 .crown img{
   position:absolute;
-  bottom:20px;
-  left:-30px;
+  bottom:35px;
+  left:-32px;
   height:25px;
 }
 
@@ -134,7 +135,7 @@
   }
 
   .users{
-    margin-bottom:5px;
+    margin-bottom:12px;
   }
 
   .invhead{
@@ -164,8 +165,8 @@
   .leaveButton{
     height:10vh;
     position:absolute;
-    right:0%;
-    left:auto
+    right:auto;
+    left:0;
   }
   
   .lobby-child{
