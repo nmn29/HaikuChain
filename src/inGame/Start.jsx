@@ -12,6 +12,19 @@ import check from '../images/peke.png'
 
 export default function Start() {
 
+  window.onbeforeunload = function (event) {
+    event = event || window.event;
+    event.returnValue = 'ページから移動しますか？';
+  }
+
+  var is_note_msg = true;
+  window.onbeforeunload = function (event) {
+    if (is_note_msg) {
+      event = event || window.event;
+      event.returnValue = '入力中のページから移動しますか？';
+    }
+  }
+
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [userDai, setUserDai] = useState(" ")

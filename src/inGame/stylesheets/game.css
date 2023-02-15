@@ -76,11 +76,15 @@
   border-radius: 50%;
   border: 1px solid rgb(122, 122, 122);
   text-align: center;
-  line-height: 54px;
+  line-height: 55px;
   font-family: "Noto Sans JP";
   font-size: 25px;
   margin-top: 4px;
   color: rgb(128, 128, 128)
+}
+
+.haikuShow .activeChar {
+  border: 1px solid rgb(14, 14, 14);
 }
 
 .haikuTop,

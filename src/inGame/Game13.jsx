@@ -104,7 +104,7 @@ export default function Game13() {
     const rand = Math.floor(Math.random() * 46)
     const randCharTemp = randCharList[rand]
     setRandChar(randCharTemp)
-    setEnterHaiku(randCharTemp)
+    setDefaultChar(randCharTemp)
 
     await setLoading(false);
   }
@@ -121,7 +121,7 @@ export default function Game13() {
   //入力文字の状態を管理
   useEffect(() => {
     if (enterHaiku === "　" || enterHaiku === " " || enterHaiku === "") {
-      setEnterHaiku(randChar)
+      setEnterHaiku("　")
     }
   }, [enterHaiku])
 
@@ -143,10 +143,21 @@ export default function Game13() {
     }
   }, [done]);
 
+  const [defaultChar, setDefaultChar] = useState("")
   const setHaiku = async () => {
     if (user) {
+
+      //ランダム文字をセット
+      let haikuTemp = "";
+
+      if (enterHaiku === "　" || enterHaiku === " " || enterHaiku === "") {
+        haikuTemp = defaultChar;
+      } else {
+        haikuTemp = enterHaiku;
+      }
+
       const index = currentIndex;
-      const haiku = userHaiku['haiku'] + enterHaiku;
+      const haiku = userHaiku['haiku'] + haikuTemp;
 
       await setdoneCheck(true)
 
@@ -347,7 +358,7 @@ export default function Game13() {
                                     </div>
                                     <div className="haikuBottom">
                                       <p>
-                                        <span>{enterHaiku.charAt(0)}</span>
+                                        <span className="activeChar">{enterHaiku.charAt(0)}</span>
                                         <span>　</span>
                                         <span>　</span>
                                         <span>　</span>

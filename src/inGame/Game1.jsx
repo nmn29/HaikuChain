@@ -14,9 +14,10 @@ export default function Game1() {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [enterHaiku, setEnterHaiku] = useState("");
+  const [enterHaiku, setEnterHaiku] = useState("　");
   const [done, setDone] = useState({ done: 0 })
   const [userDai, setUserDai] = useState([])
+  
 
   const randCharList = [
     'あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ',
@@ -44,6 +45,7 @@ export default function Game1() {
     }
   }
 
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -61,7 +63,7 @@ export default function Game1() {
   //入力文字の状態を管理
   useEffect(() => {
     if (enterHaiku === "　" || enterHaiku === " " || enterHaiku === "") {
-      setEnterHaiku(randChar)
+      setEnterHaiku("　")
     }
   }, [enterHaiku])
 
@@ -94,7 +96,8 @@ export default function Game1() {
     const rand = Math.floor(Math.random() * 46)
     const randCharTemp = randCharList[rand]
     setRandChar(randCharTemp)
-    setEnterHaiku(randCharTemp)
+    setDefaultChar(randCharTemp)
+    
 
     await setLoading(false);
   }
@@ -133,9 +136,20 @@ export default function Game1() {
     }
   }, [done]);
 
+  const [defaultChar, setDefaultChar] = useState("")
   const setHaiku = async () => {
+    
+    //ランダム文字をセット
+    let haiku = "";
+
+    if (enterHaiku === "　" || enterHaiku === " " || enterHaiku === "") {
+      haiku = defaultChar;
+    } else {
+      haiku = enterHaiku;
+    }
+
     const index = currentIndex;
-    const haiku = enterHaiku;
+    
 
     await setdoneCheck(true)
 
@@ -275,7 +289,7 @@ export default function Game1() {
                             <div className="haikuShow">
                               <div className="haikuTop">
                                 <p>
-                                  <span>
+                                  <span className="activeChar">
                                     {enterHaiku.charAt(0)}
                                   </span>
                                   <span>　</span>

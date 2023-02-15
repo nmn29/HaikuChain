@@ -649,6 +649,6 @@ a.btn-customGray:active:after {
 
 @media screen and (max-width: 600px) {
   .btn2, a.btn2, button.btn2 {
-    font-size:1rem;
+    font-size:1.1rem;
   }
 }
