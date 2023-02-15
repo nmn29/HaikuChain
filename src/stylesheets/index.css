@@ -1,12 +1,7 @@
-@font-face {
-  font-family: 'jp-font';
-  src: url(../../fonts/AoyagiKouzanTOTF.woff),
-    url(../../fonts/AoyagiKouzanTOTF.woff2);
-}
-
 html{
   height: -webkit-fill-available;
 }
+
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
